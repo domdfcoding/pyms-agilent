@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="SampleInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Version" type="xs:decimal" />
+        <xs:element maxOccurs="unbounded" name="Field">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Name" type="xs:string" />
+              <xs:element name="DisplayName" type="xs:string" />
+               <xs:element name="Value" type="xs:string" />
+              <xs:element name="DataType" type="xs:string"  />
+              <xs:element name="Units" type="xs:string"  />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
