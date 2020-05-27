@@ -21,7 +21,6 @@
 #  MA 02110-1301, USA.
 #
 
-
 # stdlib
 from collections.abc import Sequence
 from pprint import pformat
@@ -94,6 +93,7 @@ class JobData(Dictable):
 
 
 class Worklist(XMLFileMixin, Dictable):
+
 	def __init__(self, version, locked_run_mode, instrument_name, params, user_columns, jobs, checksum):
 		"""
 

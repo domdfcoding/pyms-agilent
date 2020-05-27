@@ -21,7 +21,6 @@
 #  MA 02110-1301, USA.
 #
 
-
 # stdlib
 from collections import namedtuple
 
@@ -56,10 +55,12 @@ class Checksum(namedtuple('__BaseChecksum', 'SchemaVersion, ALGO_VERSION, HASHCO
 				)
 
 
-class Macro(namedtuple(
-		'__BaseChecksum',
-		'project_name, procedure_name, input_parameter, output_data_type, output_parameter, display_string'
-		)):
+class Macro(
+		namedtuple(
+				'__BaseChecksum',
+				'project_name, procedure_name, input_parameter, output_data_type, output_parameter, display_string'
+				)
+		):
 	"""
 
 	:param project_name:
@@ -87,7 +88,15 @@ class Macro(namedtuple(
 		output_parameter = str(output_parameter).strip()
 		display_string = str(display_string).strip()
 
-		return super().__new__(cls, project_name, procedure_name, input_parameter, int(output_data_type), output_parameter, display_string)
+		return super().__new__(
+				cls,
+				project_name,
+				procedure_name,
+				input_parameter,
+				int(output_data_type),
+				output_parameter,
+				display_string,
+				)
 
 	@classmethod
 	def from_xml(cls, element):
@@ -119,11 +128,12 @@ class Macro(namedtuple(
 			return super().__repr__()
 
 
-class Attribute(namedtuple(
-		'__BaseAttribute',
-		'attribute_id, attribute_type, field_type, system_name, header_name, data_type, '
-		'default_data_value, reorder_id, show_hide_status, column_width'
-		)):
+class Attribute(
+		namedtuple(
+				'__BaseAttribute', 'attribute_id, attribute_type, field_type, system_name, header_name, data_type, '
+				'default_data_value, reorder_id, show_hide_status, column_width'
+				)
+		):
 	"""
 
 	Field Type - Each of the system defined columns have a field type starting from sampleid = 0 to reserved6 = 24
@@ -157,8 +167,9 @@ class Attribute(namedtuple(
 	__slots__ = []
 
 	def __new__(
-			cls, attribute_id, attribute_type, field_type, system_name, header_name,
-			data_type, default_data_value, reorder_id, show_hide_status, column_width):
+			cls, attribute_id, attribute_type, field_type, system_name, header_name, data_type, default_data_value,
+			reorder_id, show_hide_status, column_width
+			):
 		system_name = str(system_name).strip()
 		header_name = str(header_name).strip()
 		default_data_value = str(default_data_value).strip()
@@ -177,9 +188,18 @@ DataFileValuedata_type = bdict(
 		"""
 
 		return super().__new__(
-				cls, int(attribute_id), AttributeType(attribute_type), int(field_type),
-				system_name, header_name, int(data_type), default_data_value,
-				int(reorder_id), element_to_bool(show_hide_status), int(column_width))
+				cls,
+				int(attribute_id),
+				AttributeType(attribute_type),
+				int(field_type),
+				system_name,
+				header_name,
+				int(data_type),
+				default_data_value,
+				int(reorder_id),
+				element_to_bool(show_hide_status),
+				int(column_width),
+				)
 
 	@classmethod
 	def from_xml(cls, element):

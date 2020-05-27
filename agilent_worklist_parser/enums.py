@@ -21,7 +21,6 @@
 #  MA 02110-1301, USA.
 #
 
-
 # 3rd party
 from domdf_python_tools.enums import IntEnum
 

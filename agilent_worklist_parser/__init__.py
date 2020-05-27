@@ -24,7 +24,6 @@ Parser for MassHunter Worklists
 #  MA 02110-1301, USA.
 #
 
-
 from agilent_worklist_parser.classes import Worklist
 
 

@@ -24,7 +24,6 @@ Properties for columns in a Worklist
 #  MA 02110-1301, USA.
 #
 
-
 # stdlib
 from collections import namedtuple
 from typing import Any
@@ -41,10 +40,9 @@ def injection_volume(val):
 		return int(val)
 
 
-class Column(namedtuple(
-		'__BaseColumn',
-		'name, attribute_id, attribute_type, field_type, dtype, default_value, reorder_id'
-		)):
+class Column(
+		namedtuple('__BaseColumn', 'name, attribute_id, attribute_type, field_type, dtype, default_value, reorder_id')
+		):
 	"""
 
 	Field Type - Each of the system defined columns have a field type starting from sampleid = 0 to reserved6 = 24
@@ -83,8 +81,7 @@ class Column(namedtuple(
 			reorder_id = attribute_id
 
 		return super().__new__(
-				cls, name, int(attribute_id), int(attribute_type), field_type,
-				dtype, default_value, int(reorder_id)
+				cls, name, int(attribute_id), int(attribute_type), field_type, dtype, default_value, int(reorder_id)
 				)
 
 	def cast_value(self, value):
@@ -117,219 +114,221 @@ class Column(namedtuple(
 				)
 
 
-columns = {col.name: col for col in [
-		Column(
-				name="Sample ID",
-				attribute_id=0,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=str,
-				default_value='',
-				),
-		Column(
-				name="Sample Name",
-				attribute_id=1,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=str,
-				default_value='',
-				),
-		Column(
-				name="Rack Code",
-				attribute_id=2,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=str,
-				default_value='',
-				),
-		Column(
-				name="Rack Position",
-				attribute_id=3,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=str,
-				default_value='',
-				),
-		Column(
-				name="Plate Code",
-				attribute_id=4,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=str,
-				default_value='',
-				),
-		Column(
-				name="Plate Position",
-				attribute_id=5,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=str,
-				default_value='',
-				),
-		Column(
-				name="Sample Position",
-				attribute_id=6,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=str,
-				default_value='',
-				),
-		Column(
-				name="Method",
-				attribute_id=7,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=as_path,
-				default_value=None,
-				),
-		Column(
-				name="Override DA Method",
-				attribute_id=8,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=as_path,
-				default_value=None,
-				),
-		Column(
-				name="Data File",
-				attribute_id=9,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=as_path,
-				default_value=None,
-				),
-		Column(
-				name="Sample Type",
-				attribute_id=10,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=str,
-				default_value='Unknown',
-				),
-		Column(
-				name="Method Type",
-				attribute_id=11,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=str,
-				default_value='Method No Override',
-				reorder_id=12,
-				),
-		Column(
-				name="Balance Override",
-				attribute_id=12,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=str,
-				default_value='No Override',
-				reorder_id=13,
-				),
-		Column(
-				name="Inj Vol (µl)",
-				attribute_id=13,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=injection_volume,
-				default_value=5,
-				reorder_id=14,
-				),
-		Column(
-				name="Equilib Time (min)",
-				attribute_id=14,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=int,
-				default_value=0,
-				reorder_id=15,
-				),
-		Column(
-				name="Dilution",
-				attribute_id=15,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=int,
-				default_value=1,
-				reorder_id=16,
-				),
-		Column(
-				name="Wt/Vol",
-				attribute_id=16,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=float,
-				default_value=0,
-				reorder_id=17,
-				),
-		Column(
-				name="Comment",
-				attribute_id=17,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=str,
-				default_value='',
-				reorder_id=18,
-				),
-		Column(
-				name="Barcode",
-				attribute_id=18,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=str,
-				default_value='',
-				reorder_id=19,
-				),
-		Column(
-				name="Reserved1",
-				attribute_id=19,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=str,
-				default_value='',
-				reorder_id=-1,
-				),
-		Column(
-				name="Reserved2",
-				attribute_id=20,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=str,
-				default_value='',
-				reorder_id=-1,
-				),
-		Column(
-				name="Reserved3",
-				attribute_id=21,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=str,
-				default_value='',
-				reorder_id=-1,
-				),
-		Column(
-				name="Reserved4",
-				attribute_id=22,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=float,
-				default_value=0,
-				reorder_id=-1,
-				),
-		Column(
-				name="Reserved5",
-				attribute_id=23,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=float,
-				default_value=0,
-				reorder_id=-1,
-				),
-		Column(
-				name="Reserved6",
-				attribute_id=24,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=float,
-				default_value=0,
-				reorder_id=-1,
-				),
-		Column(
-				name="Level Name",
-				attribute_id=25,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=str,
-				default_value='',
-				reorder_id=11,
-				),
-		Column(
-				name="Sample Group",
-				attribute_id=26,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=str,
-				default_value='',
-				reorder_id=20,
-				),
-		Column(
-				name="Info.",
-				attribute_id=27,
-				attribute_type=AttributeType.SystemDefined,
-				dtype=str,
-				default_value='',
-				reorder_id=21,
-				),
-		]}
-
+columns = {
+		col.name: col
+		for col in [
+				Column(
+						name="Sample ID",
+						attribute_id=0,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=str,
+						default_value='',
+						),
+				Column(
+						name="Sample Name",
+						attribute_id=1,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=str,
+						default_value='',
+						),
+				Column(
+						name="Rack Code",
+						attribute_id=2,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=str,
+						default_value='',
+						),
+				Column(
+						name="Rack Position",
+						attribute_id=3,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=str,
+						default_value='',
+						),
+				Column(
+						name="Plate Code",
+						attribute_id=4,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=str,
+						default_value='',
+						),
+				Column(
+						name="Plate Position",
+						attribute_id=5,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=str,
+						default_value='',
+						),
+				Column(
+						name="Sample Position",
+						attribute_id=6,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=str,
+						default_value='',
+						),
+				Column(
+						name="Method",
+						attribute_id=7,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=as_path,
+						default_value=None,
+						),
+				Column(
+						name="Override DA Method",
+						attribute_id=8,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=as_path,
+						default_value=None,
+						),
+				Column(
+						name="Data File",
+						attribute_id=9,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=as_path,
+						default_value=None,
+						),
+				Column(
+						name="Sample Type",
+						attribute_id=10,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=str,
+						default_value='Unknown',
+						),
+				Column(
+						name="Method Type",
+						attribute_id=11,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=str,
+						default_value='Method No Override',
+						reorder_id=12,
+						),
+				Column(
+						name="Balance Override",
+						attribute_id=12,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=str,
+						default_value='No Override',
+						reorder_id=13,
+						),
+				Column(
+						name="Inj Vol (µl)",
+						attribute_id=13,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=injection_volume,
+						default_value=5,
+						reorder_id=14,
+						),
+				Column(
+						name="Equilib Time (min)",
+						attribute_id=14,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=int,
+						default_value=0,
+						reorder_id=15,
+						),
+				Column(
+						name="Dilution",
+						attribute_id=15,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=int,
+						default_value=1,
+						reorder_id=16,
+						),
+				Column(
+						name="Wt/Vol",
+						attribute_id=16,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=float,
+						default_value=0,
+						reorder_id=17,
+						),
+				Column(
+						name="Comment",
+						attribute_id=17,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=str,
+						default_value='',
+						reorder_id=18,
+						),
+				Column(
+						name="Barcode",
+						attribute_id=18,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=str,
+						default_value='',
+						reorder_id=19,
+						),
+				Column(
+						name="Reserved1",
+						attribute_id=19,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=str,
+						default_value='',
+						reorder_id=-1,
+						),
+				Column(
+						name="Reserved2",
+						attribute_id=20,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=str,
+						default_value='',
+						reorder_id=-1,
+						),
+				Column(
+						name="Reserved3",
+						attribute_id=21,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=str,
+						default_value='',
+						reorder_id=-1,
+						),
+				Column(
+						name="Reserved4",
+						attribute_id=22,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=float,
+						default_value=0,
+						reorder_id=-1,
+						),
+				Column(
+						name="Reserved5",
+						attribute_id=23,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=float,
+						default_value=0,
+						reorder_id=-1,
+						),
+				Column(
+						name="Reserved6",
+						attribute_id=24,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=float,
+						default_value=0,
+						reorder_id=-1,
+						),
+				Column(
+						name="Level Name",
+						attribute_id=25,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=str,
+						default_value='',
+						reorder_id=11,
+						),
+				Column(
+						name="Sample Group",
+						attribute_id=26,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=str,
+						default_value='',
+						reorder_id=20,
+						),
+				Column(
+						name="Info.",
+						attribute_id=27,
+						attribute_type=AttributeType.SystemDefined,
+						dtype=str,
+						default_value='',
+						reorder_id=21,
+						),
+				]
+		}
