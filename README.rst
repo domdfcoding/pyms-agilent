@@ -1,6 +1,9 @@
-****************
+================
 pyms-agilent
-****************
+================
+
+.. start short-desc
+.. end short-desc
 
 .. start shields
 
@@ -89,22 +92,17 @@ pyms-agilent
 
 PyMassSpec interface to Agilent .d datafiles
 
-|
-
 Installation
 --------------
 
-``pyms-agilent`` can be installed from PyPI or Anaconda.
+.. start installation
+
+``pyms-agilent`` can be installed from PyPI.
 
 To install with ``pip``:
 
 .. code-block:: bash
 
-    $ python -m pip install pyms-agilent
+	$ python -m pip install pyms-agilent
 
-To install with ``conda``:
-
-.. code-block:: bash
-
-    $ conda config --add channels http://conda.anaconda.org/domdfcoding
-    $ conda install pyms-agilent
+.. end installation
