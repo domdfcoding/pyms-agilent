@@ -2,42 +2,56 @@
 pyms-agilent
 ****************
 
-.. start shields 
+.. start shields
 
 .. list-table::
 	:stub-columns: 1
 	:widths: 10 90
 
 	* - Docs
-	  - |docs|
+	  - |docs| |docs_check|
 	* - Tests
-	  - |travis| |requires| |codefactor|
+	  - |travis| |actions_windows| |actions_macos| |codefactor|
 	* - PyPI
 	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
+	* - Activity
+	  - |commits-latest| |commits-since| |maintained|
 	* - Other
-	  - |license| |language| |commits-since| |commits-latest| |maintained| 
-	
-.. |docs| image:: https://readthedocs.org/projects/pyms-agilent/badge/?version=latest
+	  - |license| |language| |requires| |pre_commit|
+
+.. |docs| image:: https://img.shields.io/readthedocs/pyms-agilent/latest?logo=read-the-docs
 	:target: https://pyms-agilent.readthedocs.io/en/latest/?badge=latest
 	:alt: Documentation Status
+
+.. |docs_check| image:: https://github.com/domdfcoding/pyms-agilent/workflows/Docs%20Check/badge.svg
+	:target: https://github.com/domdfcoding/pyms-agilent/actions?query=workflow%3A%22Docs+Check%22
+	:alt: Docs Check Status
 
 .. |travis| image:: https://img.shields.io/travis/com/domdfcoding/pyms-agilent/master?logo=travis
 	:target: https://travis-ci.com/domdfcoding/pyms-agilent
 	:alt: Travis Build Status
-	
+
+.. |actions_windows| image:: https://github.com/domdfcoding/pyms-agilent/workflows/Windows%20Tests/badge.svg
+	:target: https://github.com/domdfcoding/pyms-agilent/actions?query=workflow%3A%22Windows+Tests%22
+	:alt: Windows Tests Status
+
+.. |actions_macos| image:: https://github.com/domdfcoding/pyms-agilent/workflows/macOS%20Tests/badge.svg
+	:target: https://github.com/domdfcoding/pyms-agilent/actions?query=workflow%3A%22macOS+Tests%22
+	:alt: macOS Tests Status
+
 .. |requires| image:: https://requires.io/github/domdfcoding/pyms-agilent/requirements.svg?branch=master
 	:target: https://requires.io/github/domdfcoding/pyms-agilent/requirements/?branch=master
 	:alt: Requirements Status
 
-.. |codefactor| image:: https://img.shields.io/codefactor/grade/github/domdfcoding/pyms-agilent
+.. |codefactor| image:: https://img.shields.io/codefactor/grade/github/domdfcoding/pyms-agilent?logo=codefactor
 	:target: https://www.codefactor.io/repository/github/domdfcoding/pyms-agilent
 	:alt: CodeFactor Grade
 
-.. |pypi-version| image:: https://img.shields.io/pypi/v/pyms-agilent.svg
+.. |pypi-version| image:: https://img.shields.io/pypi/v/pyms-agilent
 	:target: https://pypi.org/project/pyms-agilent/
 	:alt: PyPI - Package Version
 
-.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/pyms-agilent.svg
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/pyms-agilent?logo=python&logoColor=white
 	:target: https://pypi.org/project/pyms-agilent/
 	:alt: PyPI - Supported Python Versions
 
@@ -50,8 +64,8 @@ pyms-agilent
 	:alt: PyPI - Wheel
 
 .. |license| image:: https://img.shields.io/github/license/domdfcoding/pyms-agilent
-	:alt: License
 	:target: https://github.com/domdfcoding/pyms-agilent/blob/master/LICENSE
+	:alt: License
 
 .. |language| image:: https://img.shields.io/github/languages/top/domdfcoding/pyms-agilent
 	:alt: GitHub top language
@@ -66,6 +80,10 @@ pyms-agilent
 
 .. |maintained| image:: https://img.shields.io/maintenance/yes/2020
 	:alt: Maintenance
+
+.. |pre_commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
+	:target: https://github.com/pre-commit/pre-commit
+	:alt: pre-commit
 
 .. end shields
 

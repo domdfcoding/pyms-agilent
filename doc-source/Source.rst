@@ -1,15 +1,15 @@
-*******************************
+=========================
 Downloading source code
-*******************************
+=========================
 
-``pyms-agilent`` source code resides on publicly accessible GitHub servers,
-and can be accessed from the following URL: |ghurl|
+The ``pyms-agilent`` source code is available on GitHub,
+and can be accessed from the following URL: https://github.com/domdfcoding/pyms-agilent"
 
 If you have ``git`` installed, you can clone the repository with the following command:
 
 .. code-block:: bash
 
-    $ git clone |ghurl|
+    $ git clone https://github.com/domdfcoding/pyms-agilent"
     > Cloning into 'pyms-agilent'...
     > remote: Enumerating objects: 47, done.
     > remote: Counting objects: 100% (47/47), done.
@@ -25,3 +25,17 @@ If you have ``git`` installed, you can clone the repository with the following c
     :alt: Downloading a 'zip' file of the source code.
 
     Downloading a 'zip' file of the source code
+
+
+Building from source
+-----------------------
+
+The recommended way to build ``pyms-agilent`` is to use `tox <https://tox.readthedocs.io/en/latest/>`_:
+
+.. prompt:: bash
+
+	tox -e build
+
+The source and wheel distributions will be in the directory ``dist``.
+
+If you wish, you may also use `pep517.build <https://pypi.org/project/pep517/>`_ or another :pep:`517`-compatible build tool.

@@ -1,4 +1,5 @@
-# This file is managed by `git_helper`. Don't edit it directly
+# This file is managed by 'repo_helper'. Don't edit it directly.
+---
 
 language: python
 dist: xenial
@@ -10,7 +11,7 @@ python:
 
 install:
 
-  - pip install pip  --upgrade
+  - pip install --upgrade pip
   - pip install tox tox-travis
 
 
@@ -22,7 +23,7 @@ stages:
   - test
   - deploy_pypi
 
-  - deploy_releases
+
 
 jobs:
   include:
@@ -36,18 +37,6 @@ jobs:
         provider: pypi
         user: "DomDF"
         password:
-          secure: None
+          secure:
         distributions: "sdist bdist_wheel"
         skip_existing: true
-
-
-    - stage: deploy_releases
-      python: "3.6"
-      install:
-        - pip install PyGithub requests
-      script: skip
-      deploy:
-        on:
-          repo: domdfcoding/pyms-agilent
-        provider: script
-        script: python .ci/copy_pypi_2_github.py || travis_terminate 1
