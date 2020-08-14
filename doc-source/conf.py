@@ -118,6 +118,9 @@ autodoc_default_options = {
 				"__parameters__",
 				"__subclasshook__",
 				"__init_subclass__",
+				"__attrs_attrs__",
+				"__init__",
+				"__new__",
 				])
 		}
 

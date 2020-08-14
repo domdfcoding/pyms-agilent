@@ -2,9 +2,11 @@
 pyms-agilent
 ================
 
-.. start short-desc
-.. end short-desc
+.. start short_desc
 
+**PyMassSpec interface to Agilent .d datafiles**
+
+.. end short_desc
 
 .. start shields
 
@@ -15,7 +17,7 @@ pyms-agilent
 	* - Docs
 	  - |docs| |docs_check|
 	* - Tests
-	  - |travis| |actions_windows| |actions_macos| |codefactor|
+	  - |travis| |actions_windows| |actions_macos| |coveralls| |codefactor|
 	* - PyPI
 	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
 	* - Activity
@@ -46,6 +48,10 @@ pyms-agilent
 .. |requires| image:: https://requires.io/github/domdfcoding/pyms-agilent/requirements.svg?branch=master
 	:target: https://requires.io/github/domdfcoding/pyms-agilent/requirements/?branch=master
 	:alt: Requirements Status
+
+.. |coveralls| image:: https://img.shields.io/coveralls/github/domdfcoding/pyms-agilent/master?logo=coveralls
+	:target: https://coveralls.io/github/domdfcoding/pyms-agilent?branch=master
+	:alt: Coverage
 
 .. |codefactor| image:: https://img.shields.io/codefactor/grade/github/domdfcoding/pyms-agilent?logo=codefactor
 	:target: https://www.codefactor.io/repository/github/domdfcoding/pyms-agilent
@@ -121,9 +127,16 @@ Installation
 
 .. toctree::
 	:maxdepth: 3
+	:caption: API Reference
+	:glob:
+
+	api/*
+	api/*/index
+
+.. toctree::
+	:maxdepth: 3
 	:caption: Documentation
 
-	API Reference<docs>
 	contributing
 	Source
 
