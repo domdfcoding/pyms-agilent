@@ -1,0 +1,43 @@
+<VwdMethod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ModuleType="G7114A" schemaVersion="1.0.4" schemaSI="2" ModuleOptions="">
+  <ConfigurationXml>&lt;VwdConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" schemaVersion="1.0.2" schemaSI="0"&gt;&lt;DisplayName&gt;VWD&lt;/DisplayName&gt;&lt;SerialNumber&gt;DEACX09858&lt;/SerialNumber&gt;&lt;ModuleType&gt;G7114A&lt;/ModuleType&gt;&lt;ModuleDisplayType&gt;G7114A&lt;/ModuleDisplayType&gt;&lt;ConnectionInfo&gt;&lt;ConnectionType&gt;ConnectionType_IPAddress&lt;/ConnectionType&gt;&lt;IPAddress&gt;192.168.254.11&lt;/IPAddress&gt;&lt;/ConnectionInfo&gt;&lt;FirmwareRevision&gt;D.07.26 [0002]&lt;/FirmwareRevision&gt;&lt;IsExternalContactsBoardInstalled&gt;false&lt;/IsExternalContactsBoardInstalled&gt;&lt;/VwdConfig&gt;</ConfigurationXml>
+  <Timetable />
+  <StopTime>
+    <StopTimeMode>StopTime_NoLimit</StopTimeMode>
+  </StopTime>
+  <PostTime>
+    <PostTimeMode>PostTime_Off</PostTimeMode>
+  </PostTime>
+  <Delay>0</Delay>
+  <AnalogOutput>
+    <AnalogZero>5</AnalogZero>
+    <AnalogAtt>10</AnalogAtt>
+  </AnalogOutput>
+  <Signals>
+    <Signal>
+      <UseSignal>false</UseSignal>
+      <ID>SigA</ID>
+      <Wavelength>250</Wavelength>
+    </Signal>
+  </Signals>
+  <Peakwidth>5</Peakwidth>
+  <AnalogOutputSourceChannel>1</AnalogOutputSourceChannel>
+  <Polarity>0</Polarity>
+  <UVLampRequired>false</UVLampRequired>
+  <PrepareAutomation>
+    <DoPrepRunBalance>true</DoPrepRunBalance>
+    <DoStartRunBalance>false</DoStartRunBalance>
+    <DoPostRunBalance>false</DoPostRunBalance>
+  </PrepareAutomation>
+  <ScanVariables>
+    <ScanType>0</ScanType>
+    <WavelengthFrom>190</WavelengthFrom>
+    <WavelengthTo>400</WavelengthTo>
+    <WavelengthStep>2</WavelengthStep>
+  </ScanVariables>
+  <AcquireRawSignal>false</AcquireRawSignal>
+  <AcquireRawReference>false</AcquireRawReference>
+  <AcquireRawSignalsValid>false</AcquireRawSignalsValid>
+  <MultiWavelengthSettings>
+    <MWLEnabled>false</MWLEnabled>
+  </MultiWavelengthSettings>
+</VwdMethod>

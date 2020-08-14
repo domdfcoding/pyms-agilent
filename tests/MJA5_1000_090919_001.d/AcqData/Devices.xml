@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Devices>
+  <Version>1</Version>
+  <Device DeviceID="1">
+    <Name>QTOF</Name>
+    <DriverVersion>8.00.00</DriverVersion>
+    <FirmwareVersion>14.698</FirmwareVersion>
+    <ModelNumber>G6550A</ModelNumber>
+    <OrdinalNumber>1</OrdinalNumber>
+    <SerialNumber>SG1339B002</SerialNumber>
+    <Type>6</Type>
+    <StoredDataType>8</StoredDataType>
+    <Delay>0</Delay>
+    <Vendor>1</Vendor>
+  </Device>
+  <Device DeviceID="1011">
+    <Name>VWD</Name>
+    <ModelNumber>G7114A</ModelNumber>
+    <OrdinalNumber>1</OrdinalNumber>
+    <SerialNumber>DEACX09858</SerialNumber>
+    <Type>15</Type>
+    <StoredDataType>3</StoredDataType>
+    <Delay>0</Delay>
+    <Vendor>1</Vendor>
+  </Device>
+  <Device DeviceID="1012">
+    <Name>HiP-ALS</Name>
+    <ModelNumber>G7167A</ModelNumber>
+    <OrdinalNumber>1</OrdinalNumber>
+    <SerialNumber>DEACK00183</SerialNumber>
+    <Type>21</Type>
+    <StoredDataType>2</StoredDataType>
+    <Delay>0</Delay>
+    <Vendor>1</Vendor>
+  </Device>
+  <Device DeviceID="1013">
+    <Name>QuatPump</Name>
+    <ModelNumber>G7111B</ModelNumber>
+    <OrdinalNumber>1</OrdinalNumber>
+    <SerialNumber>DEAEW05358</SerialNumber>
+    <Type>32</Type>
+    <StoredDataType>2</StoredDataType>
+    <Delay>0</Delay>
+    <Vendor>1</Vendor>
+  </Device>
+  <Device DeviceID="1014">
+    <Name>TCC</Name>
+    <ModelNumber>G7116A</ModelNumber>
+    <OrdinalNumber>1</OrdinalNumber>
+    <SerialNumber>DEAEM04774</SerialNumber>
+    <Type>40</Type>
+    <StoredDataType>2</StoredDataType>
+    <Delay>0</Delay>
+    <Vendor>1</Vendor>
+  </Device>
+</Devices>

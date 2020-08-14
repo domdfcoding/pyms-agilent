@@ -1,0 +1,36 @@
+<ColumnCompMethod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ModuleType="G7116A" xsdName="ColumnCompMethod.xsd" schemaVersion="1.0.4" schemaSI="1" ModuleOptions="">
+  <ConfigurationXml>&lt;ColumnCompConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsdName="SamplerConfig.xsd" schemaVersion="1.0.2" schemaSI="3"&gt;&lt;DisplayName&gt;Column Comp.&lt;/DisplayName&gt;&lt;SerialNumber&gt;DEAEM04774&lt;/SerialNumber&gt;&lt;ModuleType&gt;G7116A&lt;/ModuleType&gt;&lt;ModuleDisplayType&gt;G7116A&lt;/ModuleDisplayType&gt;&lt;ConnectionInfo&gt;&lt;ConnectionType&gt;ConnectionType_IPAddress&lt;/ConnectionType&gt;&lt;IPAddress&gt;192.168.254.11&lt;/IPAddress&gt;&lt;/ConnectionInfo&gt;&lt;FirmwareRevision&gt;D.07.23 [0009]&lt;/FirmwareRevision&gt;&lt;FirmwareRevisionOfHostedModule&gt;C.07.21 [0001]&lt;/FirmwareRevisionOfHostedModule&gt;&lt;IsColumnSwitchingValveInstalled&gt;true&lt;/IsColumnSwitchingValveInstalled&gt;&lt;ColumnValveVersion&gt;Item10Port4Positions600BarNpl&lt;/ColumnValveVersion&gt;&lt;RealHeadId&gt;5067-4279&lt;/RealHeadId&gt;&lt;RealMaxPressure&gt;800&lt;/RealMaxPressure&gt;&lt;TagReaderLeftInstalled&gt;true&lt;/TagReaderLeftInstalled&gt;&lt;TagReaderRightInstalled&gt;false&lt;/TagReaderRightInstalled&gt;&lt;PlumbingTable&gt;&lt;PlumbingTableType&gt;&lt;PlumbingTableRow&gt;&lt;PositionIndex&gt;0&lt;/PositionIndex&gt;&lt;ValvePosition&gt;0&lt;/ValvePosition&gt;&lt;ColorCode&gt;1&lt;/ColorCode&gt;&lt;LocationInColumnComp&gt;R2&lt;/LocationInColumnComp&gt;&lt;/PlumbingTableRow&gt;&lt;PlumbingTableRow&gt;&lt;PositionIndex&gt;1&lt;/PositionIndex&gt;&lt;ValvePosition&gt;1&lt;/ValvePosition&gt;&lt;ColorCode&gt;0&lt;/ColorCode&gt;&lt;LocationInColumnComp&gt;None&lt;/LocationInColumnComp&gt;&lt;/PlumbingTableRow&gt;&lt;PlumbingTableRow&gt;&lt;PositionIndex&gt;2&lt;/PositionIndex&gt;&lt;ValvePosition&gt;2&lt;/ValvePosition&gt;&lt;ColorCode&gt;0&lt;/ColorCode&gt;&lt;LocationInColumnComp&gt;L3&lt;/LocationInColumnComp&gt;&lt;/PlumbingTableRow&gt;&lt;PlumbingTableRow&gt;&lt;PositionIndex&gt;3&lt;/PositionIndex&gt;&lt;ValvePosition&gt;3&lt;/ValvePosition&gt;&lt;ColorCode&gt;0&lt;/ColorCode&gt;&lt;LocationInColumnComp&gt;None&lt;/LocationInColumnComp&gt;&lt;/PlumbingTableRow&gt;&lt;/PlumbingTableType&gt;&lt;/PlumbingTable&gt;&lt;/ColumnCompConfig&gt;</ConfigurationXml>
+  <Timetable />
+  <StopTime>
+    <StopTimeMode>StopTime_NoLimit</StopTimeMode>
+  </StopTime>
+  <PostTime>
+    <PostTimeMode>PostTime_Off</PostTimeMode>
+  </PostTime>
+  <ColumnValvePosition>ValvePos_3</ColumnValvePosition>
+  <LeftTemperatureControl>
+    <TemperatureControlMode>TemperatureSet</TemperatureControlMode>
+    <Temperature>40</Temperature>
+    <NotReadyLimit>
+      <NotReadyLimitOn>true</NotReadyLimitOn>
+      <NotReadyLimitValue>0.8</NotReadyLimitValue>
+      <EquilibrationTime>0</EquilibrationTime>
+    </NotReadyLimit>
+    <TemperatureControlMode2>TemperatureSet</TemperatureControlMode2>
+  </LeftTemperatureControl>
+  <RightTemperatureControl>
+    <TemperatureControlMode>Combined</TemperatureControlMode>
+    <NotReadyLimit>
+      <NotReadyLimitOn>true</NotReadyLimitOn>
+      <NotReadyLimitValue>0.8</NotReadyLimitValue>
+      <EquilibrationTime>0</EquilibrationTime>
+    </NotReadyLimit>
+    <TemperatureControlMode2>Combined</TemperatureControlMode2>
+  </RightTemperatureControl>
+  <ValvePositionIndex>2</ValvePositionIndex>
+  <EnforceColumnInformation>
+    <ColumnType />
+    <EnforceColumnTypeOnInstrument>false</EnforceColumnTypeOnInstrument>
+  </EnforceColumnInformation>
+  <PositionSwitchAfterRunMode>DoNotSwitch</PositionSwitchAfterRunMode>
+</ColumnCompMethod>

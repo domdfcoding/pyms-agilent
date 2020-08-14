@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DefaultMassCalibration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DefaultMassCal.xsd">
+  <Version>1</Version>
+  <DefaultCalibrations>
+    <DefaultCalibration DefaultCalibrationID="1">
+      <Step Number="1">
+        <CalibrationTechnique>ExternalReference</CalibrationTechnique>
+        <CalibrationFormula>Traditional</CalibrationFormula>
+        <NumberOfCoefficients>2</NumberOfCoefficients>
+        <ValueUseFlags>0</ValueUseFlags>
+        <Values>
+          <Value Number="1">0.000345831000145064</Value>
+          <Value Number="2">1008.65247228175</Value>
+        </Values>
+        <Weighting>0</Weighting>
+      </Step>
+      <Step Number="2">
+        <CalibrationTechnique>ExternalReference</CalibrationTechnique>
+        <CalibrationFormula>Polynomial</CalibrationFormula>
+        <NumberOfCoefficients>8</NumberOfCoefficients>
+        <ValueUseFlags>83</ValueUseFlags>
+        <Values>
+          <Value Number="1">32430.7233460327</Value>
+          <Value Number="2">113816.497686463</Value>
+          <Value Number="3">-0.00150071268643446</Value>
+          <Value Number="4">3.10280826204584E-08</Value>
+          <Value Number="5">-2.05974363553758E-23</Value>
+          <Value Number="6">5.42729792147806E-34</Value>
+          <Value Number="7">0</Value>
+          <Value Number="8">0</Value>
+        </Values>
+      </Step>
+    </DefaultCalibration>
+    <DefaultCalibration DefaultCalibrationID="2">
+      <Step Number="1">
+        <CalibrationTechnique>ExternalReference</CalibrationTechnique>
+        <CalibrationFormula>Traditional</CalibrationFormula>
+        <NumberOfCoefficients>2</NumberOfCoefficients>
+        <ValueUseFlags>0</ValueUseFlags>
+        <Values>
+          <Value Number="1">0.000345803842729383</Value>
+          <Value Number="2">1009.6345317906</Value>
+        </Values>
+      </Step>
+      <Step Number="2">
+        <CalibrationTechnique>ExternalReference</CalibrationTechnique>
+        <CalibrationFormula>Polynomial</CalibrationFormula>
+        <NumberOfCoefficients>8</NumberOfCoefficients>
+        <ValueUseFlags>1520</ValueUseFlags>
+        <Values>
+          <Value Number="1">31748.0587231931</Value>
+          <Value Number="2">154952.792824206</Value>
+          <Value Number="3">-5.01364188135244E-22</Value>
+          <Value Number="4">2.534064454706E-26</Value>
+          <Value Number="5">-4.43797205769846E-31</Value>
+          <Value Number="6">3.40875577309168E-36</Value>
+          <Value Number="7">-1.04420768500959E-41</Value>
+          <Value Number="8">4.10529262331412E-53</Value>
+        </Values>
+      </Step>
+    </DefaultCalibration>
+  </DefaultCalibrations>
+</DefaultMassCalibration>
