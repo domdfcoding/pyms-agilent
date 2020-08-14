@@ -1,1 +1,9 @@
+attrs
+domdf_python_tools>=0.4.8
+enum_tools
+importlib_resources
+lxml
+mh_utils>=0.0.2
+numpy
 pandas
+typing_extensions

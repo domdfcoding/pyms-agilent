@@ -13,10 +13,12 @@ install:
 
   - pip install --upgrade pip
   - pip install tox tox-travis
-
+  - pip install coveralls coverage_pyver_pragma
 
 script:
   - tox
+after_success:
+  - coveralls
 
 
 stages:
@@ -37,6 +39,6 @@ jobs:
         provider: pypi
         user: "DomDF"
         password:
-          secure:
+          secure: gWc8l0EKjjIVhH3+Y7Ck2oe2pMk6dazpOlLVVIYe0ee4teKZS0wHJcEzJGIETyB8G9Q8AW39vbWQr9HbM8mRhMlYNr4Yxyiqhp/qbWLZr/1xgFkjYO76ohe/a5qNdgdBSYl7QUzQHC+ghysBjCnW4B232Dk5FSpH5hdq589EfHLBcOwY4uPaqgADKhWA7PsgPcBf1dz7WI0cHFAd+A9BUAevTR3fw+SepL6sAeeNBcBK1H2njgo5Gf0gbbbKg4lf4ZkM+a0Vx1KcsAm6pL2GHCVJDoifYhu8PF/AY9JZ6E8rLJxaXT5svI5XfaFg6QBWVS0eymMsriKp5hD7bX1wv0JWPfR8SqWxt520Kn85yPH2cH7JMpmX5oHstNzQT6IXOd8m8df+m32lK/f/llflTTTfVIoRdCmU8uSPjgz/RrjWeSKHLxDk0Nr14vjR3enh9LbnZF4cmQ31EWKnd8qgzQO6MtSXTbxRTRzbo0l+3K5ZFrwXjUs5uwbFvUt4VdDhKlHFvW1row4pmsLdv8+npEWyEJVmeABKkin6hsm9f7zsSC8nl2J/9QC5gNhCZZfzqPTcAWMpmWWqru4O4oy8t0MGww0E2MxwuDWYXvoJFGw1XBK9dPmFPlJN9cAf1SocBCM3L9uOMjwvjUr3sYyNF8IjJxyVjfWwm3N3qDffBl4=
         distributions: "sdist bdist_wheel"
         skip_existing: true
