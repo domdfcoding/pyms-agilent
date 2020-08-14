@@ -23,38 +23,40 @@ Extract metadata from Agilent .d datafiles
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 #
-
+#  is_datafile based on ms_deisotope
+#  https://github.com/mobiusklein/ms_deisotope/blob/master/ms_deisotope/data_source/_vendor/AgilentD.py
+#  Copyright Joshua Klein
+#  Apache 2.0 Licensed
+#
 
 # stdlib
 import os
 import pathlib
+from typing import Dict
+
+# 3rd party
+from domdf_python_tools.typing import PathLike
+from typing_extensions import TypedDict
 
 # this package
-from pyms_agilent.xml_parser.Contents import read_contents_xml
-from pyms_agilent.xml_parser.DefaultMassCal import read_mass_cal_xml
-from pyms_agilent.xml_parser.DeviceConfigInfo import read_device_config_xml
-from pyms_agilent.xml_parser.Devices import read_devices_xml
-from pyms_agilent.xml_parser.MSActualDefs import read_ms_actuals_defs
-from pyms_agilent.xml_parser.MSTS import read_msts_xml
-from pyms_agilent.xml_parser.sample_info import read_sample_info_xml
+from pyms_agilent.xml_parser.acq_method import AcqMethod, read_acqmethod
+from pyms_agilent.xml_parser.contents import Contents, read_contents_xml
+from pyms_agilent.xml_parser.default_mass_cal import CalibrationList, read_mass_cal_xml
+from pyms_agilent.xml_parser.device_config_info import DeviceConfigInfo, read_device_config_xml
+from pyms_agilent.xml_parser.devices import DeviceList, read_devices_xml
+from pyms_agilent.xml_parser.ms_actual_defs import ActualsDef, read_ms_actuals_defs
+from pyms_agilent.xml_parser.ms_time_segments import MSTimeSegments, read_msts_xml
+from pyms_agilent.xml_parser.sample_info import SampleInfo, read_sample_info_xml
 
 
-_path_types = (str, os.PathLike, pathlib.Path)
-
-
-def prepare_filepath(file_name, mkdirs=True):
+def prepare_filepath(file_name: PathLike, mkdirs: bool = True) -> pathlib.Path:
 	"""
-	Convert string filename into pathlib.Path object and create parent directories if required
+	Convert a filename string into a :class:`pathlib.Path` object, and create parent directories if required.
 
 	:param file_name: file_name to process
-	:type file_name: str or os.PathLike
 	:param mkdirs: Whether the parent directory of the file should be created if it doesn't exist. Default True.
-	:type mkdirs: bool, optional
 
 	:return: file_name
-	:rtype: pathlib.Path
-
-	:author: Dominic Davis-Foster
 	"""
 
 	if not isinstance(file_name, pathlib.Path):
@@ -69,33 +71,30 @@ def prepare_filepath(file_name, mkdirs=True):
 	return file_name
 
 
-def is_path(obj):
-	"""
-	Returns whether the object represents a filesystem path
+MetadataDict = TypedDict(
+		"MetadataDict",
+		{
+				"AcqMethod": AcqMethod,
+				"Contents": Contents,
+				"DefaultMassCal": CalibrationList,
+				"DeviceConfigInfo": DeviceConfigInfo,
+				"Devices": DeviceList,
+				"MSActualDefs": ActualsDef,
+				"MSTS": MSTimeSegments,
+				"sample_info": SampleInfo,
+				}
+		)
+"""
+:class:`typing.TypedDict` representing the dictionary returned by :func:`.~extract_metadata`.
+"""
 
-	:param obj:
-	:type obj:
 
-	:return:
-	:rtype:
-	"""
-
-	if isinstance(obj, _path_types):
-		return True
-	else:
-		return hasattr(obj, " __fspath__")
-
-
-def extract_metadata(file_name):
+def extract_metadata(file_name: PathLike) -> MetadataDict:
 	"""
 	Extract metadata from an Agilent .d datafile
 
 	:param file_name: name of the .d datafile
-	:type file_name: str or os.PathLike
 	"""
-
-	if not is_path(file_name):
-		raise TypeError("'file_name' must be a string or a PathLike object")
 
 	file_name = prepare_filepath(file_name)
 
@@ -104,50 +103,34 @@ def extract_metadata(file_name):
 
 	acqdata_dir = file_name / "AcqData"
 
-	# print(dict(read_contents_xml(acqdata_dir)))
-	# print((read_mass_cal_xml(acqdata_dir)))
-	# print(dict(read_device_config_xml(acqdata_dir)))
-	# print(read_devices_xml(acqdata_dir).to_dict())
-	# print(read_ms_actuals_defs(acqdata_dir))
-	# print(read_msts_xml(acqdata_dir))
-	# print(read_sample_info_xml(acqdata_dir))
-
-	device_configuration = read_device_config_xml(acqdata_dir)
-	print(device_configuration.devices)
-	print(device_configuration.parameters)
-	for param in device_configuration.parameters:
-		if param.DisplayName == "Tune Mass Range Max.":
-			print(param)
-			print(type(param))
-			print(param.DisplayName)
-			print(param.DisplayName == "Tune Mass Range Max.")
-			print(param.Value)
-			print(type(param.Value))
-			print(param.Units)
-			print(type(param.Units))
+	return {
+			"AcqMethod": read_acqmethod(acqdata_dir),
+			"Contents": read_contents_xml(acqdata_dir),
+			"DefaultMassCal": read_mass_cal_xml(acqdata_dir),
+			"DeviceConfigInfo": read_device_config_xml(acqdata_dir),
+			"Devices": read_devices_xml(acqdata_dir),
+			"MSActualDefs": read_ms_actuals_defs(acqdata_dir),
+			"MSTS": read_msts_xml(acqdata_dir),
+			"sample_info": read_sample_info_xml(acqdata_dir),
+			}
 
 
-	# print(dict())
-
-
-
-def is_datafile(file_name):
+def is_datafile(file_name: PathLike) -> bool:
 	"""
 	Returns whether the given path is a valid data file
 
-	Based on ms_deisotope
-
 	:param file_name: name of the .d datafile
-	:type file_name: str or os.PathLike
 	"""
 
-	if not is_path(file_name):
-		raise TypeError("'file_name' must be a string or a PathLike object")
-
-	file_name = prepare_filepath(file_name)
+	if not isinstance(file_name, pathlib.Path):
+		try:
+			file_name = pathlib.Path(file_name)
+		except TypeError:
+			raise TypeError(f"'file_name' must be a string or a PathLike object, not {type(file_name)}")
 
 	if file_name.exists():
 		if file_name.is_dir():
 			if ((file_name / "AcqData") / "Contents.xml").exists():
 				return True
+
 	return False

@@ -1,7 +1,9 @@
 #  !/usr/bin/env python
-#   -*- coding: utf-8 -*-
 #
 #  __init__.py
+"""
+Parser for XML files inside Agilent MassHunter ``.d`` datafiles.
+"""
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
@@ -12,7 +14,7 @@
 #
 #  This program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #  GNU Lesser General Public License for more details.
 #
 #  You should have received a copy of the GNU Lesser General Public License
@@ -20,5 +22,3 @@
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 #
-
-

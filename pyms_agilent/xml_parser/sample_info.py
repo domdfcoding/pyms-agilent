@@ -1,5 +1,4 @@
-#  !/usr/bin/env python
-#   -*- coding: utf-8 -*-
+#!/usr/bin/env python
 #
 #  sample_info.py
 """
@@ -24,100 +23,108 @@ Parser for sample_info.xml
 #  MA 02110-1301, USA.
 #
 
+# stdlib
+import pathlib
+from typing import Any, List
 
-import distutils.util
-from collections import namedtuple
+# 3rd party
+import attr
+import importlib_resources
+import lxml.objectify
+from domdf_python_tools.utils import strtobool
+from mh_utils.utils import add_attrs_doc, strip_string
 
-from .core import get_data_from_element, XMLList
+# this package
+from pyms_agilent.xml_parser import agilent_xsd
+
+# this package
+from .core import XMLList
 
 
-class Field(namedtuple('__BaseField', 'Name DisplayName Value DataType Units FieldType Overridden')):
+@add_attrs_doc
+@attr.s(slots=True)
+class Field:
 	"""
-		
-	:param Name:
-	:type Name: str
-	:param DisplayName:
-	:type DisplayName: str
-	:param Value:
-	:type Value: any
-	:param DataType:
-	:type DataType: int
+	Represents a field in ``sample_info.xml``.
+
+	:param name: The name of the field.
+	:param display_name: The display name of the field.
+	:param value: The value of the field.
+	:param data_type: The type of data in the field.
 	# TODO: enum
-	:param Units:
-	:type Units: str
-	:param FieldType:
-	:type FieldType: str
-	:param Overridden:
-	:type Overridden: bool
+	:param units: The units of the data in the field.
+	:param field_type: The type of field.
+	:param overridden: Whether the field is overridden.
 	"""
 
-	__slots__ = []
-	
-	def __new__(cls, Name='', DisplayName='', Value=None, DataType=0, Units='', FieldType='', Overridden=False):
+	name: str = attr.ib(converter=strip_string, default='')
+	display_name: str = attr.ib(converter=strip_string, default='')
+	value: Any = attr.ib(default='')
+	data_type: int = attr.ib(converter=int, default=0)
+	units: str = attr.ib(converter=strip_string, default='')
+	field_type: str = attr.ib(converter=strip_string, default='')
+	overridden: bool = attr.ib(converter=strtobool, default=False)
 
-		if isinstance(Overridden, str):
-			Overridden = distutils.util.strtobool(Overridden)
-		Overridden = bool(Overridden)
-		
-		return super().__new__(
-				cls,
-				Name=Name,
-				DisplayName=DisplayName,
-				Value=Value,
-				DataType=DataType,
-				Units=Units,
-				FieldType=FieldType,
-				Overridden=Overridden,
-				)
-	
 	@classmethod
 	def from_xml(cls, element):
-		
-		data = dict(
-				Name='', DisplayName='', Value=None, DataType=0,
-				Units='', FieldType='', Overridden=False,
+
+		return cls(
+				name=str(element.Name),
+				display_name=str(element.DisplayName),
+				data_type=int(element.DataType),
+				units=str(element.Units),
+				field_type=str(element.FieldType),
+				overridden=strtobool(str(element.Overridden)),
+				value=element.Value.text
 				)
-		
-		return cls(**get_data_from_element(data, element))
 
 
 class SampleInfo(XMLList):
 	"""
-	sample_info.xml
+	List of information about the sample, parsed from ``sample_info.xml``.
+
+	Each piece of information is represented as a :class:`.~Field`
+
+	:param version: The version number of the sample info data.
+	:param fields:
 	"""
-	
+
 	def __init__(
 			self,
-			Version,
-			fields=None,
+			version: int,
+			fields: List[Field] = None,
 			):
-		"""
 
-		:param Version:
-		:type Version: int
-		:param fields:
-		:type fields: List[Field]
-		"""
-		
-		super().__init__(Version, fields)
-		
-		self.Version = int(Version)
-		
-	def to_dict(self):
-		return dict(
-				Version=self.Version,
-				fields=list(self),
-				)
-	
+		super().__init__(version, fields)
+
+		self.version = int(version)
+
 	_content_type = Field
 	_content_xml_name = "Field"
-	
+
+	with importlib_resources.path(agilent_xsd, "sample_info.xsd") as path:
+		_schema = str(path)
+
 	@classmethod
-	def from_xml(cls, element):
-		class_ = super().from_xml(element)
-		class_._append_from_element(element)
-		return class_
+	def from_xml(cls, element: lxml.objectify.ObjectifiedElement) -> "SampleInfo":
+		"""
+		Construct a :class:`~.SampleInfo` object from an XML element.
+
+		:param element: The XML element to parse the data from
+		"""
+
+		version = int(element.Version)  # sample_info version number
+
+		obj = cls(version)
+		obj._append_from_element(element)
+		return obj
 
 
-def read_sample_info_xml(base_path):
-	return SampleInfo.from_xml_file(base_path / "sample_info.xml")
+def read_sample_info_xml(base_path) -> "SampleInfo":
+	"""
+	Construct an :class:`~.SampleInfo` object from the ``sample_info.xml`` file in the given directory.
+
+	:param base_path:
+	"""
+
+	return SampleInfo.from_xml_file(pathlib.Path(base_path) / "sample_info.xml")

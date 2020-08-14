@@ -21,8 +21,11 @@
 #  MA 02110-1301, USA.
 #
 
+# stdlib
+from enum import Enum
 
-from domdf_python_tools.enums import IntEnum, StrEnum
+# 3rd party
+from enum_tools import IntEnum, StrEnum
 
 
 class AcqStatusEnum(IntEnum):
@@ -48,10 +51,11 @@ class SeparationTechniqueEnum(IntEnum):
 class CalibrationTechniqueEnum(StrEnum):
 	ExternalReference = "ExternalReference"
 	InternalReference = "InternalReference"
+	Undefined = "Undefined"
 
 
 class CalibrationFormulaEnum(StrEnum):
 	Traditional = "Traditional"
 	Polynomial = "Polynomial"
 	OriginalFourTerm = "OriginalFourTerm"
-
+	Undefined = "Undefined"
