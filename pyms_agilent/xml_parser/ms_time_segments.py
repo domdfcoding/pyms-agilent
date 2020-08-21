@@ -33,12 +33,27 @@ from typing import List, Optional, Union
 import attr
 import importlib_resources
 import lxml.objectify
+from attr_utils.docstrings import add_attrs_doc
 from domdf_python_tools.utils import strtobool
-from mh_utils.utils import add_attrs_doc
 
 # this package
 from . import agilent_xsd
 from .core import XMLList
+
+__all__ = ["make_timedelta", "TimeSegment", "MSTimeSegments", "read_msts_xml"]
+
+
+def make_timedelta(minutes: Union[float, datetime.timedelta]) -> datetime.timedelta:
+	"""
+	Construct a timedelta from a value in minutes.
+
+	:param minutes:
+	"""
+
+	if not isinstance(minutes, datetime.timedelta):
+		minutes = datetime.timedelta(minutes=float(minutes))
+
+	return minutes
 
 
 @add_attrs_doc
@@ -54,17 +69,9 @@ class TimeSegment:
 	:param fixed_cycle_length:
 	"""
 
-	def __make_start_timedelta(self, the_attr: attr.Attribute, the_value):
-		if not isinstance(self.start_time, datetime.timedelta):
-			self.start_time = datetime.timedelta(minutes=float(self.start_time))
-
-	def __make_end_timedelta(self, the_attr: attr.Attribute, the_value):
-		if not isinstance(self.end_time, datetime.timedelta):
-			self.end_time = datetime.timedelta(minutes=float(self.end_time))
-
 	timesegment_id: int = attr.ib(converter=int)
-	start_time: Union[float, datetime.timedelta] = attr.ib(validator=__make_start_timedelta, default=0.0)
-	end_time: Union[float, datetime.timedelta] = attr.ib(validator=__make_end_timedelta, default=0.0)
+	start_time: datetime.timedelta = attr.ib(converter=make_timedelta, default=0.0)  # type: ignore
+	end_time: datetime.timedelta = attr.ib(converter=make_timedelta, default=0.0)  # type: ignore
 	n_scans: int = attr.ib(converter=int, default=0)
 	fixed_cycle_length: bool = attr.ib(converter=strtobool, default=False)
 

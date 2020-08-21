@@ -21,41 +21,72 @@
 #  MA 02110-1301, USA.
 #
 
-# stdlib
-from enum import Enum
-
 # 3rd party
 from enum_tools import IntEnum, StrEnum
+from enum_tools.documentation import document_enum
+
+__all__ = [
+		"AcqStatusEnum",
+		"MeasurementTypeEnum",
+		"SeparationTechniqueEnum",
+		"CalibrationTechniqueEnum",
+		"CalibrationFormulaEnum",
+		]
 
 
+@document_enum
 class AcqStatusEnum(IntEnum):
-	Init = 0
-	Start = 1
-	End = 2
+	"""
+	Enumeration of values for the acquisition status.
+	"""
+
+	Init = 0  # doc: The acquisition has been initialised.
+	Start = 1  # doc: The acquisition has started.
+	End = 2  # doc: The acquisition has ended.
 
 
+@document_enum
 class MeasurementTypeEnum(IntEnum):
-	Unknown = 0
-	Infusion = 1
-	Chromatographic = 2
+	"""
+	Enumeration of values for the measurement type.
+	"""
+
+	Unknown = 0  # doc: Unknown measurement type.
+	Infusion = 1  # doc: Infusion measurement type.
+	Chromatographic = 2  # doc: Chromatographic measurement type.
 
 
+@document_enum
 class SeparationTechniqueEnum(IntEnum):
-	Unspecified = 0
-	none = 1
-	GC = 2
-	LC = 3
-	CE = 4
+	"""
+	Enumeration of values for the separation technique.
+	"""
+
+	Unspecified = 0  # doc: Unspecified separation technique.
+	none = 1  # doc: No separation.
+	GC = 2  # doc: Gas Chromatography separation technique.
+	LC = 3  # doc: Liquid Chromatography separation technique.
+	CE = 4  # doc: Capillary Electrophoresis separation technique.
 
 
+@document_enum
 class CalibrationTechniqueEnum(StrEnum):
-	ExternalReference = "ExternalReference"
-	InternalReference = "InternalReference"
-	Undefined = "Undefined"
+	"""
+	Enumeration of values for the calibration technique.
+	"""
+
+	ExternalReference = "ExternalReference"  # doc: External calibration reference.
+	InternalReference = "InternalReference"  # doc: Internal calibration reference.
+	Undefined = "Undefined"  # doc: Undefined calibration reference.
 
 
+@document_enum
 class CalibrationFormulaEnum(StrEnum):
-	Traditional = "Traditional"
-	Polynomial = "Polynomial"
-	OriginalFourTerm = "OriginalFourTerm"
-	Undefined = "Undefined"
+	"""
+	Enumeration of values for the calibration formula.
+	"""
+
+	Traditional = "Traditional"  # doc: Traditional calibration formula.
+	Polynomial = "Polynomial"  # doc: Polynomial calibration formula.
+	OriginalFourTerm = "OriginalFourTerm"  # doc: OriginalFourTerm calibration formula.
+	Undefined = "Undefined"  # doc: Undefined calibration formula.

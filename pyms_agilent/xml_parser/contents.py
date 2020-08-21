@@ -44,6 +44,8 @@ from pyms_agilent.xml_parser import agilent_xsd
 from .core import XMLFileMixin, _get_from_enum
 from .enums import AcqStatusEnum, MeasurementTypeEnum, SeparationTechniqueEnum
 
+__all__ = ["Contents", "read_contents_xml"]
+
 
 class Contents(XMLFileMixin, Dictable):
 	"""

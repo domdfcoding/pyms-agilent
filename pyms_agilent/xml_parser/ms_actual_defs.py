@@ -41,6 +41,8 @@ from pyms_agilent.xml_parser import agilent_xsd
 # this package
 from .core import XMLFileMixin, XMLList, make_from_element
 
+__all__ = ["Actual", "ActualsDef", "read_ms_actuals_defs"]
+
 
 class Actual(Dictable):
 	"""

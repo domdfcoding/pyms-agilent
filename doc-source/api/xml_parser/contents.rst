@@ -3,4 +3,4 @@
 ============================================
 
 .. automodule:: pyms_agilent.xml_parser.contents
-	:inherited-members:
+	:inherited-members: UserList,ABC

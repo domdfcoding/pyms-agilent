@@ -31,14 +31,17 @@ from typing import Any, List
 import attr
 import importlib_resources
 import lxml.objectify
+from attr_utils.docstrings import add_attrs_doc
 from domdf_python_tools.utils import strtobool
-from mh_utils.utils import add_attrs_doc, strip_string
+from mh_utils.utils import strip_string
 
 # this package
 from pyms_agilent.xml_parser import agilent_xsd
 
 # this package
 from .core import XMLList
+
+__all__ = ["Field", "SampleInfo", "read_sample_info_xml"]
 
 
 @add_attrs_doc

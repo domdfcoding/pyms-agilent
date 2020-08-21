@@ -48,6 +48,8 @@ from pyms_agilent.xml_parser.ms_actual_defs import ActualsDef, read_ms_actuals_d
 from pyms_agilent.xml_parser.ms_time_segments import MSTimeSegments, read_msts_xml
 from pyms_agilent.xml_parser.sample_info import SampleInfo, read_sample_info_xml
 
+__all__ = ["prepare_filepath", "MetadataDict", "extract_metadata", "is_datafile"]
+
 
 def prepare_filepath(file_name: PathLike, mkdirs: bool = True) -> pathlib.Path:
 	"""
@@ -71,22 +73,19 @@ def prepare_filepath(file_name: PathLike, mkdirs: bool = True) -> pathlib.Path:
 	return file_name
 
 
-MetadataDict = TypedDict(
-		"MetadataDict",
-		{
-				"AcqMethod": AcqMethod,
-				"Contents": Contents,
-				"DefaultMassCal": CalibrationList,
-				"DeviceConfigInfo": DeviceConfigInfo,
-				"Devices": DeviceList,
-				"MSActualDefs": ActualsDef,
-				"MSTS": MSTimeSegments,
-				"sample_info": SampleInfo,
-				}
-		)
-"""
-:class:`typing.TypedDict` representing the dictionary returned by :func:`.~extract_metadata`.
-"""
+class MetadataDict(TypedDict):
+	"""
+	:class:`~typing.TypedDict` representing the dictionary returned by :func:`~pyms_agilent.metadata.extract_metadata`.
+	"""
+
+	method: AcqMethod  #: The method used to acquire data.
+	contents: Contents  #: The contents of the ``.d`` datafile, parsed from ``Contents.xml``.
+	default_mass_cal: CalibrationList  #: A list of mass calibrations in DefaultMassCal.xml
+	device_config_info: DeviceConfigInfo  #: The device configuration parsed from ``DeviceConfigInfo.xml``.
+	devices: DeviceList  #: The list of devices in ``Devices.xml``.
+	ms_actual_defs: ActualsDef  #: The overall Actual Definition Information for all devices.
+	ms_time_segments: MSTimeSegments  #: The list of MS time segments from ``MSTS.xml``.
+	sample_info: SampleInfo  #: List of information about the sample, parsed from ``sample_info.xml``.
 
 
 def extract_metadata(file_name: PathLike) -> MetadataDict:
@@ -104,13 +103,13 @@ def extract_metadata(file_name: PathLike) -> MetadataDict:
 	acqdata_dir = file_name / "AcqData"
 
 	return {
-			"AcqMethod": read_acqmethod(acqdata_dir),
-			"Contents": read_contents_xml(acqdata_dir),
-			"DefaultMassCal": read_mass_cal_xml(acqdata_dir),
-			"DeviceConfigInfo": read_device_config_xml(acqdata_dir),
-			"Devices": read_devices_xml(acqdata_dir),
-			"MSActualDefs": read_ms_actuals_defs(acqdata_dir),
-			"MSTS": read_msts_xml(acqdata_dir),
+			"method": read_acqmethod(acqdata_dir),
+			"contents": read_contents_xml(acqdata_dir),
+			"default_mass_cal": read_mass_cal_xml(acqdata_dir),
+			"device_config_info": read_device_config_xml(acqdata_dir),
+			"devices": read_devices_xml(acqdata_dir),
+			"ms_actual_defs": read_ms_actuals_defs(acqdata_dir),
+			"ms_time_segments": read_msts_xml(acqdata_dir),
 			"sample_info": read_sample_info_xml(acqdata_dir),
 			}
 

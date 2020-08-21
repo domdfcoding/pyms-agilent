@@ -4,4 +4,4 @@
 
 .. automodule:: pyms_agilent.xml_parser.core
 	:inherited-members:
-	:undoc-members:
+	:private-members:

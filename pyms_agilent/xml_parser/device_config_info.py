@@ -31,12 +31,14 @@ from typing import Sequence
 # 3rd party
 import attr
 import lxml.objectify
+from attr_utils.docstrings import add_attrs_doc
 from domdf_python_tools.bases import Dictable
 from domdf_python_tools.typing import PathLike
-from mh_utils.utils import add_attrs_doc
 
 # this package
 from .core import XMLFileMixin, make_from_element
+
+__all__ = ["Device", "Parameter", "DeviceConfigInfo", "read_device_config_xml"]
 
 
 @add_attrs_doc

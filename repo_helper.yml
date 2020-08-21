@@ -32,3 +32,7 @@ classifiers:
 
 manifest_additional:
   - "recursive-include pyms_agilent/xml_parser/agilent_xsd *.xsd"
+
+extra_sphinx_extensions:
+  - enum_tools.autoenum
+  - attr_utils.autodoc_typehints

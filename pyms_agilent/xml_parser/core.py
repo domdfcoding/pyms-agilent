@@ -28,9 +28,12 @@ from typing import Any, Dict, Iterable, Optional, Type
 
 # 3rd party
 import lxml.objectify
+from attr_utils.docstrings import add_attrs_doc
 from domdf_python_tools.bases import NamedList
-from mh_utils.utils import add_attrs_doc, camel_to_snake
+from mh_utils.utils import camel_to_snake
 from mh_utils.xml import XMLFileMixin
+
+__all__ = ["make_from_element", "XMLList", "_get_from_enum", "tag2dict"]
 
 
 def make_from_element(
@@ -52,13 +55,13 @@ def make_from_element(
 		yield class_.from_xml(item)
 
 
-# @add_attrs_doc
+@add_attrs_doc
 class XMLList(XMLFileMixin, NamedList, ABC):
 	"""
 	Base class for lists generated from XML files.
 
-	The list has an additional attribute ``version`` that indicates the version
-	number of the XML file the data was generated from.
+	The list has an additional attribute :attr:`~pyms_agilent.xml_parser.core.XMLList.version`
+	that indicates the version number of the XML file the data was generated from.
 
 	:param version: The version number.
 	:param initlist: Iterable to initialise the list from.
@@ -72,13 +75,19 @@ class XMLList(XMLFileMixin, NamedList, ABC):
 		super().__init__(initlist)
 		self.version = int(version)
 
+	#: The version number of the XML file the data in this list was generated from.
+	version: int
+
+	#: The type of object stored in the list.
 	_content_type: Any = object
+
+	#: The name of the XML element that members of this list should be constructed from.
 	_content_xml_name = ""
 
 	@classmethod
 	def from_xml(cls, element: lxml.objectify.ObjectifiedElement) -> "XMLList":
 		"""
-		Construct a :class:`~.VersionedList` object from an XML element.
+		Construct a :class:`~.XMLList` object from an XML element.
 
 		:param element: The XML element to parse the data from.
 		"""
@@ -86,6 +95,11 @@ class XMLList(XMLFileMixin, NamedList, ABC):
 		return cls(element.Version)  # pragma: no cover
 
 	def _append_from_element(self, element: lxml.objectify.ObjectifiedElement):
+		"""
+		Construct an object from an XML element and append it to this list.
+
+		:param element:
+		"""
 
 		for item in make_from_element(element, self._content_xml_name, self._content_type):
 			self.append(item)
@@ -93,7 +107,16 @@ class XMLList(XMLFileMixin, NamedList, ABC):
 		return self
 
 
-def _get_from_enum(value, enum, type_: Any = str):
+def _get_from_enum(value: Any, enum, type_: Any = str) -> Any:
+	"""
+	Returns the enum member representing the given value.
+
+	:param value:
+	:param enum:
+	:type enum: :class:`enum.Enum`
+	:param type_:
+	"""
+
 	if isinstance(value, enum):
 		return value
 	else:

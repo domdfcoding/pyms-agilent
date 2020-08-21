@@ -32,15 +32,17 @@ from typing import Any, Dict, List, Sequence
 # 3rd party
 import attr
 import lxml.objectify
+from attr_utils.docstrings import add_attrs_doc
 from domdf_python_tools.bases import Dictable
 from domdf_python_tools.typing import PathLike
 from domdf_python_tools.utils import strtobool
 from lxml import objectify
-from mh_utils.utils import add_attrs_doc
+from mh_utils.xml import XMLFileMixin
 
 # this package
-from .core import tag2dict, make_from_element
-from mh_utils.xml import XMLFileMixin
+from .core import make_from_element, tag2dict
+
+__all__ = ["Device", "AcqMethod", "read_acqmethod"]
 
 
 @add_attrs_doc

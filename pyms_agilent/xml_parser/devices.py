@@ -41,6 +41,8 @@ from pyms_agilent.xml_parser import agilent_xsd
 from .acq_method import tag2dict
 from .core import XMLList
 
+__all__ = ["Device", "DeviceList", "read_devices_xml"]
+
 
 class Device(Dictable):
 	"""

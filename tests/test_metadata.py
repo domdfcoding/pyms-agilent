@@ -75,13 +75,13 @@ def test_extract_metadata(monkeypatch):
 
 	metadata = extract_metadata(datafile)
 
-	assert isinstance(metadata["AcqMethod"], AcqMethod)
-	assert isinstance(metadata["Contents"], Contents)
-	assert isinstance(metadata["DefaultMassCal"], CalibrationList)
-	assert isinstance(metadata["DeviceConfigInfo"], DeviceConfigInfo)
-	assert isinstance(metadata["Devices"], DeviceList)
-	assert isinstance(metadata["MSActualDefs"], ActualsDef)
-	assert isinstance(metadata["MSTS"], MSTimeSegments)
+	assert isinstance(metadata["method"], AcqMethod)
+	assert isinstance(metadata["contents"], Contents)
+	assert isinstance(metadata["default_mass_cal"], CalibrationList)
+	assert isinstance(metadata["device_config_info"], DeviceConfigInfo)
+	assert isinstance(metadata["devices"], DeviceList)
+	assert isinstance(metadata["ms_actual_defs"], ActualsDef)
+	assert isinstance(metadata["ms_time_segments"], MSTimeSegments)
 	assert isinstance(metadata["sample_info"], SampleInfo)
 
 	with pytest.raises(ValueError):
