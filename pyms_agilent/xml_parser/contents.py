@@ -31,7 +31,7 @@ from typing import Union
 
 # 3rd party
 import importlib_resources
-import lxml.objectify
+import lxml.objectify  # type: ignore
 from domdf_python_tools.bases import Dictable
 from domdf_python_tools.typing import PathLike
 from mh_utils.utils import element_to_bool
@@ -42,7 +42,7 @@ from pyms_agilent.xml_parser import agilent_xsd
 
 # this package
 from .core import XMLFileMixin, _get_from_enum
-from .enums import AcqStatusEnum, MeasurementTypeEnum, SeparationTechniqueEnum
+from pyms_agilent.enums import AcqStatusEnum, MeasurementTypeEnum, SeparationTechniqueEnum
 
 __all__ = ["Contents", "read_contents_xml"]
 

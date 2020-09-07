@@ -4,7 +4,7 @@ import pathlib
 
 # this package
 from pyms_agilent.xml_parser.contents import Contents, read_contents_xml
-from pyms_agilent.xml_parser.enums import AcqStatusEnum, MeasurementTypeEnum, SeparationTechniqueEnum
+from pyms_agilent.enums import AcqStatusEnum, MeasurementTypeEnum, SeparationTechniqueEnum
 
 
 class TestContents:

@@ -30,8 +30,8 @@ from typing import Dict, Optional, Sequence, Union
 
 # 3rd party
 import importlib_resources
-import lxml.objectify
-from domdf_python_tools.bases import Dictable, NamedList, namedlist
+import lxml.objectify  # type: ignore
+from domdf_python_tools.bases import Dictable, NamedList
 from domdf_python_tools.typing import PathLike
 
 # this package
@@ -39,7 +39,7 @@ from pyms_agilent.xml_parser import agilent_xsd
 
 # this package
 from .core import XMLList, _get_from_enum, make_from_element
-from .enums import CalibrationFormulaEnum, CalibrationTechniqueEnum
+from pyms_agilent.enums import CalibrationFormulaEnum, CalibrationTechniqueEnum
 
 __all__ = ["StepType", "Calibration", "CalibrationList", "read_mass_cal_xml"]
 

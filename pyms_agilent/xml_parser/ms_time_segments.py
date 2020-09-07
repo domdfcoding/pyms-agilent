@@ -32,7 +32,7 @@ from typing import List, Optional, Union
 # 3rd party
 import attr
 import importlib_resources
-import lxml.objectify
+import lxml.objectify  # type: ignore
 from attr_utils.docstrings import add_attrs_doc
 from domdf_python_tools.utils import strtobool
 

@@ -27,7 +27,7 @@ from abc import ABC
 from typing import Any, Dict, Iterable, Optional, Type
 
 # 3rd party
-import lxml.objectify
+import lxml.objectify  # type: ignore
 from attr_utils.docstrings import add_attrs_doc
 from domdf_python_tools.bases import NamedList
 from mh_utils.utils import camel_to_snake

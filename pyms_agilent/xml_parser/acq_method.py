@@ -31,7 +31,7 @@ from typing import Any, Dict, List, Sequence
 
 # 3rd party
 import attr
-import lxml.objectify
+import lxml.objectify  # type: ignore
 from attr_utils.docstrings import add_attrs_doc
 from domdf_python_tools.bases import Dictable
 from domdf_python_tools.typing import PathLike

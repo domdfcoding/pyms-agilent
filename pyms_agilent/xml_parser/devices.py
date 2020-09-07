@@ -30,7 +30,7 @@ from typing import Optional, Sequence
 
 # 3rd party
 import importlib_resources
-import lxml.objectify
+import lxml.objectify  # type: ignore
 from domdf_python_tools.bases import Dictable
 from domdf_python_tools.typing import PathLike
 
@@ -42,6 +42,8 @@ from .acq_method import tag2dict
 from .core import XMLList
 
 __all__ = ["Device", "DeviceList", "read_devices_xml"]
+
+from ..enums import DeviceType, DeviceVendor, StoredDataType
 
 
 class Device(Dictable):
@@ -56,13 +58,10 @@ class Device(Dictable):
 	:param ordinal_number:
 	:param serial_number: The serial number of the device.
 	:param type_: The type of device
-		TODO: Enum
 	:param stored_data_type: The type of stored data
-		TODO: Enum
 	:param delay:
 		TODO: Enum
-	:param vendor:
-		TODO: Enum
+	:param vendor: The supplier of the device.
 	"""
 
 	def __init__(
@@ -74,10 +73,10 @@ class Device(Dictable):
 			model_number: str = '',
 			ordinal_number: int = 0,
 			serial_number: str = '',
-			type_: int = 0,
-			stored_data_type: int = 0,
+			type_: DeviceType = DeviceType.Unknown,
+			stored_data_type: StoredDataType = 0,
 			delay: int = 0,
-			vendor: int = 0
+			vendor: DeviceVendor = 0
 			):
 
 		super().__init__()
@@ -89,10 +88,10 @@ class Device(Dictable):
 		self.model_number = str(model_number)
 		self.ordinal_number = int(ordinal_number)
 		self.serial_number = str(serial_number)
-		self.type_ = int(type_)  # TODO
-		self.stored_data_type = int(stored_data_type)  # TODO
+		self.type_ = DeviceType(type_)
+		self.stored_data_type = StoredDataType(stored_data_type)
 		self.delay = int(delay)  # TODO
-		self.vendor = int(vendor)  # TODO
+		self.vendor = DeviceVendor(vendor)
 
 	__slots__ = [
 			"device_id",

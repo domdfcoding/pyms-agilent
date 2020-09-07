@@ -30,16 +30,16 @@ from typing import Callable, Optional, Sequence, Union
 
 # 3rd party
 import importlib_resources
-import lxml.objectify
-from domdf_python_tools.bases import Dictable, NamedList
+import lxml.objectify  # type: ignore
+from domdf_python_tools.bases import Dictable
 from domdf_python_tools.typing import PathLike
-from numpy import float64, int64
+from numpy import float64, int64  # type: ignore
 
 # this package
 from pyms_agilent.xml_parser import agilent_xsd
 
 # this package
-from .core import XMLFileMixin, XMLList, make_from_element
+from .core import XMLList, make_from_element
 
 __all__ = ["Actual", "ActualsDef", "read_ms_actuals_defs"]
 

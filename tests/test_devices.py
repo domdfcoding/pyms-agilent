@@ -15,7 +15,7 @@ class TestDevice:
 				model_number="G7167A",
 				ordinal_number=1,
 				serial_number="DEACK00183",
-				type_=21,
+				type_=21,  # type: ignore
 				stored_data_type=2,
 				delay=0,
 				vendor=1,
@@ -51,7 +51,7 @@ class TestDevice:
 				model_number="G7167A",
 				ordinal_number=1,
 				serial_number="DEACK00183",
-				type_=21,
+				type_=21,  # type: ignore
 				stored_data_type=2,
 				delay=0,
 				vendor=1,
@@ -87,7 +87,7 @@ class TestDeviceList:
 				model_number="G7167A",
 				ordinal_number=1,
 				serial_number="DEACK00183",
-				type_=21,
+				type_=21,  # type: ignore
 				stored_data_type=2,
 				delay=0,
 				vendor=1,

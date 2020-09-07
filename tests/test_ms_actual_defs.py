@@ -1,13 +1,11 @@
 # stdlib
-import datetime
 import pathlib
 
 # 3rd party
 import pytest
-from numpy import float64, int64
+from numpy import float64, int64  # type: ignore
 
 # this package
-from pyms_agilent.xml_parser.default_mass_cal import read_mass_cal_xml
 from pyms_agilent.xml_parser.ms_actual_defs import Actual, ActualsDef, read_ms_actuals_defs
 
 

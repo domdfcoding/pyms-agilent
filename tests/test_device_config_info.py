@@ -1,17 +1,8 @@
 # stdlib
-import datetime
 import pathlib
 
 # this package
-from pyms_agilent.xml_parser.default_mass_cal import Calibration, CalibrationList, read_mass_cal_xml
 from pyms_agilent.xml_parser.device_config_info import Device, DeviceConfigInfo, Parameter, read_device_config_xml
-from pyms_agilent.xml_parser.enums import (
-		AcqStatusEnum,
-		CalibrationFormulaEnum,
-		CalibrationTechniqueEnum,
-		MeasurementTypeEnum,
-		SeparationTechniqueEnum
-		)
 
 
 def test_device():
