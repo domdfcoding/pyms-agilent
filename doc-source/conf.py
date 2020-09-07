@@ -7,9 +7,6 @@ import os
 import re
 import sys
 
-# 3rd party
-from sphinx.locale import _
-
 sys.path.append(os.path.abspath('.'))
 sys.path.append(os.path.abspath('..'))
 
@@ -18,7 +15,10 @@ from __pkginfo__ import __version__
 # User-configurable lines
 # End of user-configurable lines
 
-github_url = "https://github.com/domdfcoding/pyms-agilent"
+github_username = "domdfcoding"
+github_repository = "pyms-agilent"
+github_url = f"https://github.com/{github_username}/{github_repository}"
+
 
 rst_prolog = f""".. |pkgname| replace:: pyms-agilent
 .. |pkgname2| replace:: ``pyms-agilent``
@@ -34,26 +34,28 @@ language = 'en'
 package_root = "pyms_agilent"
 
 extensions = [
-	'sphinx.ext.intersphinx',
-	'sphinx.ext.autodoc',
-	'sphinx.ext.mathjax',
-	'sphinx.ext.viewcode',
-	'sphinxcontrib.httpdomain',
-	'sphinxcontrib.extras_require',
-	'sphinx.ext.todo',
-	'sphinxemoji.sphinxemoji',
-	'notfound.extension',
-	'sphinx_tabs.tabs',
-	'sphinx-prompt',
-	'sphinx.ext.autosummary',
-	'autodocsumm',
-	'sphinx_copybutton',
-	'sphinxcontrib.default_values',
-	'sphinxcontrib.toctree_plus',
-	'seed_intersphinx_mapping',
-	'autodoc_augment_defaults',
-	'enum_tools.autoenum',
 	'attr_utils.autodoc_typehints',
+	'autodocsumm',
+	'enum_tools.autoenum',
+	'notfound.extension',
+	'seed_intersphinx_mapping',
+	'sphinx-prompt',
+	'sphinx.ext.autodoc',
+	'sphinx.ext.autosectionlabel',
+	'sphinx.ext.autosummary',
+	'sphinx.ext.intersphinx',
+	'sphinx.ext.mathjax',
+	'sphinx.ext.todo',
+	'sphinx.ext.viewcode',
+	'sphinx_copybutton',
+	'sphinx_tabs.tabs',
+	'sphinx_toolbox',
+	'sphinx_toolbox.autodoc_augment_defaults',
+	'sphinxcontrib.default_values',
+	'sphinxcontrib.extras_require',
+	'sphinxcontrib.httpdomain',
+	'sphinxcontrib.toctree_plus',
+	'sphinxemoji.sphinxemoji',
 	]
 
 sphinxemoji_style = 'twemoji'
@@ -100,6 +102,7 @@ texinfo_documents = [('index', slug, project, author, slug, project, 'Miscellane
 
 toctree_plus_types = {"class", "function", "method", "data"}
 
+
 autodoc_default_options = {
 		'members': None,  # Include all members (methods).
 		'special-members': None,
@@ -123,31 +126,3 @@ autodoc_default_options = {
 				"__hash__",
 				]),
 		}
-
-
-# Extensions to theme docs
-def setup(app):
-	from sphinx.domains.python import PyField
-	from sphinx.util.docfields import Field
-
-	app.add_object_type(
-			'confval',
-			'confval',
-			objname='configuration value',
-			indextemplate='pair: %s; configuration value',
-			doc_field_types=[
-					PyField(
-							'type',
-							label=_('Type'),
-							has_arg=False,
-							names=('type', ),
-							bodyrolename='class',
-							),
-					Field(
-							'default',
-							label=_('Default'),
-							has_arg=False,
-							names=('default', ),
-							),
-					]
-			)
