@@ -155,14 +155,14 @@ class MSScanFileInformation:
 		"""
 
 		return MSStorageMode(self.interface.SpectraFormat)
-
-	@spectra_format.setter
-	def spectra_format(self, mode: MSStorageMode):
-		"""
-		Sets the format of the spectrum.
-		"""
-
-		self.interface.SpectraFormat = int(mode)
+	#
+	# @spectra_format.setter
+	# def spectra_format(self, mode: MSStorageMode):
+	# 	"""
+	# 	Sets the format of the spectrum.
+	# 	"""
+	#
+	# 	self.interface.SpectraFormat = int(mode)
 
 	@property
 	def total_scans(self) -> int:

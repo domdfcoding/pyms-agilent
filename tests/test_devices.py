@@ -16,9 +16,9 @@ class TestDevice:
 				ordinal_number=1,
 				serial_number="DEACK00183",
 				type_=21,  # type: ignore
-				stored_data_type=2,
+				stored_data_type=2,  # type: ignore
 				delay=0,
-				vendor=1,
+				vendor=1,  # type: ignore
 				)
 
 		assert device.device_id == 1011
@@ -52,9 +52,9 @@ class TestDevice:
 				ordinal_number=1,
 				serial_number="DEACK00183",
 				type_=21,  # type: ignore
-				stored_data_type=2,
+				stored_data_type=2,  # type: ignore
 				delay=0,
-				vendor=1,
+				vendor=1,  # type: ignore
 				)
 
 		assert dict(device) == {
@@ -88,9 +88,9 @@ class TestDeviceList:
 				ordinal_number=1,
 				serial_number="DEACK00183",
 				type_=21,  # type: ignore
-				stored_data_type=2,
+				stored_data_type=2,  # type: ignore
 				delay=0,
-				vendor=1,
+				vendor=1,  # type: ignore
 				)
 
 		assert DeviceList(version=1, devices=[device]) == [device]

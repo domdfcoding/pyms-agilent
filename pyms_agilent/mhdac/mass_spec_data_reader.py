@@ -170,7 +170,7 @@ class MassSpecDataReader:
 
 		device = DataAnalysis.IDeviceInfo(DataAnalysis.DeviceInfo())
 		device.DeviceName = str(device_name)
-		device.DeviceType = int(device_type)
+		device.DeviceType = int(device_type)  # type: ignore
 		device.OrdinalNumber = int(ordinal)
 
 		signal_info_list = [

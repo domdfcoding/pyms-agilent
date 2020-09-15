@@ -33,6 +33,7 @@ import attr
 import lxml.objectify  # type: ignore
 from attr_utils.docstrings import add_attrs_doc
 from domdf_python_tools.bases import Dictable
+from domdf_python_tools.doctools import prettify_docstrings
 from domdf_python_tools.typing import PathLike
 from domdf_python_tools.utils import strtobool
 from lxml import objectify
@@ -44,7 +45,6 @@ from .core import make_from_element, tag2dict
 __all__ = ["Device", "AcqMethod", "read_acqmethod"]
 
 
-@add_attrs_doc
 @attr.s(slots=True)
 class Device:
 	"""
@@ -76,6 +76,7 @@ class Device:
 				)
 
 
+@prettify_docstrings
 class AcqMethod(XMLFileMixin, Dictable):
 	"""
 	Represents the method used to acquire data.

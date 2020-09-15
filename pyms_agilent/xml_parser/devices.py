@@ -74,9 +74,9 @@ class Device(Dictable):
 			ordinal_number: int = 0,
 			serial_number: str = '',
 			type_: DeviceType = DeviceType.Unknown,
-			stored_data_type: StoredDataType = 0,
+			stored_data_type: StoredDataType = 0,  # type: ignore
 			delay: int = 0,
-			vendor: DeviceVendor = 0
+			vendor: DeviceVendor = 0  # type: ignore
 			):
 
 		super().__init__()

@@ -50,7 +50,7 @@ class SpecData:
 
 	def __init__(self, BDASpecData: DataAnalysis.BDASpecData):
 		self.data_reader = BDASpecData
-		self.interface = DataAnalysis.IBDASpecData(self.data_reader)
+		self.interface: DataAnalysis.IBDASpecData = DataAnalysis.IBDASpecData(self.data_reader)
 
 	@property
 	def abundance_limit(self) -> float:

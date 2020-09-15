@@ -27,6 +27,8 @@ Provides metadata about ``.d`` datafiles.
 from datetime import datetime, timezone
 
 # this package
+from typing import Union
+
 from pyms_agilent.enums import DeviceType, IRMStatus, MeasurementTypeEnum, SeparationTechniqueEnum, StoredDataType
 from pyms_agilent.mhdac.agilent import DataAnalysis
 from pyms_agilent.mhdac.ms_scan_file_info import MSScanFileInformation
@@ -45,9 +47,9 @@ class FileInformation:
 	interface: DataAnalysis.IBDAFileInformation
 
 	#: The .NET class that provides access to the data.
-	data_reader: DataAnalysis.BDAFileInformation
+	data_reader: Union[DataAnalysis.BDAFileInformation, DataAnalysis.BDAMSScanFileInformation]
 
-	def __init__(self, data_reader: DataAnalysis.BDAFileInformation):
+	def __init__(self, data_reader: Union[DataAnalysis.BDAFileInformation, DataAnalysis.BDAMSScanFileInformation]):
 
 		self.data_reader = data_reader
 		self.interface = DataAnalysis.IBDAFileInformation(self.data_reader)

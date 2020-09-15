@@ -30,22 +30,29 @@ This module handles registration of the Agilent ``.DLL`` files with Python.NET a
 import pathlib
 import platform
 import sys
+from typing import TYPE_CHECKING
 
-# 3rd party
-import clr  # type: ignore
+if sys.platform == "win32" or TYPE_CHECKING:
+	# 3rd party
+	import clr  # type: ignore
 
-__all__ = ["DataAnalysis"]
+	__all__ = ["DataAnalysis"]
 
-if platform.architecture()[0] == "64bit":
-	sys.path.append(str(pathlib.Path(__file__).parent / "x64"))
+	if platform.architecture()[0] == "64bit":
+		sys.path.append(str(pathlib.Path(__file__).parent / "x64"))
+	else:
+		sys.path.append(str(pathlib.Path(__file__).parent / "x86"))
+
+	clr.AddReference("MassSpecDataReader")
+	clr.AddReference("BaseCommon")
+	clr.AddReference("BaseDataAccess")
+
+	# 3rd party
+	import Agilent
+	import Agilent.MassSpectrometry.DataAnalysis
+
+	DataAnalysis = Agilent.MassSpectrometry.DataAnalysis
+
 else:
-	sys.path.append(str(pathlib.Path(__file__).parent / "x86"))
-
-clr.AddReference("MassSpecDataReader")
-clr.AddReference("BaseCommon")
-clr.AddReference("BaseDataAccess")
-
-# 3rd party
-import Agilent.MassSpectrometry.DataAnalysis
-
-DataAnalysis = Agilent.MassSpectrometry.DataAnalysis
+	from pyms_agilent.mhdac import _posix_data_analysis
+	DataAnalysis = _posix_data_analysis

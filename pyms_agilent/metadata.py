@@ -29,9 +29,7 @@ Extract metadata from Agilent ``.d`` datafiles.
 #
 
 # stdlib
-import os
 import pathlib
-from typing import Dict
 
 # 3rd party
 from domdf_python_tools.typing import PathLike

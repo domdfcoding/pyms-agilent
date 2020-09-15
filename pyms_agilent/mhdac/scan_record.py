@@ -21,10 +21,14 @@
 #
 
 # this package
-from pyms_agilent.enums import IonizationMode, IonPolarity, MSLevel, MSScanType
+from typing import Optional
+
+from pyms_agilent.enums import IonizationMode, MSLevel, MSScanType
 from pyms_agilent.mhdac.agilent import DataAnalysis
 
 __all__ = ["MSScanRecord"]
+
+from pyms_agilent.utils import polarity_map
 
 
 class MSScanRecord:
@@ -90,12 +94,12 @@ class MSScanRecord:
 		return float(self.interface.FragmentorVoltage)
 
 	@property
-	def ion_polarity(self) -> IonPolarity:
+	def ion_polarity(self) -> Optional[str]:
 		"""
-		Returns the polarity of the ion, either 1 (positive), 0 (neutral) or -1 (negative).
+		Returns the polarity of the ion.
 		"""
 
-		return IonPolarity(self.interface.IonPolarity)
+		return polarity_map[self.interface.IonPolarity]
 
 	@property
 	def ionization_mode(self) -> IonizationMode:
