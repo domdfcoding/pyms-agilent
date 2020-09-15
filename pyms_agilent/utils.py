@@ -1,24 +1,29 @@
 from pprint import pformat
 from typing import Iterable, List, NamedTuple, Tuple, Type, TYPE_CHECKING, Union
 
-import numpy  # type: ignore
+# stdlib
+from typing import Iterable, List, NamedTuple, Type
+
+# 3rd party
+from domdf_python_tools.utils import head
 import pandas  # type: ignore
 
+# this package
 from pyms_agilent.enums import DeviceType
-
-# if TYPE_CHECKING:
 from pyms_agilent.mhdac.agilent import DataAnalysis
+
+__all__ = ["Range", "polarity_map", "ranges_from_list", "head", "DeviceInfo", "Interface", "datatable2dataframe"]
 
 
 class Range(NamedTuple):
 	"""
-	2-component named tuple representing a range (start, end)
+	2-component named tuple representing a range (start, end).
 	"""
 
 	start: float
 	stop: float
 
-	@classmethod
+	@classmethod  # noqa TYP004
 	def from_dotnet(cls, irange_object: "DataAnalysis.IRange"):
 		"""
 		Construct a :class:`~.Range` from a Python.NET object.
@@ -78,47 +83,6 @@ def ranges_from_list(list_of_irange: Iterable) -> List[Range]:
 	"""
 
 	return [Range.from_dotnet(r) for r in list_of_irange]
-
-
-def head(obj: Union[Tuple, List, pandas.DataFrame, pandas.Series, numpy.ndarray], n: int = 10) -> str:
-	"""
-	Returns the head of the given object.
-
-	:param obj:
-	:param n: Show the first ``n`` items of ``obj``.
-	"""
-
-	class E(str):
-		def __repr__(self) -> str:
-			return "..."
-
-	if len(obj) < n:
-		return repr(obj)
-
-	if isinstance(obj, tuple) and hasattr(obj, "_fields"):
-		# Likely a namedtuple
-		head_of_namedtuple = {k: v for k, v in zip(obj._fields[:n], obj[:n])}  # type: ignore
-		repr_fmt = '(' + ', '.join(f'{k}={v!r}' for k, v in head_of_namedtuple.items()) + ', ...)'
-		return obj.__class__.__name__ + repr_fmt
-	elif isinstance(obj, (list, tuple)):
-		return pformat(obj.__class__((*obj[:10], E())))
-	elif isinstance(obj, (pandas.DataFrame, pandas.Series)):
-		return str(obj.head(n))
-
-	return str(obj)
-
-
-
-#
-# from collections import namedtuple
-#
-# foo = namedtuple("foo", "a, b, c, d, e, f, g, h, i, j, k, l, m")
-#
-# print(head(foo(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13)))
-# print(head(foo(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13), 13))
-# print(head((1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13)))
-# print(head([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]))
-#
 
 # class Device:
 # 	"""

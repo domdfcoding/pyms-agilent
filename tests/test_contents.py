@@ -3,8 +3,8 @@ import datetime
 import pathlib
 
 # this package
-from pyms_agilent.xml_parser.contents import Contents, read_contents_xml
 from pyms_agilent.enums import AcqStatusEnum, MeasurementTypeEnum, SeparationTechniqueEnum
+from pyms_agilent.xml_parser.contents import Contents, read_contents_xml
 
 
 class TestContents:
@@ -92,7 +92,7 @@ class TestContents:
 		assert contents.separation_technique == SeparationTechniqueEnum.CE
 
 		assert contents.total_run_duration == datetime.timedelta(seconds=17)
-		assert contents.acq_software_version == ""
+		assert contents.acq_software_version == ''
 
 		contents = Contents(
 				version="1",  # type: ignore
@@ -130,7 +130,7 @@ class TestContents:
 		assert contents.separation_technique == SeparationTechniqueEnum.Unspecified
 
 		assert contents.total_run_duration == datetime.timedelta(hours=17)
-		assert contents.acq_software_version == ""
+		assert contents.acq_software_version == ''
 
 	def test_dict(self):
 		contents = Contents(
@@ -144,11 +144,7 @@ class TestContents:
 				total_run_duration=17,
 				)
 
-		assert dict(contents) == {
-				"version":
-						1,
-				"acquired_time":
-						datetime.datetime(
+		acq_time = datetime.datetime(
 								year=2019,
 								month=9,
 								day=9,
@@ -156,19 +152,16 @@ class TestContents:
 								minute=14,
 								second=36,
 								tzinfo=datetime.timezone.utc
-								),
-				"acq_status":
-						AcqStatusEnum.Start,
-				"instrument_name":
-						"The Instrument",
-				"locked_mode":
-						True,
-				"measurement_type":
-						MeasurementTypeEnum.Chromatographic,
-				"separation_technique":
-						SeparationTechniqueEnum.CE,
-				"total_run_duration":
-						datetime.timedelta(seconds=17),
-				"acq_software_version":
-						"",
+								)
+
+		assert dict(contents) == {
+				"version": 1,
+				"acquired_time": acq_time,
+				"acq_status": AcqStatusEnum.Start,
+				"instrument_name": "The Instrument",
+				"locked_mode": True,
+				"measurement_type": MeasurementTypeEnum.Chromatographic,
+				"separation_technique": SeparationTechniqueEnum.CE,
+				"total_run_duration": datetime.timedelta(seconds=17),
+				"acq_software_version": '',
 				}

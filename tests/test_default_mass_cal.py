@@ -2,8 +2,8 @@
 import pathlib
 
 # this package
-from pyms_agilent.xml_parser.default_mass_cal import Calibration, CalibrationList, StepType, read_mass_cal_xml
 from pyms_agilent.enums import CalibrationFormulaEnum, CalibrationTechniqueEnum
+from pyms_agilent.xml_parser.default_mass_cal import Calibration, CalibrationList, StepType, read_mass_cal_xml
 
 
 class TestStepType:

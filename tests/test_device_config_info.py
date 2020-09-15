@@ -27,7 +27,7 @@ class TestParameter:
 		assert param.resource_name == "ExtendedRunInformation"
 		assert param.resource_id == "RunStart_ValvePosition_Description"
 		assert param.value == "Position 3 (Port 3 -> 3')"
-		assert param.units == ""
+		assert param.units == ''
 		assert param.display_name == "Run Start Valve Pos. Desc."
 
 		param = Parameter(
@@ -94,7 +94,7 @@ class TestDeviceConfigInfo:
 		assert config.parameters[0].resource_name == "ExtendedRunInformation"
 		assert config.parameters[0].resource_id == "RunStart_ValvePosition_Description"
 		assert config.parameters[0].value == "Position 3 (Port 3 -> 3')"
-		assert config.parameters[0].units == ""
+		assert config.parameters[0].units == ''
 		assert config.parameters[0].display_name == "Run Start Valve Pos. Desc."
 
 		assert isinstance(config.devices, list)

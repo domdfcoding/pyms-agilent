@@ -34,10 +34,10 @@ class TestDevice:
 		device = Device(device_id=1012)
 
 		assert device.device_id == 1012
-		assert device.display_name == ""
-		assert device.model_number == ""
+		assert device.display_name == ''
+		assert device.model_number == ''
 		assert device.ordinal_number == 0
-		assert device.serial_number == ""
+		assert device.serial_number == ''
 		assert device.type_ == 0
 		assert device.stored_data_type == 0
 		assert device.delay == 0
