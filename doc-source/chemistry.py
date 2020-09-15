@@ -33,9 +33,9 @@ from typing import Any, Callable, Dict, Iterable, Optional, TypeVar
 
 # 3rd party
 import autodocsumm
-from sphinx.application import Sphinx
-from sphinx.config import Config, ENUM
 from domdf_python_tools.stringlist import StringList
+from sphinx.application import Sphinx
+from sphinx.config import ENUM, Config
 
 
 def validate_config(app: Sphinx, config: Config) -> None:
@@ -152,4 +152,3 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 			'parallel_read_safe': True,
 			'parallel_write_safe': True,
 			}
-

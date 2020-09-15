@@ -42,6 +42,23 @@ extra_sphinx_extensions:
 additional_ignore:
   - "**/x64"
   - "**/x86"
+  - development_bits
+  - DPA_10ug_ml_new_diff_method_1_200303-0002.d
+  - Instrument Curves
+  - pyMHDAC
+  - actuals_demo.py
+  - Agilent_Reader.py
+  - clr_demo.py
+  - demo.py
+  - MethodParser.py
+  - pyms_demo.py
+  - Scan @ 4 mins.png
+  - Scan 100.png
+  - Scan 100 Centroid Mode.png
+  - Scan 100 Mixed Mode.png
+  - Scan 100 Profile Mode.png
+  - stubs_todo.py
+  - tic.pdf
 
 
 sphinx_conf_epilogue:

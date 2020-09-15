@@ -76,7 +76,7 @@ __all__ = [
 		"ImsTrapMode",
 		"FragmentationClass",
 		"FragmentationOpMode",  # "TofCalibrationFormula",
-  # "FileType",
+		# "FileType",
 		"ApseBackgroundSource",
 		"CompressionScheme",
 		"IonPolarity",

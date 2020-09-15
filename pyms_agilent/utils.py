@@ -27,8 +27,8 @@ General utility functions.
 from typing import Iterable, List, NamedTuple, Type
 
 # 3rd party
-from domdf_python_tools.utils import head
 import pandas  # type: ignore
+from domdf_python_tools.utils import head
 
 # this package
 from pyms_agilent.enums import DeviceType
@@ -105,6 +105,7 @@ def ranges_from_list(list_of_irange: Iterable) -> List[Range]:
 	"""
 
 	return [Range.from_dotnet(r) for r in list_of_irange]
+
 
 # class Device:
 # 	"""
