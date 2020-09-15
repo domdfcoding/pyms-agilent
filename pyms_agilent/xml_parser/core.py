@@ -1,7 +1,9 @@
 #  !/usr/bin/env python
-#   -*- coding: utf-8 -*-
 #
 #  core.py
+"""
+Core functionality.
+"""
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
@@ -41,15 +43,15 @@ def make_from_element(
 		name: str,
 		class_: Type,
 		) -> Iterable:
-	"""
+	r"""
 	Iterate over all child tags of ``element`` with the name ``name``
 	and return an :class:`~collections.Iterable` containing instances of ``class_``
 	constructed from the tags.
 
 	:param element:
 	:param name:
-	:param class_:
-	"""
+	:param class\_:
+	"""  # noqa D400
 
 	for item in element.findall(name):
 		yield class_.from_xml(item)
@@ -82,7 +84,7 @@ class XMLList(XMLFileMixin, NamedList, ABC):
 	_content_type: Any = object
 
 	#: The name of the XML element that members of this list should be constructed from.
-	_content_xml_name = ""
+	_content_xml_name = ''
 
 	@classmethod
 	def from_xml(cls, element: lxml.objectify.ObjectifiedElement) -> "XMLList":
@@ -108,13 +110,13 @@ class XMLList(XMLFileMixin, NamedList, ABC):
 
 
 def _get_from_enum(value: Any, enum, type_: Any = str) -> Any:
-	"""
+	r"""
 	Returns the enum member representing the given value.
 
 	:param value:
 	:param enum:
 	:type enum: :class:`enum.Enum`
-	:param type_:
+	:param type\_:
 	"""
 
 	if isinstance(value, enum):
@@ -141,7 +143,7 @@ def tag2dict(
 	for tag in element.iterchildren():
 
 		if xmlns:
-			tag_name = re.sub(fr"^{{{xmlns}}}", "", tag.tag)
+			tag_name = re.sub(fr"^{{{xmlns}}}", '', tag.tag)
 		else:
 			tag_name = tag.tag
 

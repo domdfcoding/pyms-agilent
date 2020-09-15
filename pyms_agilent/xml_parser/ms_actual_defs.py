@@ -1,9 +1,8 @@
 #  !/usr/bin/env python
-#   -*- coding: utf-8 -*-
 #
 #  ms_actual_defs.py
 """
-Parser for ms_actual_defs.py
+Parser for ``MSActualDefs.xml``.
 """
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -139,6 +138,12 @@ class Actual(Dictable):
 
 	@classmethod
 	def from_xml(cls, element):
+		"""
+		Create a :class:`~.Actual` object from an XML element.
+
+		:param element: The XML element to parse the data from
+		"""
+
 		return cls(
 				actual_id=element.attrib["ActualID"],
 				display_name=element.DisplayName,
@@ -152,7 +157,7 @@ class Actual(Dictable):
 
 
 class ActualsDef(XMLList):
-	"""
+	r"""
 	Stores the overall Actual Definition Information for all devices.
 
 	Parsed from ``MSActualDefs.xml``.
@@ -160,9 +165,10 @@ class ActualsDef(XMLList):
 	List of :class:`~.Actual` objects.
 
 	:param version: The version of the ``MSActualDefs.xml`` file.
-	:param type_:
-		TODO: Enum
+	:param type\_:
 	:param actuals:
+
+	.. TODO:: Enum for ``type_``
 	"""
 
 	def __init__(

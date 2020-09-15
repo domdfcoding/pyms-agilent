@@ -20,6 +20,12 @@ class Range(NamedTuple):
 
 	@classmethod
 	def from_dotnet(cls, irange_object: "DataAnalysis.IRange"):
+		"""
+		Construct a :class:`~.Range` from a Python.NET object.
+
+		:param irange_object:
+		"""
+
 		return cls(irange_object.Start, irange_object.End)
 
 	#

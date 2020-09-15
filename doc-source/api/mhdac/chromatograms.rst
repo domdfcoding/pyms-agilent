@@ -3,4 +3,5 @@
 =================================
 
 .. automodule:: pyms_agilent.mhdac.chromatograms
-	:inherited-members:
+	:show-inheritance:
+	:member-order: bysource

@@ -1,9 +1,8 @@
 #  !/usr/bin/env python
-#   -*- coding: utf-8 -*-
 #
 #  default_mass_cal.py
 """
-Parser for default_mass_cal.py
+Parser for ``DefaultMassCal.xml``.
 """
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -35,18 +34,18 @@ from domdf_python_tools.bases import Dictable, NamedList
 from domdf_python_tools.typing import PathLike
 
 # this package
+from pyms_agilent.enums import CalibrationFormulaEnum, CalibrationTechniqueEnum
 from pyms_agilent.xml_parser import agilent_xsd
 
 # this package
 from .core import XMLList, _get_from_enum, make_from_element
-from pyms_agilent.enums import CalibrationFormulaEnum, CalibrationTechniqueEnum
 
 __all__ = ["StepType", "Calibration", "CalibrationList", "read_mass_cal_xml"]
 
 
 class StepType(Dictable):
 	"""
-	Represents a step in a mass calibration, parsed from DefaultMassCal.xml
+	Represents a step in a mass calibration, parsed from ``DefaultMassCal.xml``.
 
 	:param number:
 	:param calibration_technique:
@@ -125,7 +124,7 @@ class StepType(Dictable):
 
 class Calibration(NamedList):
 	"""
-	Represents a mass calibration parsed from DefaultMassCal.xml
+	Represents a mass calibration parsed from ``DefaultMassCal.xml``.
 
 	:param calibration_id: The ID of the calibration data.
 	:param steps: Sequence of calibration steps.
@@ -162,7 +161,7 @@ class Calibration(NamedList):
 
 class CalibrationList(XMLList):
 	"""
-	Represents a list of mass calibrations in DefaultMassCal.xml
+	Represents a list of mass calibrations in ``DefaultMassCal.xml``.
 
 	:param version: The version number of the calibration data.
 	:param default_calibrations:

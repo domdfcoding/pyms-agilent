@@ -25,7 +25,7 @@ class SpecData:
 		"""
 		Returns the abundance limit of the spectral data; that is the largest value that could be seen
 		in the spectrum (the theoretical "full scale" value).
-		"""
+		"""  # noqa D400
 
 		return float(self.interface.AbundanceLimit)
 
@@ -96,18 +96,18 @@ class SpecData:
 	@property
 	def fragmentor_voltage(self) -> float:
 		"""
-		Returns the value of the Fragmentor Voltage used to acquire the data
+		Returns the value of the Fragmentor Voltage used to acquire the data.
 		"""
 
 		return float(self.interface.FragmentorVoltage)
 
 	@property
 	def precursor_charge(self) -> int:
-		"""
-		Returns the charge of the precursor ion, if the data was acquired in MS\\:superscript:`2` mode.
+		r"""
+		Returns the charge of the precursor ion, if the data was acquired in MS\ :superscript:`2` mode.
 
 		:raises: :exc:`pyms_agilent.errors.NotMS2Error` if the data was not
-			acquired in MS\\:superscript:`2` mode
+			acquired in MS\ :superscript:`2` mode
 		"""
 
 		is_ms2: bool
@@ -138,6 +138,7 @@ class SpecData:
 			raise NotMS2Error()
 		else:
 			return float(intensity)
+
 	#
 	# @property
 	# def mz_of_interest(self) -> float:
@@ -154,7 +155,7 @@ class SpecData:
 	# 	* Neutral gain: gain mass
 	#
 	# 	:raises: :exc:`pyms_agilent.errors.NotMS2Error` if the data was not
-	# 		acquired in MS\\:superscript:`2` mode
+	# 		acquired in MS\ :superscript:`2` mode
 	#
 	# 	.. TODO:: revisit with MS/MS data
 	# 	"""
@@ -181,7 +182,7 @@ class SpecData:
 	@property
 	def ionization_polarity(self) -> Optional[str]:
 		"""
-		Returns the ionization polarity used to acquire the data,
+		Returns the ionization polarity used to acquire the data.
 		"""
 
 		return polarity_map[self.interface.IonPolarity]
@@ -300,7 +301,7 @@ class SpecData:
 	@property
 	def sampling_period(self) -> float:
 		"""
-		Return the sampling period (the inter-scan delay) for the data.
+		Returns the sampling period (the inter-scan delay) for the data.
 		"""
 
 		return float(self.interface.SamplingPeriod)

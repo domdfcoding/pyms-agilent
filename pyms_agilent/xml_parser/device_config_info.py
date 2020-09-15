@@ -1,9 +1,8 @@
 #  !/usr/bin/env python
-#   -*- coding: utf-8 -*-
 #
 #  device_config_info.py
 """
-Parser for DeviceConfigInfo.xml
+Parser for ``DeviceConfigInfo.xml``.  # noqa D400
 """
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -45,7 +44,7 @@ __all__ = ["Device", "Parameter", "DeviceConfigInfo", "read_device_config_xml"]
 @attr.s(slots=True)
 class Device:
 	"""
-	Represents a device in DeviceConfigInfo.xml
+	Represents a device in ``DeviceConfigInfo.xml``.
 
 	:param device_id: The ID of the device.
 	:param display_name: The display name of the device.
@@ -70,7 +69,7 @@ class Device:
 
 class Parameter(Dictable):
 	"""
-	Represents a configuration parameter in DeviceConfigInfo.xml
+	Represents a configuration parameter in ``DeviceConfigInfo.xml``.
 
 	:param display_name: The display name of this parameter.
 	:param device_id: The ID of the device this parameter configures.
@@ -178,6 +177,6 @@ def read_device_config_xml(base_path: PathLike) -> DeviceConfigInfo:
 	file in the given directory.
 
 	:param base_path:
-	"""
+	"""  # noqa D400
 
 	return DeviceConfigInfo.from_xml_file(pathlib.Path(base_path) / "DeviceConfigInfo.xml")

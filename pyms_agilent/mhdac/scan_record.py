@@ -1,6 +1,8 @@
 from pyms_agilent.enums import IonizationMode, IonPolarity, MSLevel, MSScanType
 from pyms_agilent.mhdac.agilent import DataAnalysis
 
+__all__ = ["MSScanRecord"]
+
 
 class MSScanRecord:
 	"""
@@ -25,7 +27,7 @@ class MSScanRecord:
 	@property
 	def base_peak_mz(self) -> float:
 		"""
-		Returns the *m/z* of the base peak in the scan.
+		Returns the |mz| of the base peak in the scan.
 
 		The base peak is the most intense peak.
 		"""
@@ -44,7 +46,6 @@ class MSScanRecord:
 	def compensationField(self) -> float:
 		"""
 
-		:return:
 		"""
 
 		return float(self.interface.CompensationField)
@@ -53,7 +54,6 @@ class MSScanRecord:
 	def dispersionField(self) -> float:
 		"""
 
-		:return:
 		"""
 
 		return float(self.interface.DispersionField)
@@ -70,8 +70,6 @@ class MSScanRecord:
 	def ion_polarity(self) -> IonPolarity:
 		"""
 		Returns the polarity of the ion, either 1 (positive), 0 (neutral) or -1 (negative).
-
-		:return:
 		"""
 
 		return IonPolarity(self.interface.IonPolarity)
@@ -154,9 +152,7 @@ class MSScanRecord:
 		"""
 		Returns the summed intensity of all ions in the scan with
 		`DesiredMSStorageType == 'Profile'`
-
-		:return:
-		"""
+		"""  # noqa D400
 
 		return float(self.interface.Tic)
 
@@ -164,7 +160,6 @@ class MSScanRecord:
 	def time_segment(self) -> int:
 		"""
 
-		:return:
 		"""
 
 		return int(self.interface.TimeSegment)

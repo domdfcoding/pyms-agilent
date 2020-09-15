@@ -4,6 +4,8 @@ from pyms_agilent.mhdac.agilent import DataAnalysis
 from pyms_agilent.enums import DeviceType, IonizationMode, MSScanType, MSStorageMode
 from pyms_agilent.utils import polarity_map
 
+__all__ = ["MSScanFileInformation"]
+
 
 class MSScanFileInformation:
 	"""
@@ -89,7 +91,7 @@ class MSScanFileInformation:
 	@property
 	def ionisation_mode(self) -> int:
 		"""
-		Returns the ionization mode used to acquire the data
+		Returns the ionization mode used to acquire the data.
 
 		This is the logical bitwise OR of the Ionization Mode values for all scans in the file
 		"""
@@ -113,9 +115,10 @@ class MSScanFileInformation:
 		return int(self.interface.MSLevel)
 
 	@property
-	def scan_types(self) -> int:
+	def scan_types(self) -> MSScanType:
 		"""
-		Returns the MS Scan Type
+		Returns the MS Scan Type.
+
 		This is the logical bitwise OR of the MSScanType values for all scans in the file.
 		"""
 
@@ -124,7 +127,7 @@ class MSScanFileInformation:
 	@property
 	def spectra_format(self) -> MSStorageMode:
 		"""
-		Returns the format of the spectrum
+		Returns the format of the spectrum.
 		"""
 
 		return MSStorageMode(self.interface.SpectraFormat)
@@ -132,7 +135,7 @@ class MSScanFileInformation:
 	@spectra_format.setter
 	def spectra_format(self, mode: MSStorageMode):
 		"""
-		Sets the format of the spectrum
+		Sets the format of the spectrum.
 		"""
 
 		self.interface.SpectraFormat = int(mode)

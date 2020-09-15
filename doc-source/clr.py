@@ -1,3 +1,2 @@
-
-
-def AddReference(*args, **kwargs): pass
+def AddReference(*args, **kwargs):
+	pass

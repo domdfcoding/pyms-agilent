@@ -2,7 +2,7 @@
 #
 #  sample_info.py
 """
-Parser for sample_info.xml
+Parser for ``sample_info.xml``.
 """
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -54,10 +54,11 @@ class Field:
 	:param display_name: The display name of the field.
 	:param value: The value of the field.
 	:param data_type: The type of data in the field.
-	# TODO: enum
 	:param units: The units of the data in the field.
 	:param field_type: The type of field.
 	:param overridden: Whether the field is overridden.
+
+	.. TODO:: Enum for data_type
 	"""
 
 	name: str = attr.ib(converter=strip_string, default='')
@@ -70,6 +71,11 @@ class Field:
 
 	@classmethod
 	def from_xml(cls, element):
+		"""
+		Create a :class:`~.Field` object from an XML element.
+
+		:param element: The XML element to parse the data from
+		"""
 
 		return cls(
 				name=str(element.Name),

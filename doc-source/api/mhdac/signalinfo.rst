@@ -1,6 +1,6 @@
 ================================
-:mod:`mhdac.signal`
+:mod:`mhdac.signalinfo`
 ================================
 
-.. automodule:: pyms_agilent.mhdac.signal
+.. automodule:: pyms_agilent.mhdac.signalinfo
 	:inherited-members:

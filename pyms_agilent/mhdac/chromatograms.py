@@ -39,7 +39,10 @@ class Signal(ABC):
 	Abstract base class for instrument signals.
 	"""
 
+	#: The .NET interface
 	interface: DataAnalysis.IBDAChromData
+
+	#: The .NET class that provides access to the data.
 	data_reader: DataAnalysis.BDAChromData
 
 	@property
@@ -129,8 +132,9 @@ class Signal(ABC):
 	@property
 	def ordinal_number(self) -> int:
 		"""
-
+		Returns the ordinal number of the signal.
 		"""
+
 		return int(self.interface.OrdinalNumber)
 
 	@property
@@ -178,12 +182,12 @@ class InstrumentCurve(Signal):
 	"""
 	Represents data recorded by the instrument.
 
-	:param BDAChromData: Python.NET object.
+	:param data_reader: Python.NET object.
 	"""
 
-	def __init__(self, BDAChromData: DataAnalysis.BDAChromData):
+	def __init__(self, data_reader: DataAnalysis.BDAChromData):
 
-		self.data_reader = BDAChromData
+		self.data_reader = data_reader
 		self.interface = DataAnalysis.IBDAChromData(self.data_reader)
 
 	def get_x_axis_info(self) -> Tuple[DataValueType, DataUnit]:
@@ -211,14 +215,14 @@ class TIC(Signal):
 	"""
 	Represents a Total Ion Chromatogram.
 
-	:param BDAChromData: Python.NET object.
+	:param data_reader: Python.NET object.
 	"""
 
 	data_reader: DataAnalysis.BDAChromData
 
-	def __init__(self, BDAChromData: DataAnalysis.BDAChromData):
+	def __init__(self, data_reader: DataAnalysis.BDAChromData):
 
-		self.data_reader = BDAChromData
+		self.data_reader = data_reader
 		self.interface = DataAnalysis.IBDAChromData(self.data_reader)
 
 	@property
@@ -226,7 +230,7 @@ class TIC(Signal):
 		"""
 		Returns the abundance limit of the TIC data; that is the largest value that could be seen
 		in the data (the theoretical "full scale" value).
-		"""
+		"""  # noqa D400
 
 		# Also float(self.data_reader.MSOverallScanRecordInformation.AbundanceLimit)
 		return float(self.interface.AbundanceLimit)
@@ -253,7 +257,7 @@ class TIC(Signal):
 	@property
 	def fragmentor_voltage(self) -> float:
 		"""
-		Returns the value of the Fragmentor Voltage used to acquire the data
+		Returns the value of the Fragmentor Voltage used to acquire the data.
 		"""
 
 		# Also float(self.data_reader.MSOverallScanRecordInformation.FragmentorVoltage)
@@ -262,7 +266,7 @@ class TIC(Signal):
 	@property
 	def ionization_polarity(self) -> Optional[str]:
 		"""
-		Returns the ionization polarity used to acquire the data,
+		Returns the ionization polarity used to acquire the data.
 		"""
 
 		return polarity_map[self.interface.IonPolarity]
@@ -304,12 +308,12 @@ class TIC(Signal):
 
 	@property
 	def mz_of_interest(self) -> List[Range]:
-		"""
-		Returns a list of *m/z* ranges of interest, if the data was obtained via mass spectrometry.
+		r"""
+		Returns a list of |mz| ranges of interest, if the data was obtained via mass spectrometry.
 
-		For MS\\:superscript:`1` data this is not used.
+		For MS\ :superscript:`1` data this is not used.
 
-		TODO: revisit with ms/ms data
+		.. TODO:: revisit with ms/ms data
 		"""
 
 		return ranges_from_list(self.interface.MZOfInterest)
@@ -317,7 +321,7 @@ class TIC(Signal):
 	@property
 	def measured_mass_range(self) -> List[Range]:
 		"""
-		Returns the measured *m/z* range(s), if the data was obtained via mass spectrometry.
+		Returns the measured |mz| range(s), if the data was obtained via mass spectrometry.
 		"""
 
 		return ranges_from_list(self.interface.MeasuredMassRange)
@@ -325,7 +329,7 @@ class TIC(Signal):
 	@property
 	def mz_regions_were_excluded(self) -> bool:
 		"""
-		Returns whether any *m/z* ranges were excluded, if the data was obtained via mass spectrometry.
+		Returns whether any |mz| ranges were excluded, if the data was obtained via mass spectrometry.
 		"""
 
 		# TODO: excluded from what? the scan?
@@ -342,6 +346,8 @@ class TIC(Signal):
 	@property
 	def threshold(self) -> float:
 		"""
+		Returns the threshold of the data.
+
 		.. TODO:: What does this represent?
 		"""
 

@@ -4,17 +4,25 @@ from pyms_agilent.mhdac.agilent import DataAnalysis
 from pyms_agilent.enums import DeviceType, IRMStatus, MeasurementTypeEnum, SeparationTechniqueEnum, StoredDataType
 from pyms_agilent.mhdac.ms_scan_file_info import MSScanFileInformation
 
+__all__ = ["FileInformation"]
+
 
 class FileInformation:
 	"""
 	Class to access information about ``.d`` data files.
 
-	:param BDAFileInformation: Python.NET object.
+	:param data_reader: Python.NET object.
 	"""
 
-	def __init__(self, BDAFileInformation: DataAnalysis.BDAFileInformation):
+	#: The .NET interface
+	interface: DataAnalysis.IBDAFileInformation
 
-		self.data_reader = BDAFileInformation
+	#: The .NET class that provides access to the data.
+	data_reader: DataAnalysis.BDAFileInformation
+
+	def __init__(self, data_reader: DataAnalysis.BDAFileInformation):
+
+		self.data_reader = data_reader
 		self.interface = DataAnalysis.IBDAFileInformation(self.data_reader)
 
 	@property
@@ -40,7 +48,7 @@ class FileInformation:
 	@property
 	def irm_status(self) -> IRMStatus:
 		"""
-		Returns the IRM/Runtime calibration status information - success or failure
+		Returns the IRM/Runtime calibration status information - success or failure.
 
 		This is the logical bitwise OR of the IRMStatusValues of the IRM status for all scans in the file.
 		"""
@@ -70,7 +78,7 @@ class FileInformation:
 		"""
 		Returns whether non-mass spectrometry data is present in the datafile,
 		with the exception UV spectral data.
-		"""
+		"""  # noqa D400
 
 		return self.interface.IsNonMSDataPresent()
 
@@ -101,14 +109,14 @@ class FileInformation:
 	@property
 	def ms_scan_file_info(self) -> MSScanFileInformation:
 		"""
-		Returns a class containing information about the MS Scan File
+		Returns a class containing information about the MS Scan File.
 		"""
 
 		return MSScanFileInformation(self.interface.MSScanFileInformation)
 
 	def is_uv_signal_present(self, device_type: DeviceType, signal_name: str, device_name: str):
 		"""
-		Returns whether a UV signal is present for the specified device type
+		Returns whether a UV signal is present for the specified device type.
 
 		:param device_type:
 		:param signal_name:
@@ -139,6 +147,7 @@ class FileInformation:
 		"""
 
 		return self.interface.GetDeviceName(device_type)
+
 
 # data reader
 # ----

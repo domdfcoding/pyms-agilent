@@ -1,9 +1,8 @@
 #  !/usr/bin/env python
-#   -*- coding: utf-8 -*-
 #
 #  metadata.py
 """
-Extract metadata from Agilent .d datafiles
+Extract metadata from Agilent ``.d`` datafiles.
 """
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -56,9 +55,7 @@ def prepare_filepath(file_name: PathLike, mkdirs: bool = True) -> pathlib.Path:
 	Convert a filename string into a :class:`pathlib.Path` object, and create parent directories if required.
 
 	:param file_name: file_name to process
-	:param mkdirs: Whether the parent directory of the file should be created if it doesn't exist. Default True.
-
-	:return: file_name
+	:param mkdirs: Whether the parent directory of the file should be created if it doesn't exist.
 	"""
 
 	if not isinstance(file_name, pathlib.Path):
@@ -90,9 +87,9 @@ class MetadataDict(TypedDict):
 
 def extract_metadata(file_name: PathLike) -> MetadataDict:
 	"""
-	Extract metadata from an Agilent .d datafile
+	Extract metadata from an Agilent ``.d`` datafile.
 
-	:param file_name: name of the .d datafile
+	:param file_name: name of the ``.d`` datafile
 	"""
 
 	file_name = prepare_filepath(file_name)
@@ -116,9 +113,9 @@ def extract_metadata(file_name: PathLike) -> MetadataDict:
 
 def is_datafile(file_name: PathLike) -> bool:
 	"""
-	Returns whether the given path is a valid data file
+	Returns whether the given path is a valid data file.
 
-	:param file_name: name of the .d datafile
+	:param file_name: name of the ``.d`` datafile
 	"""
 
 	if not isinstance(file_name, pathlib.Path):

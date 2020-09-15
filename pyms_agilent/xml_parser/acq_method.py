@@ -3,7 +3,7 @@
 #
 #  acq_method.py
 """
-Parser for <datafile>.d/AcqData/AcqMethod.xml
+Parser for ``<datafile>.d/AcqData/AcqMethod.xml``.
 """
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -65,6 +65,11 @@ class Device:
 
 	@classmethod
 	def from_xml(cls, element):
+		"""
+		Create a :class:`~.Device` object from an XML element.
+
+		:param element: The XML element to parse the data from
+		"""
 		return cls(
 				device_id=getattr(element, "{http://tempuri.org/DataFileReport.xsd}DeviceId"),
 				display_name=element.DisplayName,

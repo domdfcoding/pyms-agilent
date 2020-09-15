@@ -1,9 +1,8 @@
 #  !/usr/bin/env python
-#   -*- coding: utf-8 -*-
 #
 #  ms_time_segments.py
 """
-Parser for mass spectrometry time segment data in MSTS.xml
+Parser for mass spectrometry time segment data in ``MSTS.xml``.
 """
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -60,7 +59,7 @@ def make_timedelta(minutes: Union[float, datetime.timedelta]) -> datetime.timede
 @attr.s(slots=True)
 class TimeSegment:
 	"""
-	Represents a time segment from ``MSTS.xml``
+	Represents a time segment from ``MSTS.xml``.
 
 	:param timesegment_id:
 	:param start_time: start time in minutes
@@ -77,6 +76,11 @@ class TimeSegment:
 
 	@classmethod
 	def from_xml(cls, element):
+		"""
+		Create a :class:`~.TimeSegment` object from an XML element.
+
+		:param element: The XML element to parse the data from
+		"""
 
 		return cls(
 				timesegment_id=element.attrib["TimeSegmentID"],

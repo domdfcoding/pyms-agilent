@@ -34,28 +34,30 @@ language = 'en'
 package_root = "pyms_agilent"
 
 extensions = [
-	'attr_utils.autodoc_typehints',
-	'autodocsumm',
-	'enum_tools.autoenum',
-	'notfound.extension',
-	'seed_intersphinx_mapping',
-	'sphinx-prompt',
-	'sphinx.ext.autodoc',
-	'sphinx.ext.autosectionlabel',
-	'sphinx.ext.autosummary',
-	'sphinx.ext.intersphinx',
-	'sphinx.ext.mathjax',
-	'sphinx.ext.todo',
-	'sphinx.ext.viewcode',
-	'sphinx_copybutton',
-	'sphinx_tabs.tabs',
 	'sphinx_toolbox',
-	'sphinx_toolbox.autodoc_augment_defaults',
-	'sphinxcontrib.default_values',
-	'sphinxcontrib.extras_require',
+	'sphinx_toolbox.more_autodoc',
+	'sphinx.ext.intersphinx',
+	'sphinx.ext.autodoc',
+	'sphinx.ext.mathjax',
+	'sphinx.ext.viewcode',
 	'sphinxcontrib.httpdomain',
-	'sphinxcontrib.toctree_plus',
+	'sphinxcontrib.extras_require',
+	'sphinx.ext.todo',
 	'sphinxemoji.sphinxemoji',
+	'notfound.extension',
+	'sphinx_tabs.tabs',
+	'sphinx-prompt',
+	'sphinx.ext.autosummary',
+	'autodocsumm',
+	'sphinx_copybutton',
+	'sphinxcontrib.default_values',
+	'sphinxcontrib.toctree_plus',
+	'seed_intersphinx_mapping',
+	'sphinx.ext.autosectionlabel',
+	'enum_tools.autoenum',
+	'attr_utils.annotations',
+	'attr_utils.autoattrs',
+	'chemistry',
 	]
 
 sphinxemoji_style = 'twemoji'
@@ -100,7 +102,21 @@ latex_documents = [('index', f'{slug}.tex', project, author, 'manual')]
 man_pages = [('index', slug, project, [author], 1)]
 texinfo_documents = [('index', slug, project, author, slug, project, 'Miscellaneous')]
 
-toctree_plus_types = {"class", "function", "method", "data"}
+toctree_plus_types = {
+		"class",
+		"function",
+		"method",
+		"data",
+		"enum",
+		"flag",
+		"confval",
+		"directive",
+		"confval",
+		"protocol",
+		"typeddict",
+		}
+
+add_module_names = False
 
 
 autodoc_default_options = {
@@ -126,3 +142,6 @@ autodoc_default_options = {
 				"__hash__",
 				]),
 		}
+
+
+toctree_plus_types = {"class", "function", "method", "data", "enum", "flag"}

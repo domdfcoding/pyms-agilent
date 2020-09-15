@@ -1,9 +1,8 @@
 #  !/usr/bin/env python
-#   -*- coding: utf-8 -*-
 #
 #  contents.py
 """
-Parser for Contents.xml
+Parser for ``Contents.xml``.
 """
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -38,11 +37,11 @@ from mh_utils.utils import element_to_bool
 from mh_utils.worklist_parser.parser import parse_worklist_datetime
 
 # this package
+from pyms_agilent.enums import AcqStatusEnum, MeasurementTypeEnum, SeparationTechniqueEnum
 from pyms_agilent.xml_parser import agilent_xsd
 
 # this package
 from .core import XMLFileMixin, _get_from_enum
-from pyms_agilent.enums import AcqStatusEnum, MeasurementTypeEnum, SeparationTechniqueEnum
 
 __all__ = ["Contents", "read_contents_xml"]
 

@@ -9,6 +9,8 @@ from pyms_agilent.mhdac.signal import Signal
 from pyms_agilent.mhdac.spectrum import SpecData
 from pyms_agilent.utils import datatable2dataframe
 
+__all__ = ["MassSpecDataReader", "MSActual", "MSActuals"]
+
 
 class MassSpecDataReader:
 	"""

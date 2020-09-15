@@ -1,9 +1,8 @@
 #  !/usr/bin/env python
-#   -*- coding: utf-8 -*-
 #
 #  devices.py
 """
-Parser for Devices.xml
+Parser for ``Devices.xml``.
 """
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -43,11 +42,12 @@ from .core import XMLList
 
 __all__ = ["Device", "DeviceList", "read_devices_xml"]
 
+# this package
 from ..enums import DeviceType, DeviceVendor, StoredDataType
 
 
 class Device(Dictable):
-	"""
+	r"""
 	Represents a device parsed from ``Devices.xml``.
 
 	:param device_id: The ID of the device.
@@ -57,7 +57,7 @@ class Device(Dictable):
 	:param model_number: The device's model version
 	:param ordinal_number:
 	:param serial_number: The serial number of the device.
-	:param type_: The type of device
+	:param type\_: The type of device
 	:param stored_data_type: The type of stored data
 	:param delay:
 		TODO: Enum
@@ -164,6 +164,6 @@ def read_devices_xml(base_path: PathLike) -> DeviceList:
 	file in the given directory.
 
 	:param base_path:
-	"""
+	"""  # noqa D400
 
 	return DeviceList.from_xml_file(pathlib.Path(base_path) / "Devices.xml")
