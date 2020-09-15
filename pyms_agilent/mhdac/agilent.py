@@ -1,9 +1,11 @@
 #  !/usr/bin/env python
-#   -*- coding: utf-8 -*-
 #
 #  agilent.py
 """
 The lowest level interface to the Agilent MHDAC library.
+
+This module handles registration of the Agilent ``.DLL`` files with Python.NET and exports the
+``DataAnalysis`` module for use in the rest of ``pyms-agilent``.
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -24,14 +26,15 @@ The lowest level interface to the Agilent MHDAC library.
 #  MA 02110-1301, USA.
 #
 
-import sys
-import platform
+# stdlib
 import pathlib
+import platform
+import sys
 
+# 3rd party
 import clr  # type: ignore
 
 __all__ = ["DataAnalysis"]
-
 
 if platform.architecture()[0] == "64bit":
 	sys.path.append(str(pathlib.Path(__file__).parent / "x64"))
@@ -42,6 +45,7 @@ clr.AddReference("MassSpecDataReader")
 clr.AddReference("BaseCommon")
 clr.AddReference("BaseDataAccess")
 
+# 3rd party
 import Agilent.MassSpectrometry.DataAnalysis
 
 DataAnalysis = Agilent.MassSpectrometry.DataAnalysis

@@ -1,5 +1,4 @@
 #  !/usr/bin/env python
-#   -*- coding: utf-8 -*-
 #
 #  chromatograms.py
 """
@@ -23,15 +22,26 @@ Classes to access chromatographic data from ``.d`` datafiles.
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 #
+
+# stdlib
 from abc import ABC
 from typing import List, Optional, Tuple, Union
 
-from pyms_agilent.mhdac.agilent import DataAnalysis
+# this package
 from pyms_agilent.enums import (
-	ChromType, DataUnit, DataValueType, DeviceType, IonizationMode, MSLevel, MSScanType,
-	MSStorageMode,
-	)
-from pyms_agilent.utils import polarity_map, Range, ranges_from_list
+		ChromType,
+		DataUnit,
+		DataValueType,
+		DeviceType,
+		IonizationMode,
+		MSLevel,
+		MSScanType,
+		MSStorageMode
+		)
+from pyms_agilent.mhdac.agilent import DataAnalysis
+from pyms_agilent.utils import Range, polarity_map, ranges_from_list
+
+__all__ = ["Signal", "InstrumentCurve", "TIC"]
 
 
 class Signal(ABC):
@@ -118,7 +128,7 @@ class Signal(ABC):
 			+ Returns :py:obj:`True`
 
 		Returns False for all non-MRM chromatograms.
-		"""
+		"""  # noqa D400
 		return self.interface.IsPrimaryMrm
 
 	@property
@@ -385,7 +395,6 @@ class TIC(Signal):
 #  MSOverallScanRecordInformation -> Agilent.MassSpectrometry.DataAnalysis.MSOverallScanRecordInfo
 #  MeasuredMassRangeInfo -> Agilent.MassSpectrometry.DataAnalysis.BDARangeCollection
 
-
 # MeasuredMassRangeInfo
 # ----
 # Capacity
@@ -401,4 +410,3 @@ class TIC(Signal):
 # Reverse
 # SetEmpty
 # Sort
-

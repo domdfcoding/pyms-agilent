@@ -1,12 +1,22 @@
-from typing import List, Optional, Tuple, Union
+# stdlib
+from typing import List, Optional, Tuple
 
-from pyms_agilent.mhdac.agilent import DataAnalysis
+# this package
 from pyms_agilent.enums import (
-	DataUnit, DataValueType, DeviceType, IonizationMode, MSLevel, MSScanType, MSStorageMode,
-	SpecType,
-	)
+		DataUnit,
+		DataValueType,
+		DeviceType,
+		IonizationMode,
+		MSLevel,
+		MSScanType,
+		MSStorageMode,
+		SpecType
+		)
 from pyms_agilent.exceptions import NotMS2Error
-from pyms_agilent.utils import polarity_map, Range, ranges_from_list
+from pyms_agilent.mhdac.agilent import DataAnalysis
+from pyms_agilent.utils import Range, polarity_map, ranges_from_list
+
+__all__ = ["SpecData"]
 
 
 class SpecData:
@@ -122,11 +132,11 @@ class SpecData:
 
 	@property
 	def precursor_intensity(self) -> float:
-		"""
-		Returns the intensity of the precursor ion, if the data was acquired in MS\\:superscript:`2` mode.
+		r"""
+		Returns the intensity of the precursor ion, if the data was acquired in MS\ :superscript:`2` mode.
 
 		:raises: :exc:`pyms_agilent.errors.NotMS2Error` if the data was not
-			acquired in MS\\:superscript:`2` mode
+			acquired in MS\ :superscript:`2` mode
 		"""
 
 		is_ms2: bool
@@ -262,10 +272,10 @@ class SpecData:
 
 	@property
 	def mz_of_interest(self) -> List[Range]:
-		"""
+		r"""
 		Returns a list of *m/z* ranges of interest, if the data was obtained via mass spectrometry.
 
-		For MS\\:superscript:`1` data this is not used.
+		For MS\ :superscript:`1` data this is not used.
 
 		TODO: revisit with ms/ms data
 		"""
@@ -383,6 +393,7 @@ class SpecData:
 	#
 	# 	return self.acquired_time_ranges[0].start
 
+
 # data_reader
 # ===============
 # AcquiredTimeRangesInfo
@@ -394,7 +405,7 @@ class SpecData:
 # IsDeviceOfTypeTOF
 # IsEmptySpectrumInfo
 # IsNullMSSpectrumFormat
-# MSOverallScanRecordInformation
+# MSOverallScanRecordInformation -> Contains some more properties
 # MSSpectrumFormatXSamplingType
 # MeasuredMassRangeInfo
 # OverallAcqTimeRangeInfo # No idea; different from AcquiredTimeRange

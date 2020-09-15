@@ -1,19 +1,27 @@
+# stdlib
 from typing import Union
 
+# this package
 from pyms_agilent.enums import DeviceType
 from pyms_agilent.mhdac.agilent import DataAnalysis
 from pyms_agilent.mhdac.chromatograms import InstrumentCurve
 
+__all__ = ["SignalInfo"]
 
-class Signal:
+
+class SignalInfo:
 	"""
-	Represents a signal recorded by the instrument.
+	Provides metadata about a signal recorded by the instrument.
 
 	:param SignalInfo: Python.NET object.
 	:param msdr: Python.NET object.
 	"""
 
-	def __init__(self, SignalInfo: Union[DataAnalysis.SignalInfo, DataAnalysis.ISignalInfo], msdr: DataAnalysis.MassSpecDataReader):
+	def __init__(
+			self,
+			SignalInfo: Union[DataAnalysis.SignalInfo, DataAnalysis.ISignalInfo],
+			msdr: DataAnalysis.MassSpecDataReader
+			):
 		self.data_reader = SignalInfo
 		self.interface = DataAnalysis.ISignalInfo(self.data_reader)
 		self.msdr = msdr

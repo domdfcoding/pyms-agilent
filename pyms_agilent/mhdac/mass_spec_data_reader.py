@@ -1,11 +1,13 @@
+# stdlib
 from typing import Any, Dict, Iterator, List, Mapping, NamedTuple, Optional, Tuple
 
+# this package
+from pyms_agilent.enums import DeviceType, IonizationMode, MSScanType, SampleCategory, StoredDataType
 from pyms_agilent.mhdac.agilent import DataAnalysis
 from pyms_agilent.mhdac.chromatograms import TIC
-from pyms_agilent.enums import DeviceType, IonizationMode, MSScanType, SampleCategory, StoredDataType
 from pyms_agilent.mhdac.file_information import FileInformation
 from pyms_agilent.mhdac.scan_record import MSScanRecord
-from pyms_agilent.mhdac.signal import Signal
+from pyms_agilent.mhdac.signalinfo import SignalInfo
 from pyms_agilent.mhdac.spectrum import SpecData
 from pyms_agilent.utils import datatable2dataframe
 
@@ -106,7 +108,11 @@ class MassSpecDataReader:
 		elif ionization_polarity == 0:
 			ionization_polarity = 3
 
-		return SpecData(self.interface(self.data_reader).GetSpectrum(float(retention_time), scan_type, ionization_polarity, ionization_mode, peak_filter))
+		return SpecData(
+				self.interface(self.data_reader).GetSpectrum(
+						float(retention_time), scan_type, ionization_polarity, ionization_mode, peak_filter
+						)
+				)
 
 	# def iter_spectra(self):
 
@@ -116,7 +122,7 @@ class MassSpecDataReader:
 			device_type: DeviceType,
 			data_type: StoredDataType,
 			ordinal: int = 1,
-			) -> List[Signal]:
+			) -> List[SignalInfo]:
 		"""
 		Returns a list of signals of the given type available for the given device.
 
@@ -142,11 +148,11 @@ class MassSpecDataReader:
 		device.OrdinalNumber = int(ordinal)
 
 		signal_info_list = [
-				Signal(s, self.data_reader)
-				for s in self.data_reader.GetSignalInfo(
+				SignalInfo(s, self.data_reader) for s in self.data_reader.GetSignalInfo(
 						device,
 						int(data_type),  # type: ignore
-						)]
+						)
+				]
 		return signal_info_list
 
 	def get_ms_actuals(self) -> "MSActuals":
@@ -198,11 +204,11 @@ class MassSpecDataReader:
 
 		return MSScanRecord(self.interface.GetScanRecord(self.data_reader, int(scan_no)))
 
+
 # ActualsInformation
 # GetActualsForTimeRange  # TODO
 # GetActualsdDefinitionForTimeRange # TODO
 # GetActualCollection  # TODO
-
 
 # data reader
 # ----------
@@ -223,16 +229,12 @@ class MassSpecDataReader:
 # SchemaDefaultDirectory  # directory of DLL files
 # Version  # Version number of something? 8.0
 
-
 # Getting EIC:
 # GetChromatogram(chromFilter: Agilent.MassSpectrometry.DataAnalysis.IBDAChromFilter)
 # also Agilent.MassSpectrometry.DataAnalysis.BDAChromFilter
 
-
-
 # dr.interface(dr.data_reader).GetSpectrum
 # list(DataAnalysis.IBDASpecData(dr.interface(dr.data_reader).GetSpectrum(4.6, 1, 1, 64)).XArray)
-
 """
 Agilent.MassSpectrometry.DataAnalysis.IBDASpecData[] GetSpectrum(Agilent.MassSpectrometry.DataAnalysis.IBDASpecFilter)
 Agilent.MassSpectrometry.DataAnalysis.IBDASpecData[] GetSpectrum(Agilent.MassSpectrometry.DataAnalysis.IBDASpecFilter, Agilent.MassSpectrometry.DataAnalysis.IMsdrPeakFilter)
@@ -243,7 +245,6 @@ Agilent.MassSpectrometry.DataAnalysis.IBDASpecData GetSpectrum(Int32, Agilent.Ma
 Agilent.MassSpectrometry.DataAnalysis.IBDASpecData GetSpectrum(Double, Agilent.MassSpectrometry.DataAnalysis.MSScanType, Agilent.MassSpectrometry.DataAnalysis.IonPolarity, Agilent.MassSpectrometry.DataAnalysis.IonizationMode, Agilent.MassSpectrometry.DataAnalysis.IMsdrPeakFilter)
 Agilent.MassSpectrometry.DataAnalysis.IBDASpecData GetSpectrum(Double, Agilent.MassSpectrometry.DataAnalysis.MSScanType, Agilent.MassSpectrometry.DataAnalysis.IonPolarity, Agilent.MassSpectrometry.DataAnalysis.IonizationMode, Agilent.MassSpectrometry.DataAnalysis.IMsdrPeakFilter, Boolean)
 """
-
 """
 GetSpectrum(IBDASpecFilter* specFilter, IMsdrPeakFilter* peakFilter) -> SAFEARRAY(IBDASpecData*)*
 
