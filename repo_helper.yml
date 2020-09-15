@@ -35,8 +35,14 @@ manifest_additional:
 
 extra_sphinx_extensions:
   - enum_tools.autoenum
-  - attr_utils.autodoc_typehints
+  - attr_utils.annotations
+  - attr_utils.autoattrs
+  - chemistry
 
 additional_ignore:
   - "**/x64"
   - "**/x86"
+
+
+sphinx_conf_epilogue:
+  - toctree_plus_types = {"class", "function", "method", "data", "enum", "flag"}
