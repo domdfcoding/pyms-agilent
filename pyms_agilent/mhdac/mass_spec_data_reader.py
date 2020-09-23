@@ -90,7 +90,7 @@ class MassSpecDataReader:
 
 	def get_spectrum_by_scan(self, scan_no: int) -> SpecData:
 		"""
-		Returns a :class:`pyms_agilent.spectrum.SpecData` object for the given scan.
+		Returns a :class:`pyms_agilent.mhdac.spectrum.SpecData` object for the given scan.
 
 		:param scan_no:
 		"""
@@ -110,7 +110,7 @@ class MassSpecDataReader:
 			ionization_mode: IonizationMode = IonizationMode.Unspecified,
 			) -> SpecData:
 		"""
-		Returns a :class:`pyms_agilent.spectrum.SpecData` object for the spectrum at the given retention time.
+		Returns a :class:`pyms_agilent.mhdac.spectrum.SpecData` object for the spectrum at the given retention time.
 
 		If no spectrum is found for the given parameters an empty
 		:class:`pyms_agilent.mhdac.spectrum.SpecData` object will be returned.
@@ -157,15 +157,12 @@ class MassSpecDataReader:
 		:param data_type:
 		:param ordinal:
 
-		:return:
-
-		Most devices only have ``<StoredDataType.InstrumentCurves>`` data,
-		although devices such as ``<DeviceType.VariableWavelengthDetector>`` also have
-		``<StoredDataType.Chromatograms>`` available.
+		Most devices only have :py:enum:mem:`~pyms_agilent.enums.StoredDataType.InstrumentCurves` data,
+		although devices such as :py:enum:mem:`~pyms_agilent.enums.DeviceType.VariableWavelengthDetector`
+		also have :py:enum:mem:`~pyms_agilent.enums.StoredDataType.Chromatograms` available.
 
 		Usually no data is available for Mass Spectrometry devices; that data is available from
 		:meth:`MassSpecDataReader.get_ms_actuals`.
-
 		"""
 
 		device = DataAnalysis.IDeviceInfo(DataAnalysis.DeviceInfo())
@@ -223,9 +220,9 @@ class MassSpecDataReader:
 
 	def get_scan_record(self, scan_no: int) -> MSScanRecord:
 		"""
+		Returns metadata about the scan with the given number.
 
 		:param scan_no:
-		:return:
 		"""
 
 		return MSScanRecord(self.interface.GetScanRecord(self.data_reader, int(scan_no)))
@@ -310,20 +307,25 @@ GetSpectrum_7(
 
 
 class MSActual(NamedTuple):
+	"""
+	2-element :class:`collections.namedtuple` representing the X- and Y-axis data
+	for a parameter recorded by the mass spectrometer.
+
+	:param x_array: The times at which values changed
+	:param y_array: The values at those times.
+
+	If the value never changes the ``y_array`` stores the value for the entire run.
+	"""  # noqa D400
+
 	x_array: List[float]
 	y_array: List[float]
 
 
-class MSActuals(Mapping[str, Tuple[List[float], List[float]]]):
+class MSActuals(Mapping[str, MSActual]):
 	"""
-	Mapping of MS Actuals names to values.
+	Mapping parameter names to values recorded during the analysis.
 
-	The values are 2-element tuples of ``(x_array, y_array)``.
-
-	The ``x_array`` stores the times at which values changed;
-	the ``y_array`` stores the values at those times;
-
-	If the value never changes the ``y_array`` stores the value for the entire run.
+	The values are :namedtuple:`MSActual` tuples.
 
 	:param BDADataAccess: Python.NET object.
 	"""
@@ -335,17 +337,34 @@ class MSActuals(Mapping[str, Tuple[List[float], List[float]]]):
 		self.interface = DataAnalysis.IBDAActuals(self.data_reader)
 
 	def __getitem__(self, item: str) -> MSActual:
+		"""
+		Returns the data for the parameter with the given name.
+
+		:param item: The name of the parameter.
+		"""
+
 		_, x_array, y_array = self.interface.GetActualValue(item, [0.0], [0.0])
 		return MSActual(list(x_array), list(y_array))
 
 	def __len__(self) -> int:
+		"""
+		Returns the number of parameters recorded.
+		"""
+
 		return len(self.keys())
 
 	def __iter__(self) -> Iterator[Tuple[str, MSActual]]:  # type: ignore
+		"""
+		Iterates over the parameter names and values.
+		"""
+
 		for name in self.keys():
 			yield name, self[name]
 
 	def keys(self) -> List[str]:  # type: ignore
+		"""
+		Returns a list of parameter names.
+		"""
 
 		if not hasattr(self, "_keys"):
 			self._keys = list(self.interface.GetActualNames())
@@ -353,5 +372,10 @@ class MSActuals(Mapping[str, Tuple[List[float], List[float]]]):
 		return self._keys
 
 	def items(self) -> List[Tuple[str, MSActual]]:  # type: ignore
+		"""
+		Returns a list of parameter values.
+
+		The order corresponds to :meth:`~.keys`.
+		"""
 
 		return list(iter(self))  # type: ignore

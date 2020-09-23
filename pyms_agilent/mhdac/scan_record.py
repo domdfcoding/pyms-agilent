@@ -1,6 +1,9 @@
 #  !/usr/bin/env python
 #
 #  scan_record.py
+"""
+Provides metadata about a single scan.
+"""
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
@@ -20,19 +23,22 @@
 #  MA 02110-1301, USA.
 #
 
-# this package
+# stdlib
 from typing import Optional
 
+# this package
 from pyms_agilent.enums import IonizationMode, MSLevel, MSScanType
 from pyms_agilent.mhdac.agilent import DataAnalysis
 
 __all__ = ["MSScanRecord"]
 
+# this package
 from pyms_agilent.utils import polarity_map
 
 
 class MSScanRecord:
 	"""
+	Provides metadata about a single scan.
 
 	:param MSScanRecord: A Python.NET object
 	"""
@@ -57,7 +63,7 @@ class MSScanRecord:
 		Returns the |mz| of the base peak in the scan.
 
 		The base peak is the most intense peak.
-		"""
+		"""  # noqa RST305
 
 		return float(self.interface.BasePeakMZ)
 
@@ -72,7 +78,7 @@ class MSScanRecord:
 	@property
 	def compensationField(self) -> float:
 		"""
-
+		Returns the value of the compensation field.
 		"""
 
 		return float(self.interface.CompensationField)
@@ -80,7 +86,7 @@ class MSScanRecord:
 	@property
 	def dispersionField(self) -> float:
 		"""
-
+		Returns the value of the dispersion field.
 		"""
 
 		return float(self.interface.DispersionField)
@@ -144,8 +150,8 @@ class MSScanRecord:
 	@property
 	def mz_of_interest(self) -> float:
 		"""
-		Returns the MZ of interest for the scan, if any.
-		"""
+		Returns the |mz| of interest for the scan, if any.
+		"""  # noqa RST305
 
 		mz = float(self.interface.MZOfInterest)
 
@@ -160,8 +166,6 @@ class MSScanRecord:
 	def retention_time(self) -> float:
 		"""
 		Returns the retention time of the scan, in minutes.
-
-		:return:
 		"""
 
 		return float(self.interface.RetentionTime)
@@ -178,7 +182,7 @@ class MSScanRecord:
 	def tic(self) -> float:
 		"""
 		Returns the summed intensity of all ions in the scan with
-		`DesiredMSStorageType == 'Profile'`
+		``DesiredMSStorageType == 'Profile'``.
 		"""  # noqa D400
 
 		return float(self.interface.Tic)
@@ -186,7 +190,7 @@ class MSScanRecord:
 	@property
 	def time_segment(self) -> int:
 		"""
-
+		Returns the time segment the scan belongs to.
 		"""
 
 		return int(self.interface.TimeSegment)

@@ -1,6 +1,9 @@
 #  !/usr/bin/env python
 #
 #  spectrum.py
+"""
+Provides access to information about a single spectrum in ``.d`` data files.
+"""
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
@@ -48,7 +51,7 @@ class SpecData:
 	:param BDASpecData: Python.NET object.
 	"""
 
-	def __init__(self, BDASpecData: DataAnalysis.BDASpecData):
+	def __init__(self, BDASpecData: "DataAnalysis.BDASpecData"):
 		self.data_reader = BDASpecData
 		self.interface: DataAnalysis.IBDASpecData = DataAnalysis.IBDASpecData(self.data_reader)
 
@@ -89,7 +92,7 @@ class SpecData:
 
 	def compensation_field(self) -> float:
 		"""
-
+		Returns the value of the compensation field.
 		"""
 
 		return float(self.interface.CompensationField)
@@ -120,7 +123,7 @@ class SpecData:
 
 	def dispersion_field(self) -> float:
 		"""
-
+		Returns the value of the dispersion field.
 		"""
 
 		return float(self.interface.DispersionField)
@@ -175,9 +178,9 @@ class SpecData:
 	# @property
 	# def mz_of_interest(self) -> float:
 	# 	"""
-	# 	Returns the *m/z* of interest.
+	# 	Returns the |mz| of interest.
 	#
-	# 	*m/z* of interest takes on a different meaning depending on the scan type:
+	# 	|mz| of interest takes on a different meaning depending on the scan type:
 	#
 	# 	* MS scans (scan, selected ion, high resolution scan) do not have m/z of interest.
 	# 	* MRM: precursor mass
@@ -295,27 +298,27 @@ class SpecData:
 	@property
 	def mz_of_interest(self) -> List[Range]:
 		r"""
-		Returns a list of *m/z* ranges of interest, if the data was obtained via mass spectrometry.
+		Returns a list of |mz| ranges of interest, if the data was obtained via mass spectrometry.
 
 		For MS\ :superscript:`1` data this is not used.
 
-		TODO: revisit with ms/ms data
-		"""
+		.. TODO:: revisit with ms/ms data
+		"""  # noqa RST305
 
 		return ranges_from_list(self.interface.MZOfInterest)
 
 	@property
 	def measured_mass_range(self) -> List[Range]:
 		"""
-		Returns the measured *m/z* range(s), if the data was obtained via mass spectrometry.
-		"""
+		Returns the measured |mz| range(s), if the data was obtained via mass spectrometry.
+		"""  # noqa RST305
 
 		return Range.from_dotnet(self.interface.MeasuredMassRange)
 
 	@property
 	def ordinal_number(self) -> int:
 		"""
-
+		Returns the ordinal number of the spectrum.
 		"""
 
 		return int(self.interface.OrdinalNumber)

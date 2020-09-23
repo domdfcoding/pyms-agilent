@@ -1,6 +1,5 @@
-============================
-:mod:`mhdac.spectrum`
-============================
+=====================================================
+:mod:`mhdac.spectrum <pyms_agilent.mhdac.spectrum>`
+=====================================================
 
 .. automodule:: pyms_agilent.mhdac.spectrum
-	:inherited-members:

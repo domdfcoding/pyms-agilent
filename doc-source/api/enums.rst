@@ -3,4 +3,3 @@
 ===========================
 
 .. automodule:: pyms_agilent.enums
-	:inherited-members:

@@ -37,6 +37,7 @@ extensions = [
 	'sphinx_toolbox',
 	'sphinx_toolbox.more_autodoc',
 	'sphinx_toolbox.more_autosummary',
+	'sphinx_toolbox.tweaks.param_dash',
 	'sphinx.ext.intersphinx',
 	'sphinx.ext.mathjax',
 	'sphinxcontrib.httpdomain',
@@ -48,7 +49,6 @@ extensions = [
 	'sphinxcontrib.default_values',
 	'sphinxcontrib.toctree_plus',
 	'seed_intersphinx_mapping',
-	'sphinx.ext.autosectionlabel',
 	'enum_tools.autoenum',
 	'attr_utils.annotations',
 	'attr_utils.autoattrs',
@@ -106,9 +106,11 @@ toctree_plus_types = {
 		"flag",
 		"confval",
 		"directive",
+		"role",
 		"confval",
 		"protocol",
 		"typeddict",
+		"namedtuple",
 		}
 
 add_module_names = False
@@ -118,6 +120,7 @@ autodoc_default_options = {
 		'members': None,  # Include all members (methods).
 		'special-members': None,
 		"autosummary": None,
+		"show-inheritance": None,
 		'exclude-members': ','.join([   # Exclude "standard" methods.
 				"__dict__",
 				"__class__",
@@ -137,6 +140,3 @@ autodoc_default_options = {
 				"__hash__",
 				]),
 		}
-
-
-toctree_plus_types = {"class", "function", "method", "data", "enum", "flag"}

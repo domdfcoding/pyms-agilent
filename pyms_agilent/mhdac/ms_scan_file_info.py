@@ -1,6 +1,9 @@
 #  !/usr/bin/env python
 #
 #  ms_scan_file_info.py
+"""
+Provides access to information about mass spectral data in ``.d`` data files.
+"""
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
@@ -113,7 +116,7 @@ class MSScanFileInformation:
 	# 	return list(self.interface.CollisionEnergy)
 
 	@property
-	def ionisation_mode(self) -> int:
+	def ionisation_mode(self) -> IonizationMode:
 		"""
 		Returns the ionization mode used to acquire the data.
 
@@ -155,6 +158,7 @@ class MSScanFileInformation:
 		"""
 
 		return MSStorageMode(self.interface.SpectraFormat)
+
 	#
 	# @spectra_format.setter
 	# def spectra_format(self, mode: MSStorageMode):

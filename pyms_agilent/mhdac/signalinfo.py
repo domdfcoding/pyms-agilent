@@ -1,6 +1,9 @@
 #  !/usr/bin/env python
 #
 #  signalinfo.py
+"""
+Provides metadata about a signal recorded by the instrument.
+"""
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
@@ -67,7 +70,7 @@ class SignalInfo:
 	@property
 	def device_ordinal_number(self) -> int:
 		"""
-
+		Returns the ordinal number of the device that recorded this signal.
 		"""
 
 		return int(self.interface.DeviceInformation.OrdinalNumber)

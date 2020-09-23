@@ -1,10 +1,16 @@
 
 
 class PlatformError(RuntimeError):
-	pass
+	"""
+	Exception class to indicate that the current platform is unsupported.
+	"""
 
 
 class Unititialisable:
+	"""
+	Class to raise an error when trying to use the Agilent MHDAC on Linux/macOS.
+	"""
+
 	def __init__(self, *args, **kwargs):
 		raise PlatformError("'pyms_agilent.mhdac' can only run on Windows.")
 

@@ -54,7 +54,6 @@ class Device:
 	:param display_name: The display name for the device.
 	:param rc_device: Flag to indicate the device is an RC Device. If :py:obj:`False` the device is an SCIC.
 	:param configuration: List of key: value mappings for configuration options.
-	:default configuration: ``[]``
 	"""
 
 	device_id: str = attr.ib(converter=str)
@@ -169,7 +168,7 @@ def read_acqmethod(base_path: PathLike) -> AcqMethod:
 	"""
 	Construct an :class:`~.AcqMethod` object from the ``AcqMethod.xml`` file in the given directory.
 
-	:param base_path:
+	:param base_path: Directory containing the ``AcqMethod.xml`` file.
 	"""
 
 	return AcqMethod.from_xml_file(pathlib.Path(base_path) / "AcqMethod.xml")

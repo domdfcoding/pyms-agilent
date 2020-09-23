@@ -25,10 +25,9 @@ Provides metadata about ``.d`` datafiles.
 
 # stdlib
 from datetime import datetime, timezone
-
-# this package
 from typing import Union
 
+# this package
 from pyms_agilent.enums import DeviceType, IRMStatus, MeasurementTypeEnum, SeparationTechniqueEnum, StoredDataType
 from pyms_agilent.mhdac.agilent import DataAnalysis
 from pyms_agilent.mhdac.ms_scan_file_info import MSScanFileInformation
@@ -147,9 +146,9 @@ class FileInformation:
 		"""
 		Returns whether a UV signal is present for the specified device type.
 
-		:param device_type:
+		:param device_type: The type of device that acquired the data.
 		:param signal_name:
-		:param device_name:
+		:param device_name: The name of the device that acquired the data.
 
 		.. TODO:: Look in MassHunter at signal names
 		"""
