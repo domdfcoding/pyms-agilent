@@ -54,5 +54,6 @@ if sys.platform == "win32" or TYPE_CHECKING:
 	DataAnalysis = Agilent.MassSpectrometry.DataAnalysis
 
 else:
+	# this package
 	from pyms_agilent.mhdac import _posix_data_analysis
 	DataAnalysis = _posix_data_analysis

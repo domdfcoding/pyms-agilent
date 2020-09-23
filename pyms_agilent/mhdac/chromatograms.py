@@ -324,7 +324,7 @@ class TIC(Signal):
 		For MS\ :superscript:`1` data this is not used.
 
 		.. TODO:: revisit with ms/ms data
-		"""
+		"""  # noqa RST305
 
 		return ranges_from_list(self.interface.MZOfInterest)
 
@@ -332,7 +332,7 @@ class TIC(Signal):
 	def measured_mass_range(self) -> List[Range]:
 		"""
 		Returns the measured |mz| range(s), if the data was obtained via mass spectrometry.
-		"""
+		"""  # noqa RST305
 
 		return ranges_from_list(self.interface.MeasuredMassRange)
 
@@ -340,7 +340,7 @@ class TIC(Signal):
 	def mz_regions_were_excluded(self) -> bool:
 		"""
 		Returns whether any |mz| ranges were excluded, if the data was obtained via mass spectrometry.
-		"""
+		"""  # noqa RST305
 
 		# TODO: excluded from what? the scan?
 		return bool(self.interface.MzRegionsWereExcluded)

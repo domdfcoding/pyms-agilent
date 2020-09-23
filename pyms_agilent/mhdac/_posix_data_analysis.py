@@ -1,3 +1,18 @@
+__all__ = [
+		"PlatformError",
+		"Unititialisable",
+		"BDASpecData",
+		"BDADataAccess",
+		"IBDAChromData",
+		"MSScanRecord",
+		"BDAChromData",
+		"BDAMSScanFileInformation",
+		"BDAFileInformation",
+		"SignalInfo",
+		"ISignalInfo",
+		"MassSpecDataReader",
+		"IBDAFileInformation"
+		]
 
 
 class PlatformError(RuntimeError):
@@ -15,45 +30,45 @@ class Unititialisable:
 		raise PlatformError("'pyms_agilent.mhdac' can only run on Windows.")
 
 
-class BDASpecData(Unititialisable):
+class BDASpecData(Unititialisable):  # noqa D101
 	pass
 
 
-class BDADataAccess(Unititialisable):
+class BDADataAccess(Unititialisable):  # noqa D101
 	pass
 
 
-class IBDAChromData(Unititialisable):
+class IBDAChromData(Unititialisable):  # noqa D101
 	pass
 
 
-class MSScanRecord(Unititialisable):
+class MSScanRecord(Unititialisable):  # noqa D101
 	pass
 
 
-class BDAChromData(Unititialisable):
+class BDAChromData(Unititialisable):  # noqa D101
 	pass
 
 
-class BDAMSScanFileInformation(Unititialisable):
+class BDAMSScanFileInformation(Unititialisable):  # noqa D101
 	pass
 
 
-class BDAFileInformation(Unititialisable):
+class BDAFileInformation(Unititialisable):  # noqa D101
 	pass
 
 
-class SignalInfo(Unititialisable):
+class SignalInfo(Unititialisable):  # noqa D101
 	pass
 
 
-class ISignalInfo(Unititialisable):
+class ISignalInfo(Unititialisable):  # noqa D101
 	pass
 
 
-class MassSpecDataReader(Unititialisable):
+class MassSpecDataReader(Unititialisable):  # noqa D101
 	pass
 
 
-class IBDAFileInformation(Unititialisable):
+class IBDAFileInformation(Unititialisable):  # noqa D101
 	pass
