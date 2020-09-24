@@ -27,10 +27,11 @@ Classes to access chromatographic data from ``.d`` datafiles.
 from abc import ABC
 from typing import List, Optional, Sequence, Tuple, Union
 
-# this package
+# 3rd party
 import attr
 from attr_utils.docstrings import add_attrs_doc
 
+# this package
 from pyms_agilent.attrs_serde import serde
 from pyms_agilent.enums import (
 		ChromType,
@@ -46,14 +47,14 @@ from pyms_agilent.mhdac.agilent import DataAnalysis
 from pyms_agilent.utils import Range, polarity_map, ranges_from_list
 
 __all__ = [
-	"Signal",
-	"FrozenSignal",
-	"InstrumentCurve",
-	"axis_info_converter",
-	"y_axis_info_converter",
-	"FrozenInstrumentCurve",
-	"TIC",
-	]
+		"Signal",
+		"FrozenSignal",
+		"InstrumentCurve",
+		"axis_info_converter",
+		"y_axis_info_converter",
+		"FrozenInstrumentCurve",
+		"TIC",
+		]
 
 
 class Signal(ABC):

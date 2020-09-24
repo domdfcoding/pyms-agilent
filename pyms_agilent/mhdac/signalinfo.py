@@ -26,10 +26,11 @@ Provides metadata about a signal recorded by the instrument.
 # stdlib
 from typing import Any, Dict, Union
 
-# this package
+# 3rd party
 import attr
 from attr_utils.docstrings import add_attrs_doc
 
+# this package
 from pyms_agilent.attrs_serde import serde
 from pyms_agilent.enums import DeviceType
 from pyms_agilent.mhdac.agilent import DataAnalysis
@@ -118,7 +119,9 @@ class SignalInfo:
 				)
 
 
-def convert_instrument_curve(curve: Union[InstrumentCurve, FrozenInstrumentCurve, Dict[str, Any]],) -> FrozenInstrumentCurve:
+def convert_instrument_curve(
+		curve: Union[InstrumentCurve, FrozenInstrumentCurve, Dict[str, Any]],
+		) -> FrozenInstrumentCurve:
 	"""
 	Converter for the ``instrument_curve`` parameter in :class:`~.FrozenSignalInfo`.
 
@@ -170,5 +173,3 @@ class FrozenSignalInfo:
 		"""
 
 		return f"{self.__class__.__name__}({self.signal_name}, device={self.device_name}{self.device_ordinal_number})"
-
-

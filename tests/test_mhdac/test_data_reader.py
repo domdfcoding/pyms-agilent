@@ -1,9 +1,8 @@
 # stdlib
 import json
-
-# 3rd party
 from typing import List
 
+# 3rd party
 import pytest
 from pytest_regressions.file_regression import FileRegressionFixture
 
@@ -269,17 +268,23 @@ class TestDataReader:
 				) == []
 
 	def test_signal_serialisation(self, reader, file_regression: FileRegressionFixture):
-		signal = reader.get_signal_listing("HiP-ALS", DeviceType.AutoSampler, StoredDataType.InstrumentCurves,)[0].freeze()
+		signal = reader.get_signal_listing(
+				"HiP-ALS",
+				DeviceType.AutoSampler,
+				StoredDataType.InstrumentCurves,
+				)[0].freeze()
 
 		assert FrozenSignalInfo.from_dict(signal.to_dict()) == signal
 		assert FrozenSignalInfo.from_dict(json.loads(json.dumps(signal.to_dict()))) == signal
 
 	def test_signalinfo_repr(self, reader):
-		signal = reader.get_signal_listing("VWD", DeviceType.AutoSampler, StoredDataType.InstrumentCurves, )[
-			6]
+		signal = reader.get_signal_listing(
+				"VWD",
+				DeviceType.AutoSampler,
+				StoredDataType.InstrumentCurves,
+				)[6]
 		assert repr(signal) == "SignalInfo(T, device=VWD1)"
 		assert repr(signal.freeze()) == "FrozenSignalInfo(T, device=VWD1)"
-
 
 	# get_scan_record
 	# get_spectrum_by_time
