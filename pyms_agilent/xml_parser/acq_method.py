@@ -45,6 +45,7 @@ from .core import make_from_element, tag2dict
 __all__ = ["Device", "AcqMethod", "read_acqmethod"]
 
 
+@add_attrs_doc
 @attr.s(slots=True)
 class Device:
 	"""

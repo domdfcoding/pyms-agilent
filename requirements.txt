@@ -1,10 +1,14 @@
-attr_utils>=0.1.1
+attr_utils>=0.3.0
 attrs>=20.2.0
-domdf_python_tools>=0.8.0
-enum_tools>=0.2.1
+domdf_python_tools>=0.9.1
+enum_tools>=0.5.0
 importlib_resources>=3.0.0
 lxml>=4.5.2
 mh_utils>=0.0.3
 numpy>=1.19.1
 pandas>=1.1.1
+pymassspec>=2.2.21
+pythonnet>=2.5.1; platform_system == "Windows"
 typing_extensions>=3.7.4.3
+cytoolz
+toolz

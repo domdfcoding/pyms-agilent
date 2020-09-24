@@ -32,11 +32,11 @@ import platform
 import sys
 from typing import TYPE_CHECKING
 
+__all__ = ["DataAnalysis", "FileNotFoundException", "ArgumentOutOfRangeException"]
+
 if sys.platform == "win32" or TYPE_CHECKING:
 	# 3rd party
 	import clr  # type: ignore
-
-	__all__ = ["DataAnalysis"]
 
 	if platform.architecture()[0] == "64bit":
 		sys.path.append(str(pathlib.Path(__file__).parent / "x64"))
@@ -50,10 +50,20 @@ if sys.platform == "win32" or TYPE_CHECKING:
 	# 3rd party
 	import Agilent
 	import Agilent.MassSpectrometry.DataAnalysis
+	import System
 
 	DataAnalysis = Agilent.MassSpectrometry.DataAnalysis
+
+	FileNotFoundException = System.IO.FileNotFoundException
+	ArgumentOutOfRangeException = System.ArgumentOutOfRangeException
 
 else:
 	# this package
 	from pyms_agilent.mhdac import _posix_data_analysis
 	DataAnalysis = _posix_data_analysis
+
+	class FileNotFoundException(IOError):
+		pass
+
+	class ArgumentOutOfRangeException(IndexError):
+		pass

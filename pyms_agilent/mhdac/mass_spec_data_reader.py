@@ -26,9 +26,12 @@ The primary interface for reading data files.
 # stdlib
 from typing import Any, Dict, Iterator, List, Mapping, NamedTuple, Optional, Tuple
 
+# 3rd party
+from domdf_python_tools.typing import PathLike
+
 # this package
 from pyms_agilent.enums import DeviceType, IonizationMode, MSScanType, SampleCategory, StoredDataType
-from pyms_agilent.mhdac.agilent import DataAnalysis
+from pyms_agilent.mhdac.agilent import DataAnalysis, FileNotFoundException
 from pyms_agilent.mhdac.chromatograms import TIC
 from pyms_agilent.mhdac.file_information import FileInformation
 from pyms_agilent.mhdac.scan_record import MSScanRecord
@@ -46,13 +49,16 @@ class MassSpecDataReader:
 	:param filename: The ``.d`` data file to open.
 	"""
 
-	def __init__(self, filename: str):
-		self.filename = filename
+	def __init__(self, filename: PathLike):
+		self.filename: str = str(filename)
 		self.data_reader = DataAnalysis.MassSpecDataReader()
 		self.interface = DataAnalysis.IMsdrDataReader
 
-		if not self.interface.OpenDataFile(self.data_reader, str(filename)):
-			raise IOError(f"Could not open data file '{filename}'")
+		try:
+			if not self.interface.OpenDataFile(self.data_reader, self.filename):
+				raise IOError(f"Could not open data file '{self.filename}'")
+		except FileNotFoundException as e:
+			raise IOError(str(e).split("\n")[0]) from None
 
 	def close_datafile(self) -> bool:
 		"""
@@ -71,7 +77,7 @@ class MassSpecDataReader:
 		:return: Whether new data is present in the data file
 		"""
 
-		return self.interface.RefreshDataFile(self.data_reader)
+		return self.interface.RefreshDataFile(self.data_reader, True)[1]
 
 	@property
 	def file_information(self) -> FileInformation:
@@ -370,6 +376,13 @@ class MSActuals(Mapping[str, MSActual]):
 			self._keys = list(self.interface.GetActualNames())
 
 		return self._keys
+
+	def values(self) -> List[MSActual]:  # type: ignore
+		"""
+		Returns a list of parameter values.
+		"""
+
+		return list(x[1] for x in iter(self))
 
 	def items(self) -> List[Tuple[str, MSActual]]:  # type: ignore
 		"""

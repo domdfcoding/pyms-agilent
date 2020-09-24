@@ -24,14 +24,18 @@ Provides metadata about a signal recorded by the instrument.
 #
 
 # stdlib
-from typing import Union
+from typing import Any, Dict, Union
 
 # this package
+import attr
+from attr_utils.docstrings import add_attrs_doc
+
+from pyms_agilent.attrs_serde import serde
 from pyms_agilent.enums import DeviceType
 from pyms_agilent.mhdac.agilent import DataAnalysis
-from pyms_agilent.mhdac.chromatograms import InstrumentCurve
+from pyms_agilent.mhdac.chromatograms import FrozenInstrumentCurve, InstrumentCurve
 
-__all__ = ["SignalInfo"]
+__all__ = ["SignalInfo", "FrozenSignalInfo"]
 
 
 class SignalInfo:
@@ -83,7 +87,7 @@ class SignalInfo:
 
 		return str(self.interface.SignalName)
 
-	# TODO: the signal itself
+	# TODO: VWD signal
 
 	def get_instrument_curve(self) -> InstrumentCurve:
 		"""
@@ -91,3 +95,80 @@ class SignalInfo:
 		"""
 
 		return InstrumentCurve(self.msdr.GetSignal(self.data_reader))
+
+	def __repr__(self) -> str:
+		"""
+		Returns a string representation of the :class:`~pyms_agilent.mhdac.signalinfo.SignalInfo`.
+		"""
+
+		return f"{self.__class__.__name__}({self.signal_name}, device={self.device_name})"
+
+	def freeze(self) -> "FrozenSignalInfo":
+		"""
+		Returns a :class:`~pyms_agilent.mhdac.signalinfo.FrozenSignalInfo` object
+		containing the same data as this object.
+		"""
+
+		return FrozenSignalInfo(
+				device_name=self.device_name,
+				device_type=self.device_type,
+				device_ordinal_number=self.device_ordinal_number,
+				signal_name=self.signal_name,
+				instrument_curve=self.get_instrument_curve().freeze(),
+				)
+
+
+def convert_instrument_curve(curve: Union[InstrumentCurve, FrozenInstrumentCurve, Dict[str, Any]],) -> FrozenInstrumentCurve:
+	"""
+	Converter for the ``instrument_curve`` parameter in :class:`~.FrozenSignalInfo`.
+
+	:param curve:
+	"""
+
+	if isinstance(curve, InstrumentCurve):
+		return curve.freeze()
+	elif isinstance(curve, FrozenInstrumentCurve):
+		return curve
+	else:
+		return FrozenInstrumentCurve.from_dict(curve)
+
+
+@serde
+@add_attrs_doc
+@attr.s(slots=True, frozen=True, repr=False)
+class FrozenSignalInfo:
+	"""
+	Frozen version of :class:`~pyms_agilent.mhdac.signalinfo.SignalInfo`.
+	"""
+
+	#: The name of the device that recorded this signal.
+	device_name: str = attr.ib(converter=str)
+
+	#: The type of the device that recorded this signal.
+	device_type: DeviceType = attr.ib(converter=DeviceType)
+
+	#: The ordinal number of the device that recorded this signal.
+	device_ordinal_number: int = attr.ib(converter=int)
+
+	#: The name of the signal.
+	signal_name: str = attr.ib(converter=str)
+
+	instrument_curve: FrozenInstrumentCurve = attr.ib(converter=convert_instrument_curve)
+
+	# TODO: VWD signal
+
+	def get_instrument_curve(self) -> FrozenInstrumentCurve:
+		"""
+		Returns the instrument curve for the signal.
+		"""
+
+		return self.instrument_curve
+
+	def __repr__(self) -> str:
+		"""
+		Returns a string representation of the :class:`~pyms_agilent.mhdac.signalinfo.FrozenSignalInfo`.
+		"""
+
+		return f"{self.__class__.__name__}({self.signal_name}, device={self.device_name})"
+
+

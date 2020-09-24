@@ -22,11 +22,6 @@ Exception classes.
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 #
-#  is_datafile based on ms_deisotope
-#  https://github.com/mobiusklein/ms_deisotope/blob/master/ms_deisotope/data_source/_vendor/AgilentD.py
-#  Copyright Joshua Klein
-#  Apache 2.0 Licensed
-#
 
 __all__ = ["NotMS2Error"]
 

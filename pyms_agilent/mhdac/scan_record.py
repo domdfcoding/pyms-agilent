@@ -68,7 +68,7 @@ class MSScanRecord:
 		return float(self.interface.BasePeakMZ)
 
 	@property
-	def collisionEnergy(self) -> float:
+	def collision_energy(self) -> float:
 		"""
 		Returns the Collision Energy used to acquire the scan.
 		"""
@@ -76,7 +76,7 @@ class MSScanRecord:
 		return float(self.interface.CollisionEnergy)
 
 	@property
-	def compensationField(self) -> float:
+	def compensation_field(self) -> float:
 		"""
 		Returns the value of the compensation field.
 		"""
@@ -84,7 +84,7 @@ class MSScanRecord:
 		return float(self.interface.CompensationField)
 
 	@property
-	def dispersionField(self) -> float:
+	def dispersion_field(self) -> float:
 		"""
 		Returns the value of the dispersion field.
 		"""
@@ -92,7 +92,7 @@ class MSScanRecord:
 		return float(self.interface.DispersionField)
 
 	@property
-	def fragmentorVoltage(self) -> float:
+	def fragmentor_voltage(self) -> float:
 		"""
 		Returns the Fragmentor Voltage used to acquire the data.
 		"""
@@ -151,7 +151,9 @@ class MSScanRecord:
 	def mz_of_interest(self) -> float:
 		"""
 		Returns the |mz| of interest for the scan, if any.
-		"""  # noqa RST305
+		"""
+
+		# noqa RST305
 
 		mz = float(self.interface.MZOfInterest)
 

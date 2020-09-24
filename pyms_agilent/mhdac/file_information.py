@@ -24,12 +24,13 @@ Provides metadata about ``.d`` datafiles.
 #
 
 # stdlib
+import pathlib
 from datetime import datetime, timezone
-from typing import Union
+from typing import Optional, Union
 
 # this package
 from pyms_agilent.enums import DeviceType, IRMStatus, MeasurementTypeEnum, SeparationTechniqueEnum, StoredDataType
-from pyms_agilent.mhdac.agilent import DataAnalysis
+from pyms_agilent.mhdac.agilent import ArgumentOutOfRangeException, DataAnalysis
 from pyms_agilent.mhdac.ms_scan_file_info import MSScanFileInformation
 
 __all__ = ["FileInformation"]
@@ -84,12 +85,12 @@ class FileInformation:
 		return IRMStatus(self.interface.IRMStatus)
 
 	@property
-	def datafile_name(self) -> str:
+	def datafile_name(self) -> pathlib.PureWindowsPath:
 		"""
 		Returns the name of the data file.
 		"""
 
-		return self.interface.DataFileName
+		return pathlib.PureWindowsPath(self.interface.DataFileName)
 
 	@property
 	def ms_data_present(self) -> bool:
@@ -165,11 +166,15 @@ class FileInformation:
 		:param ordinal_number: The ordinal number of the device.
 		"""
 
-		return self.interface.IsStoredDataTypePresent(f"{device_name}{ordinal_number}", datatype)
+		try:
+			return self.interface.IsStoredDataTypePresent(f"{device_name}{ordinal_number}", int(datatype))
+		except ArgumentOutOfRangeException:
+			return False
 
-	def get_device_name(self, device_type: DeviceType) -> str:
+	def get_device_name(self, device_type: DeviceType) -> Optional[str]:
 		"""
-		Returns the name of the device in the instrument configuration with the given type.
+		Returns the name of the device in the instrument configuration with the given type,
+		or :py:obj:`None` if no such device exists.
 
 		:param device_type:
 		"""
