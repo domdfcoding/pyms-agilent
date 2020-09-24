@@ -59,7 +59,3 @@ additional_ignore:
   - Scan 100 Profile Mode.png
   - stubs_todo.py
   - tic.pdf
-
-
-sphinx_conf_epilogue:
-  - toctree_plus_types = {"class", "function", "method", "data", "enum", "flag"}
