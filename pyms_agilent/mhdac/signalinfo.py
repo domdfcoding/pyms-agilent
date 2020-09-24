@@ -101,7 +101,7 @@ class SignalInfo:
 		Returns a string representation of the :class:`~pyms_agilent.mhdac.signalinfo.SignalInfo`.
 		"""
 
-		return f"{self.__class__.__name__}({self.signal_name}, device={self.device_name})"
+		return f"{self.__class__.__name__}({self.signal_name}, device={self.device_name}{self.device_ordinal_number})"
 
 	def freeze(self) -> "FrozenSignalInfo":
 		"""
@@ -169,6 +169,6 @@ class FrozenSignalInfo:
 		Returns a string representation of the :class:`~pyms_agilent.mhdac.signalinfo.FrozenSignalInfo`.
 		"""
 
-		return f"{self.__class__.__name__}({self.signal_name}, device={self.device_name})"
+		return f"{self.__class__.__name__}({self.signal_name}, device={self.device_name}{self.device_ordinal_number})"
 
 

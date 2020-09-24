@@ -274,8 +274,13 @@ class TestDataReader:
 		assert FrozenSignalInfo.from_dict(signal.to_dict()) == signal
 		assert FrozenSignalInfo.from_dict(json.loads(json.dumps(signal.to_dict()))) == signal
 
+	def test_signalinfo_repr(self, reader):
+		signal = reader.get_signal_listing("VWD", DeviceType.AutoSampler, StoredDataType.InstrumentCurves, )[
+			6]
+		assert repr(signal) == "SignalInfo(T, device=VWD1)"
+		assert repr(signal.freeze()) == "FrozenSignalInfo(T, device=VWD1)"
+
 
 	# get_scan_record
-	# get_signal_listing
 	# get_spectrum_by_time
 	# get_spectrum_by_scan
