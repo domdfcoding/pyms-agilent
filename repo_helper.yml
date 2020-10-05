@@ -59,3 +59,5 @@ additional_ignore:
   - Scan 100 Profile Mode.png
   - stubs_todo.py
   - tic.pdf
+  - old
+  - pyms.bat
