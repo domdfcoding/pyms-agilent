@@ -32,7 +32,7 @@ import platform
 import sys
 from typing import TYPE_CHECKING
 
-__all__ = ["DataAnalysis", "FileNotFoundException", "ArgumentOutOfRangeException"]
+__all__ = ["DataAnalysis", "FileNotFoundException", "ArgumentOutOfRangeException", "NullReferenceException"]
 
 if sys.platform == "win32" or TYPE_CHECKING:
 	# 3rd party
@@ -56,6 +56,7 @@ if sys.platform == "win32" or TYPE_CHECKING:
 
 	FileNotFoundException = System.IO.FileNotFoundException
 	ArgumentOutOfRangeException = System.ArgumentOutOfRangeException
+	NullReferenceException = System.NullReferenceException
 
 else:
 	# this package
@@ -66,4 +67,7 @@ else:
 		pass
 
 	class ArgumentOutOfRangeException(IndexError):
+		pass
+
+	class NullReferenceException(Exception):
 		pass

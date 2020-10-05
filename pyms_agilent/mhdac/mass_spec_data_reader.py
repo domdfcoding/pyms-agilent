@@ -24,14 +24,15 @@ The primary interface for reading data files.
 #
 
 # stdlib
-from typing import Any, Dict, Iterator, List, Mapping, NamedTuple, Optional, Tuple
+import os
+from typing import Any, Dict, Iterator, List, Mapping, NamedTuple, Tuple
 
 # 3rd party
 from domdf_python_tools.typing import PathLike
 
 # this package
 from pyms_agilent.enums import DeviceType, IonizationMode, MSScanType, SampleCategory, StoredDataType
-from pyms_agilent.mhdac.agilent import DataAnalysis, FileNotFoundException
+from pyms_agilent.mhdac.agilent import DataAnalysis, FileNotFoundException, NullReferenceException
 from pyms_agilent.mhdac.chromatograms import TIC
 from pyms_agilent.mhdac.file_information import FileInformation
 from pyms_agilent.mhdac.scan_record import MSScanRecord
@@ -47,18 +48,24 @@ class MassSpecDataReader:
 	The primary interface for reading data files.
 
 	:param filename: The ``.d`` data file to open.
+
+	:raises FileNotFoundError: if the datafile cannot be found.
+	:raises IOError: if the datafile cannot be opened for any other reason.
 	"""
 
 	def __init__(self, filename: PathLike):
+		if not os.path.exists(filename):
+			raise FileNotFoundError(filename)
+
 		self.filename: str = str(filename)
 		self.data_reader = DataAnalysis.MassSpecDataReader()
 		self.interface = DataAnalysis.IMsdrDataReader
 
 		try:
 			if not self.interface.OpenDataFile(self.data_reader, self.filename):
-				raise IOError(f"Could not open data file '{self.filename}'")
+				raise IOError(f"Could not open data file '{self.filename}'")  # pragma: no cover
 		except FileNotFoundException as e:
-			raise IOError(str(e).split("\n")[0]) from None
+			raise FileNotFoundError(str(e).split("\n")[0]) from None
 
 	def close_datafile(self) -> bool:
 		"""
@@ -98,21 +105,29 @@ class MassSpecDataReader:
 		"""
 		Returns a :class:`pyms_agilent.mhdac.spectrum.SpecData` object for the given scan.
 
-		:param scan_no:
+		:param scan_no: The scan number.
+
+		:raises: :exc:`ValueError` if the scan number is out of range.
 		"""
 
 		# TODO: by number and scan type
 
 		peak_filter = DataAnalysis.MsdrPeakFilter()
 
-		# Signature is scan_no, peakMSFilter, peakMSMSFilter
-		return SpecData(self.interface(self.data_reader).GetSpectrum(int(scan_no), peak_filter, peak_filter))
+		if int(scan_no) < 0:
+			raise ValueError("scan_no must be greater than or equal to 0")
+
+		try:
+			# Signature is scan_no, peakMSFilter, peakMSMSFilter
+			return SpecData(self.interface(self.data_reader).GetSpectrum(int(scan_no), peak_filter, peak_filter))
+		except NullReferenceException:
+			raise ValueError("scan_no out of range")
 
 	def get_spectrum_by_time(
 			self,
 			retention_time: float,
 			scan_type: MSScanType = MSScanType.All,
-			ionization_polarity: Optional[int] = 1,
+			ionization_polarity: int = 1,
 			ionization_mode: IonizationMode = IonizationMode.Unspecified,
 			) -> SpecData:
 		"""
@@ -125,6 +140,11 @@ class MassSpecDataReader:
 		:param scan_type:
 		:param ionization_polarity: The ionization polarity. 1 = positive, -1 = negative, 0 = +-
 		:param ionization_mode:
+
+		:raises: :exc:`ValueError` if the retention time is less than zero or no such scan exists for the given parameters.
+
+		If the requested retention time is beyond the end of the acquired time range the spectrum for
+		the latest time will be returned.
 		"""
 
 		# TODO: centroid vs scan
@@ -132,7 +152,7 @@ class MassSpecDataReader:
 		peak_filter = DataAnalysis.MsdrPeakFilter()
 
 		if ionization_polarity is None:
-			ionization_polarity = 2
+			raise ValueError("'ionization_polarity' cannot be None.")
 		elif ionization_polarity > 0:
 			ionization_polarity = 0  # I really don't know why it is this way
 		elif ionization_polarity < 0:
@@ -140,11 +160,27 @@ class MassSpecDataReader:
 		elif ionization_polarity == 0:
 			ionization_polarity = 3
 
-		return SpecData(
+		if float(retention_time) < 0:
+			raise ValueError("retention_time cannot be < 0")
+
+		# try:
+		data = SpecData(
 				self.interface(self.data_reader).GetSpectrum(
-						float(retention_time), scan_type, ionization_polarity, ionization_mode, peak_filter
+						float(retention_time),
+						scan_type,
+						ionization_polarity,
+						ionization_mode,
+						peak_filter,
 						)
 				)
+
+		try:
+			data.scan_id
+			return data
+		except NullReferenceException:
+			raise ValueError("No such scan.")
+		# except ArgumentOutOfRangeException:
+		# 	raise IndexError
 
 	# def iter_spectra(self):
 
