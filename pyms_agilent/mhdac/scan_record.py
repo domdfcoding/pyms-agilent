@@ -24,16 +24,19 @@ Provides metadata about a single scan.
 #
 
 # stdlib
-from typing import Optional
+from typing import Any, MutableMapping, Optional
+
+# 3rd party
+import attr
+from attr_utils.pprinter import pretty_repr
+from attr_utils.serialise import serde
 
 # this package
 from pyms_agilent.enums import IonizationMode, MSLevel, MSScanType
 from pyms_agilent.mhdac.agilent import DataAnalysis
+from pyms_agilent.utils import frozen_comparison, isnan, polarity_map
 
-__all__ = ["MSScanRecord"]
-
-# this package
-from pyms_agilent.utils import polarity_map
+__all__ = ["MSScanRecord", "FrozenMSScanRecord", "UndefinedMSScanRecord"]
 
 
 class MSScanRecord:
@@ -196,3 +199,146 @@ class MSScanRecord:
 		"""
 
 		return int(self.interface.TimeSegment)
+
+	def to_dict(self) -> MutableMapping[str, Any]:
+		"""
+		Returns a dictionary containing the data of this
+		:class:`~pyms_agilent.mhdac.scan_record.MSScanRecord` object.
+		"""
+
+		return dict(
+				base_peak_intensity=self.base_peak_intensity,
+				base_peak_mz=self.base_peak_mz,
+				collision_energy=self.collision_energy,
+				compensation_field=self.compensation_field,
+				dispersion_field=self.dispersion_field,
+				fragmentor_voltage=self.fragmentor_voltage,
+				ion_polarity=self.ion_polarity,
+				ionization_mode=self.ionization_mode,
+				is_collision_energy_dynamic=self.is_collision_energy_dynamic,
+				is_fragmentor_voltage_dynamic=self.is_fragmentor_voltage_dynamic,
+				ms_level=self.ms_level,
+				ms_scan_type=self.ms_scan_type,
+				mz_of_interest=self.mz_of_interest,
+				retention_time=self.retention_time,
+				scan_id=self.scan_id,
+				tic=self.tic,
+				time_segment=self.time_segment,
+				)
+
+	def freeze(self) -> "FrozenMSScanRecord":
+		"""
+		Returns a :class:`~pyms_agilent.mhdac.scan_record.FrozenMSScanRecord` object
+		containing the same data as this object.
+		"""
+
+		return FrozenMSScanRecord(**self.to_dict())
+
+	def is_undefined(self) -> bool:
+		"""
+		Returns whether the scan record is undefined.
+
+		If the scan record is undefined this is usually a result
+		of requesting a scan that doesn't exist.
+		"""
+
+		return self == UndefinedMSScanRecord
+
+
+@serde
+@pretty_repr
+@frozen_comparison(MSScanRecord)
+@attr.s(slots=True, frozen=True, eq=False)
+class FrozenMSScanRecord:
+	"""
+	Frozen version of :class:`~.MSScanRecord`.
+
+	Provides metadata about a single scan.
+	"""
+
+	#: The intensity of the base peak in the scan.
+	base_peak_intensity: float = attr.ib(converter=float)
+
+	#: Returns the |mz| of the base peak in the scan.
+	base_peak_mz: float = attr.ib(converter=float)
+
+	#: Returns the Collision Energy used to acquire the scan.
+	collision_energy: float = attr.ib(converter=float)
+
+	#: Returns the value of the compensation field.
+	compensation_field: float = attr.ib(converter=float)
+
+	#: Returns the value of the dispersion field.
+	dispersion_field: float = attr.ib(converter=float)
+
+	#: Returns the Fragmentor Voltage used to acquire the data.
+	fragmentor_voltage: float = attr.ib(converter=float)
+
+	#: Returns the polarity of the ion.
+	ion_polarity: Optional[str] = attr.ib()
+
+	#: Returns the Ionization Mode used to acquire the data.
+	ionization_mode: IonizationMode = attr.ib(converter=IonizationMode)
+
+	#: Returns whether the Collision Energy is dynamic.
+	is_collision_energy_dynamic: bool = attr.ib(converter=bool)
+
+	#: Returns whether the Fragmentor Voltage is dynamic.
+	is_fragmentor_voltage_dynamic: bool = attr.ib(converter=bool)
+
+	#: Returns the Mass Spectrometry level e.g. MS or MSMS.
+	ms_level: MSLevel = attr.ib(converter=MSLevel)
+
+	#: Returns the type of Mass Spectrometry Scan.
+	ms_scan_type: MSScanType = attr.ib(converter=MSScanType)
+
+	#: Returns the |mz| of interest for the scan, if any.
+	mz_of_interest: float = attr.ib(converter=float)
+
+	#: Returns the retention time of the scan, in minutes.
+	retention_time: float = attr.ib(converter=float)
+
+	#: Returns the ID of the Scan.
+	scan_id: int = attr.ib(converter=int)
+
+	#: Returns the summed intensity of all ions in the scan with
+	tic: float = attr.ib(converter=float)
+
+	#: Returns the time segment the scan belongs to.
+	time_segment: int = attr.ib(converter=int)
+
+	def is_undefined(self) -> bool:
+		"""
+		Returns whether the scan record is undefined.
+
+		If the scan record is undefined this is usually a result
+		of requesting a scan that doesn't exist.
+		"""
+
+		return self == UndefinedMSScanRecord
+
+
+# has to be done after FrozenMSScanRecord was defined.
+frozen_comparison(FrozenMSScanRecord)(MSScanRecord)
+
+
+#: Represents an MSScanRecord that is undefined, usually as a result of requesting a scan that doesn't exist.
+UndefinedMSScanRecord = FrozenMSScanRecord(
+		base_peak_intensity=0.0,
+		base_peak_mz=0.0,
+		collision_energy=0.0,
+		compensation_field=0.0,
+		dispersion_field=0.0,
+		fragmentor_voltage=0.0,
+		ion_polarity="+",
+		ionization_mode=IonizationMode.Unspecified,
+		is_collision_energy_dynamic=False,
+		is_fragmentor_voltage_dynamic=False,
+		ms_level=MSLevel.All,
+		ms_scan_type=MSScanType.Unspecified,
+		mz_of_interest=0.0,
+		retention_time=0.0,
+		scan_id=0,
+		tic=0.0,
+		time_segment=0
+		)

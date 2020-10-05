@@ -24,14 +24,19 @@ Provides access to information about mass spectral data in ``.d`` data files.
 #
 
 # stdlib
-from typing import List, Optional
+from typing import Any, List, MutableMapping, Optional
 
 # this package
+import attr
+from attr_utils.pprinter import pretty_repr
+from attr_utils.serialise import serde
+from domdf_python_tools.utils import strtobool
+
 from pyms_agilent.enums import DeviceType, IonizationMode, MSScanType, MSStorageMode
 from pyms_agilent.mhdac.agilent import DataAnalysis
-from pyms_agilent.utils import polarity_map
+from pyms_agilent.utils import frozen_comparison, polarity_map
 
-__all__ = ["MSScanFileInformation"]
+__all__ = ["MSScanFileInformation", "FrozenMSScanFileInformation"]
 
 
 class MSScanFileInformation:
@@ -202,6 +207,38 @@ class MSScanFileInformation:
 
 		return list(self.interface.SIMIons)
 
+	def to_dict(self) -> MutableMapping[str, Any]:
+		"""
+		Returns a dictionary containing the data of this
+		:class:`~pyms_agilent.mhdac.ms_scan_file_info.MSScanFileInformation` object.
+		"""
+
+		return dict(
+				collision_energies=self.collision_energies,
+				compensation_field_values=self.compensation_field_values,
+				dispersion_field_values=self.dispersion_field_values,
+				has_ms_data=self.has_ms_data,
+				device_type=self.device_type,
+				fragmentor_voltages=self.fragmentor_voltages,
+				ionisation_mode=self.ionisation_mode,
+				ionisation_polarity=self.ionisation_polarity,
+				ms_level=self.ms_level,
+				scan_types=self.scan_types,
+				spectra_format=self.spectra_format,
+				total_scans=self.total_scans,
+				has_fixed_cycle_length_data=self.has_fixed_cycle_length_data,
+				are_multiple_spectra_present_per_scan=self.are_multiple_spectra_present_per_scan,
+				sim_ions=self.sim_ions,
+				)
+
+	def freeze(self) -> "FrozenMSScanFileInformation":
+		"""
+		Returns a :class:`~pyms_agilent.mhdac.ms_scan_file_info.FrozenMSScanFileInformation` object
+		containing the same data as this object.
+		"""
+
+		return FrozenMSScanFileInformation(**self.to_dict())
+
 
 #  Equals
 #  Finalize
@@ -226,3 +263,77 @@ class MSScanFileInformation:
 #  MzScanRangeMinimum  returns 0
 #  MzScanRangeMaximum  returns 0
 #  CollisionEnergy  # broken
+
+
+@serde
+@pretty_repr
+@frozen_comparison(MSScanFileInformation)
+@attr.s(slots=True, frozen=True, eq=False)
+class FrozenMSScanFileInformation:
+	"""
+	Frozen version of :class:`~.MSScanFileInformation`.
+
+	Provides information about mass spectral data in ``.d`` data files.
+	"""
+
+	#: The collision energies used to acquire the data.
+	collision_energies: List[float] = attr.ib(converter=list)
+
+	#: The compensation field values.
+	compensation_field_values: List[float] = attr.ib(converter=list)
+
+	#: The dispersion field values.
+	dispersion_field_values: List[float] = attr.ib(converter=list)
+
+	#: Returns whether the file contains mass spectral data.
+	has_ms_data: bool = attr.ib(converter=strtobool)
+
+	#: The type of device used to acquire the data.
+	device_type: DeviceType = attr.ib(converter=DeviceType)
+
+	#: The fragmentor voltages used to acquire the data.
+	fragmentor_voltages: List[float] = attr.ib(converter=list)
+
+	ionisation_mode: IonizationMode = attr.ib(converter=IonizationMode)
+	"""
+	The ionization mode used to acquire the data.
+	
+	This is the logical bitwise OR of the Ionization Mode values for all scans in the file
+	"""
+
+	#: The ionization polarity used to acquire the data.
+	ionisation_polarity: Optional[str] = attr.ib()
+
+	#: The MS level used to acquire the data.
+	ms_level: int = attr.ib(converter=int)
+
+	scan_types: MSScanType = attr.ib(converter=MSScanType)
+	"""
+	The MS Scan Type.
+	
+	This is the logical bitwise OR of the MSScanType values for all scans in the file.
+	"""
+
+	#: The format of the spectrum.
+	spectra_format: MSStorageMode = attr.ib(converter=MSStorageMode)
+
+	#: The total number of scans present.
+	total_scans: int = attr.ib(converter=int)
+
+	#: Returns whether the data file contains any time segments that have a fixed cycle length.
+	has_fixed_cycle_length_data: bool = attr.ib(converter=strtobool)
+
+	are_multiple_spectra_present_per_scan: bool = attr.ib(converter=strtobool)
+	"""
+	Returns whether the data file contains more than 1 spectra format for each scan.
+	
+	This is useful in case of dual mode format stored for each scan.
+	"""
+
+	#: Returns a list of SIM ions.
+	sim_ions: List[float] = attr.ib(converter=list)
+
+
+# has to be done after FrozenMSScanFileInformation was defined.
+frozen_comparison(FrozenMSScanFileInformation)(MSScanFileInformation)
+

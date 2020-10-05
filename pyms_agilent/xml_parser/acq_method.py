@@ -32,6 +32,7 @@ from typing import Any, Dict, List, Sequence
 import attr
 import lxml.objectify  # type: ignore
 from attr_utils.docstrings import add_attrs_doc
+from attr_utils.serialise import serde
 from domdf_python_tools.bases import Dictable
 from domdf_python_tools.doctools import prettify_docstrings
 from domdf_python_tools.typing import PathLike
@@ -46,6 +47,7 @@ __all__ = ["Device", "AcqMethod", "read_acqmethod"]
 
 
 @add_attrs_doc
+@serde
 @attr.s(slots=True)
 class Device:
 	"""
@@ -146,7 +148,7 @@ class AcqMethod(XMLFileMixin, Dictable):
 			else:  # pragma: no cover
 				raise ValueError(f"Unknown Device {section_data['module_display_name']}")
 
-		pprint(devices)
+		# pprint(devices)
 
 		for section in scic_devices_xml.findall("SectionInfo"):
 			section_data = tag2dict(section)

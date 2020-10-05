@@ -24,7 +24,15 @@ Provides access to information about a single spectrum in ``.d`` data files.
 #
 
 # stdlib
-from typing import List, Optional, Tuple
+from typing import Any, List, MutableMapping, Optional, Tuple
+
+# 3rd party
+import attr
+import prettyprinter
+from attr_utils.pprinter import pretty_repr, register_pretty
+from attr_utils.serialise import serde
+from domdf_python_tools.utils import etc
+from prettyprinter import pretty_call_alt
 
 # this package
 from pyms_agilent.enums import (
@@ -39,9 +47,17 @@ from pyms_agilent.enums import (
 		)
 from pyms_agilent.exceptions import NotMS2Error
 from pyms_agilent.mhdac.agilent import DataAnalysis
-from pyms_agilent.utils import Range, polarity_map, ranges_from_list
+from pyms_agilent.mhdac.chromatograms import axis_info_converter
+from pyms_agilent.utils import frozen_comparison, Range, polarity_map, ranges_from_list
 
-__all__ = ["SpecData"]
+__all__ = [
+		"SpecData",
+		"FrozenSpecData",
+		"FrozenMS2SpecData",
+		"pretty_etc",
+		"pretty_frozen_spec_data",
+		"pretty_spec_data",
+		]
 
 
 class SpecData:
@@ -90,6 +106,7 @@ class SpecData:
 
 		return float(self.interface.CollisionEnergy)
 
+	@property
 	def compensation_field(self) -> float:
 		"""
 		Returns the value of the compensation field.
@@ -121,6 +138,7 @@ class SpecData:
 
 		return DeviceType(self.interface.DeviceType)
 
+	@property
 	def dispersion_field(self) -> float:
 		"""
 		Returns the value of the dispersion field.
@@ -142,7 +160,7 @@ class SpecData:
 		Returns the charge of the precursor ion, if the data was acquired in MS\ :superscript:`2` mode.
 
 		:raises: :exc:`pyms_agilent.errors.NotMS2Error` if the data was not
-			acquired in MS\ :superscript:`2` mode
+			acquired in MS\ :superscript:`2` mode.
 		"""
 
 		is_ms2: bool
@@ -308,12 +326,15 @@ class SpecData:
 		return ranges_from_list(self.interface.MZOfInterest)
 
 	@property
-	def measured_mass_range(self) -> List[Range]:
+	def measured_mass_range(self) -> Optional[Range]:
 		"""
-		Returns the measured |mz| range(s), if the data was obtained via mass spectrometry.
+		Returns the measured |mz| range, if the data was obtained via mass spectrometry.
 		"""  # noqa RST305
 
-		return Range.from_dotnet(self.interface.MeasuredMassRange)
+		_range = self.interface.MeasuredMassRange
+		if _range is not None:
+			return Range.from_dotnet(_range)
+		return None
 
 	@property
 	def ordinal_number(self) -> int:
@@ -418,6 +439,73 @@ class SpecData:
 	#
 	# 	return self.acquired_time_ranges[0].start
 
+	def __repr__(self) -> str:
+		"""
+		Return a string representation of the :class:`~.SpecData`.
+		"""
+
+		return prettyprinter.pformat(self)
+
+	def to_dict(self) -> MutableMapping[str, Any]:
+		"""
+		Returns a dictionary containing the data of this
+		:class:`~pyms_agilent.mhdac.spectrum.SpecData` object.
+		"""
+
+		the_dict = dict(
+				abundance_limit=self.abundance_limit,
+				acquired_time_ranges=self.acquired_time_ranges,
+				chrom_peak_index=self.chrom_peak_index,
+				collision_energy=self.collision_energy,
+				compensation_field=self.compensation_field,
+				device_name=self.device_name,
+				device_type=self.device_type,
+				dispersion_field=self.dispersion_field,
+				fragmentor_voltage=self.fragmentor_voltage,
+				x_axis_info=self.get_x_axis_info(),
+				y_axis_info=self.get_y_axis_info(),
+				ionization_polarity=self.ionization_polarity,
+				ionization_mode=self.ionization_mode,
+				is_chromatogram=self.is_chromatogram,
+				is_data_in_mass_unit=self.is_data_in_mass_unit,
+				is_mass_spectrum=self.is_mass_spectrum,
+				is_icp_data=self.is_icp_data,
+				is_uv_spectrum=self.is_uv_spectrum,
+				ms_level=self.ms_level,
+				ms_scan_type=self.ms_scan_type,
+				ms_storage_mode=self.ms_storage_mode,
+				mz_of_interest=self.mz_of_interest,
+				measured_mass_range=self.measured_mass_range,
+				ordinal_number=self.ordinal_number,
+				parent_scan_id=self.parent_scan_id,
+				sampling_period=self.sampling_period,
+				scan_id=self.scan_id,
+				spectrum_type=self.spectrum_type,
+				threshold=self.threshold,
+				total_data_points=self.total_data_points,
+				total_scan_count=self.total_scan_count,
+				x_data=self.x_data,
+				y_data=self.y_data,
+				)
+
+		if self.ms_level == MSLevel.MSMS:
+			the_dict["precursor_charge"] = self.precursor_charge
+			the_dict["precursor_intensity"] = self.precursor_intensity
+
+		return the_dict
+
+	def freeze(self) -> "FrozenSpecData":
+		"""
+		Returns a :class:`~pyms_agilent.mhdac.spectrum.FrozenSpecData` object
+		containing the same data as this object.
+		"""
+
+		if self.ms_level == MSLevel.MSMS:
+			return FrozenMS2SpecData(**self.to_dict())
+
+		else:
+			return FrozenSpecData(**self.to_dict())
+
 
 # data_reader
 # ===============
@@ -443,3 +531,250 @@ class SpecData:
 # SpecFilter
 # TofCalibration
 # ConvertDataToMassUnits  # Converts the spectrum to mass units if it is in time units. Presumably mutates data?
+
+
+@serde
+@pretty_repr
+@frozen_comparison(SpecData)
+@attr.s(slots=True, frozen=True, eq=False, repr=False)
+class FrozenSpecData:
+	"""
+	Frozen version of :class:`~.SpecData`.
+
+	Provides metadata about a single spectrum.
+	"""
+
+	abundance_limit: float = attr.ib(converter=float)
+	"""
+	The abundance limit of the spectral data; that is the largest value that could be seen
+	in the spectrum (the theoretical "full scale" value).
+	"""
+
+	acquired_time_ranges: List[Range] = attr.ib(converter=list)
+	"""
+	The list of time ranges over which the data was acquired.
+
+	If the data was acquired over only one time range, the list will contain only one element.
+	"""
+
+	#: The collision energy used to acquire the data.
+	chrom_peak_index: int = attr.ib(converter=int)
+
+	#: The value of the compensation field.
+	collision_energy: float = attr.ib(converter=float)
+
+	#: The name of the device used to acquire the data.
+	compensation_field: float = attr.ib(converter=float)
+
+	#: The type of device used to acquire the data.
+	device_name: str = attr.ib(converter=str)
+
+	#: The value of the dispersion field.
+	device_type: DeviceType = attr.ib(converter=DeviceType)
+
+	#: The value of the Fragmentor Voltage used to acquire the data.
+	dispersion_field: float = attr.ib(converter=float)
+
+	#: The value of the Fragmentor Voltage used to acquire the data.
+	fragmentor_voltage: float = attr.ib(converter=float)
+
+	#: The type of data represented by the x-axis, and the corresponding unit.
+	x_axis_info: Tuple[DataValueType, DataUnit] = attr.ib(converter=axis_info_converter)
+
+	#: The type of data represented by the y-axis, and the corresponding unit.
+	y_axis_info: Tuple[DataValueType, DataUnit] = attr.ib(converter=axis_info_converter)
+
+	#: The ionization polarity used to acquire the data.
+	ionization_polarity: Optional[str] = attr.ib()
+
+	#: The ionization mode used to acquire the data.
+	ionization_mode: IonizationMode = attr.ib(converter=IonizationMode)
+
+	#: Whether the data is a chromatogram.
+	is_chromatogram: bool = attr.ib(converter=bool)
+
+	#: Whether the x-axis data is in mass units.
+	is_data_in_mass_unit: bool = attr.ib(converter=bool)
+
+	#: Wether the data is a mass spectrum.
+	is_mass_spectrum: bool = attr.ib(converter=bool)
+
+	#: Wether the data is ICP (inductively coupled plasma) data.
+	is_icp_data: bool = attr.ib(converter=bool)
+
+	#: Whether the data is a UV-Vis spectrum.
+	is_uv_spectrum: bool = attr.ib(converter=bool)
+
+	#: The mass spectrometry level, if the data was obtained via mass spectrometry.
+	ms_level: MSLevel = attr.ib(converter=MSLevel)
+
+	#: The mass spectrometry scan type, if the data was obtained via mass spectrometry.
+	ms_scan_type: MSScanType = attr.ib(converter=MSScanType)
+
+	#: The storage mode of the mass spectrometry data, if the data was obtained via mass spectrometry.
+	ms_storage_mode: MSStorageMode = attr.ib(converter=MSStorageMode)
+
+	mz_of_interest: List[Range] = attr.ib(converter=list)
+	r"""
+	A list of |mz| ranges of interest, if the data was obtained via mass spectrometry.
+
+	For MS\ :superscript:`1` data this is not used.
+	"""
+
+	#: The measured |mz| range(s), if the data was obtained via mass spectrometry.
+	measured_mass_range: Range = attr.ib()
+
+	#: The ordinal number of the spectrum.
+	ordinal_number: int = attr.ib(converter=int)
+
+	parent_scan_id: int = attr.ib(converter=int)
+	"""
+	The ID number of the parent scan, if applicable.
+
+	If there is no parent scan ``0`` is returned.
+	"""
+
+	#: The sampling period (the inter-scan delay) for the data.
+	sampling_period: float = attr.ib(converter=float)
+
+	scan_id: int = attr.ib(converter=int)
+	"""
+	The ID of the scan.
+
+	If this spectrum is the result of several scans (e.g. an averaged spectrum)
+	the scan ID will be ``0``.
+	"""
+
+	#: The type of spectrum.
+	spectrum_type: SpecType = attr.ib(converter=SpecType)
+
+	threshold: float = attr.ib(converter=float)
+
+	#: The total number of data points.
+	total_data_points: int = attr.ib(converter=int)
+
+	#: The total number of scans that made up this spectrum.
+	total_scan_count: int = attr.ib(converter=int)
+
+	#: The x-axis data.
+	x_data: List[float] = attr.ib(converter=list)
+
+	#: The y-axis data.
+	y_data: List[float] = attr.ib(converter=list)
+
+	def get_x_axis_info(self) -> Tuple[DataValueType, DataUnit]:
+		"""
+		Returns the type of data represented by the x-axis, and the corresponding unit.
+		"""
+
+		return self.x_axis_info
+
+	def get_y_axis_info(self) -> Tuple[DataValueType, DataUnit]:
+		"""
+		Returns the type of data represented by the y-axis, and the corresponding unit.
+		"""
+
+		return self.y_axis_info
+
+	@property
+	def precursor_charge(self) -> int:
+		r"""
+		The charge of the precursor ion, if the data was acquired in MS\ :superscript:`2` mode.
+
+		Raises an :exc:`pyms_agilent.errors.NotMS2Error` if the data was not
+		acquired in MS\ :superscript:`2` mode.
+		"""
+
+		raise NotMS2Error()
+
+	@property
+	def precursor_intensity(self) -> float:
+		r"""
+		The intensity of the precursor ion, if the data was acquired in MS\ :superscript:`2` mode.
+
+		Raises an :exc:`pyms_agilent.errors.NotMS2Error` if the data was not
+		acquired in MS\ :superscript:`2` mode.
+		"""
+
+		raise NotMS2Error()
+
+
+@attr.s(slots=True, frozen=True, eq=False)
+class FrozenMS2SpecData(FrozenSpecData):
+	r"""
+	Frozen version of :class:`~.SpecData` for MS\ :superscript:`2` data.
+
+	Provides metadata about a single spectrum.
+	"""
+
+	precursor_charge: int = attr.ib(converter=int)
+	r"""
+	The charge of the precursor ion, if the data was acquired in MS\ :superscript:`2` mode.
+
+	Raises an :exc:`pyms_agilent.errors.NotMS2Error` if the data was not
+	acquired in MS\ :superscript:`2` mode.
+	"""
+
+	precursor_intensity: float = attr.ib(converter=float)
+	r"""
+	The intensity of the precursor ion, if the data was acquired in MS\ :superscript:`2` mode.
+
+	Raises an :exc:`pyms_agilent.errors.NotMS2Error` if the data was not
+	acquired in MS\ :superscript:`2` mode.
+	"""
+
+
+# has to be done after FrozenSpecData was defined.
+frozen_comparison(FrozenSpecData)(SpecData)
+
+
+@register_pretty(type(etc))
+def pretty_etc(value, ctx):
+	return repr(value)
+
+
+@register_pretty(FrozenSpecData)
+def pretty_frozen_spec_data(value, ctx):
+	cls = type(value)
+	attributes = cls.__attrs_attrs__
+
+	kwargs = []
+	for attribute in attributes:
+		if not attribute.repr:
+			continue
+
+		display_attr = False
+		if attribute.default == attr.NOTHING:
+			display_attr = True
+		elif isinstance(attribute.default, attr.Factory):
+			default_value = (
+					attribute.default.factory(value)
+					if attribute.default.takes_self else attribute.default.factory()
+					)
+			if default_value != getattr(value, attribute.name):
+				display_attr = True
+		else:
+			if attribute.default != getattr(value, attribute.name):
+				display_attr = True
+
+		if display_attr:
+			if attribute.name in {"x_data", "y_data"}:
+				kwargs.append((attribute.name, [*getattr(value, attribute.name)[:10], etc]))
+			else:
+				kwargs.append((attribute.name, getattr(value, attribute.name)))
+
+	return pretty_call_alt(ctx, cls, kwargs=kwargs)
+
+
+@register_pretty(SpecData)
+def pretty_spec_data(value, ctx):
+	cls = type(value)
+	kwargs = []
+
+	for key, value in value.to_dict().items():
+		if key in {"x_data", "y_data"}:
+			kwargs.append((key, [*value[:10], etc]))
+		else:
+			kwargs.append((key, value))
+
+	return pretty_call_alt(ctx, cls, kwargs=kwargs)

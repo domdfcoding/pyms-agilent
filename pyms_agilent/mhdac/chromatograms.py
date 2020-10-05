@@ -25,14 +25,15 @@ Classes to access chromatographic data from ``.d`` datafiles.
 
 # stdlib
 from abc import ABC
-from typing import List, Optional, Sequence, Tuple, Union
+from typing import Any, List, MutableMapping, Optional, Sequence, Tuple, Union
 
 # 3rd party
 import attr
 from attr_utils.docstrings import add_attrs_doc
+from attr_utils.pprinter import pretty_repr
+from attr_utils.serialise import serde
 
 # this package
-from pyms_agilent.attrs_serde import serde
 from pyms_agilent.enums import (
 		ChromType,
 		DataUnit,
@@ -44,7 +45,7 @@ from pyms_agilent.enums import (
 		MSStorageMode
 		)
 from pyms_agilent.mhdac.agilent import DataAnalysis
-from pyms_agilent.utils import Range, polarity_map, ranges_from_list
+from pyms_agilent.utils import frozen_comparison, Range, polarity_map, ranges_from_list
 
 __all__ = [
 		"Signal",
@@ -200,9 +201,35 @@ class Signal(ABC):
 
 		return list(self.interface.YArray)
 
+	def to_dict(self) -> MutableMapping[str, Any]:
+		"""
+		Returns a dictionary containing the data of this
+		:class:`~pyms_agilent.mhdac.chromatograms.Signal` object.
+		"""
+
+		return dict(
+				chromatogram_type=self.chromatogram_type,
+				device_name=self.device_name,
+				device_type=self.device_type,
+				is_chromatogram=self.is_chromatogram,
+				is_icp_data=self.is_icp_data,
+				is_cycle_summed=self.is_cycle_summed,
+				is_mass_spectrum=self.is_mass_spectrum,
+				is_primary_mrm=self.is_primary_mrm,
+				is_uv_spectrum=self.is_uv_spectrum,
+				ordinal_number=self.ordinal_number,
+				signal_description=self.signal_description,
+				signal_name=self.signal_name,
+				total_data_points=self.total_data_points,
+				x_data=self.x_data,
+				y_data=self.y_data,
+				)
+
 
 @serde
+@pretty_repr
 @add_attrs_doc
+@frozen_comparison(Signal)
 @attr.s(slots=True, frozen=True)
 class FrozenSignal(ABC):
 	"""
@@ -302,31 +329,25 @@ class InstrumentCurve(Signal):
 		else:
 			return DataValueType(value_type), DataUnit(unit)
 
+	def to_dict(self) -> MutableMapping[str, Any]:
+		"""
+		Returns a dictionary containing the data of this
+		:class:`~pyms_agilent.mhdac.chromatograms.InstrumentCurve` object.
+		"""
+
+		the_dict = super().to_dict()
+		the_dict["x_axis_info"] = self.get_x_axis_info()
+		the_dict["y_axis_info"] = self.get_y_axis_info()
+
+		return the_dict
+
 	def freeze(self) -> "FrozenInstrumentCurve":
 		"""
 		Returns a :class:`~pyms_agilent.mhdac.chromatograms.FrozenInstrumentCurve` object
 		containing the same data as this object.
 		"""
 
-		return FrozenInstrumentCurve(
-				chromatogram_type=self.chromatogram_type,
-				device_name=self.device_name,
-				device_type=self.device_type,
-				is_chromatogram=self.is_chromatogram,
-				is_icp_data=self.is_icp_data,
-				is_cycle_summed=self.is_cycle_summed,
-				is_mass_spectrum=self.is_mass_spectrum,
-				is_primary_mrm=self.is_primary_mrm,
-				is_uv_spectrum=self.is_uv_spectrum,
-				ordinal_number=self.ordinal_number,
-				signal_description=self.signal_description,
-				signal_name=self.signal_name,
-				total_data_points=self.total_data_points,
-				x_data=self.x_data,
-				y_data=self.y_data,
-				x_axis_info=self.get_x_axis_info(),
-				y_axis_info=self.get_y_axis_info(),
-				)
+		return FrozenInstrumentCurve(**self.to_dict())
 
 
 def axis_info_converter(info: Sequence[int]) -> Tuple[DataValueType, DataUnit]:
@@ -365,6 +386,7 @@ def y_axis_info_converter(info: Sequence[Union[int, str]]) -> Tuple[DataValueTyp
 
 @serde
 @add_attrs_doc
+@frozen_comparison(InstrumentCurve)
 @attr.s(slots=True, frozen=True)
 class FrozenInstrumentCurve(FrozenSignal):
 	"""
@@ -552,6 +574,33 @@ class TIC(Signal):
 		_, unit, value_type = self.interface.GetYAxisInfoChrom(0, 0)
 		return DataValueType(value_type), DataUnit(unit)
 
+	def to_dict(self) -> MutableMapping[str, Any]:
+		"""
+		Returns a dictionary containing the data of this
+		:class:`~pyms_agilent.mhdac.chromatograms.TIC` object.
+		"""
+
+		the_dict = super().to_dict()
+		the_dict["abundance_limit"] = self.abundance_limit
+		the_dict["acquired_time_ranges"] = self.acquired_time_ranges
+		the_dict["collision_energy"] = self.collision_energy
+		the_dict["fragmentor_voltage"] = self.fragmentor_voltage
+		the_dict["ionization_polarity"] = self.ionization_polarity
+		the_dict["ionization_mode"] = self.ionization_mode
+		the_dict["ms_level"] = self.ms_level
+		the_dict["ms_scan_type"] = self.ms_scan_type
+		the_dict["ms_storage_mode"] = self.ms_storage_mode
+		the_dict["mz_of_interest"] = self.mz_of_interest
+		the_dict["measured_mass_range"] = self.measured_mass_range
+		the_dict["mz_regions_were_excluded"] = self.mz_regions_were_excluded
+		the_dict["sampling_period"] = self.sampling_period
+		the_dict["threshold"] = self.threshold
+		the_dict["x_axis_info"] = self.get_x_axis_info()
+		the_dict["y_axis_info"] = self.get_y_axis_info()
+
+		return the_dict
+
+	# TODO: Freeze and FrozenTIC
 
 # TODO: frozen TIC
 
@@ -585,3 +634,8 @@ class TIC(Signal):
 # Reverse
 # SetEmpty
 # Sort
+
+
+# has to be done after the frozen classes were defined.
+frozen_comparison(FrozenSignal)(Signal)
+frozen_comparison(FrozenInstrumentCurve)(InstrumentCurve)

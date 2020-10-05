@@ -24,19 +24,21 @@ Provides metadata about a signal recorded by the instrument.
 #
 
 # stdlib
-from typing import Any, Dict, Union
+from typing import Any, Dict, MutableMapping, Union
 
 # 3rd party
 import attr
 from attr_utils.docstrings import add_attrs_doc
+from attr_utils.serialise import serde
 
 # this package
-from pyms_agilent.attrs_serde import serde
 from pyms_agilent.enums import DeviceType
 from pyms_agilent.mhdac.agilent import DataAnalysis
 from pyms_agilent.mhdac.chromatograms import FrozenInstrumentCurve, InstrumentCurve
+from pyms_agilent.utils import frozen_comparison
 
 __all__ = ["SignalInfo", "FrozenSignalInfo"]
+
 
 
 class SignalInfo:
@@ -104,19 +106,27 @@ class SignalInfo:
 
 		return f"{self.__class__.__name__}({self.signal_name}, device={self.device_name}{self.device_ordinal_number})"
 
-	def freeze(self) -> "FrozenSignalInfo":
+	def to_dict(self) -> MutableMapping[str, Any]:
 		"""
-		Returns a :class:`~pyms_agilent.mhdac.signalinfo.FrozenSignalInfo` object
-		containing the same data as this object.
+		Returns a dictionary containing the data of this
+		:class:`~pyms_agilent.mhdac.signalinfo.SignalInfo` object.
 		"""
 
-		return FrozenSignalInfo(
+		return dict(
 				device_name=self.device_name,
 				device_type=self.device_type,
 				device_ordinal_number=self.device_ordinal_number,
 				signal_name=self.signal_name,
 				instrument_curve=self.get_instrument_curve().freeze(),
 				)
+
+	def freeze(self) -> "FrozenSignalInfo":
+		"""
+		Returns a :class:`~pyms_agilent.mhdac.signalinfo.FrozenSignalInfo` object
+		containing the same data as this object.
+		"""
+
+		return FrozenSignalInfo(**self.to_dict())
 
 
 def convert_instrument_curve(
@@ -138,7 +148,8 @@ def convert_instrument_curve(
 
 @serde
 @add_attrs_doc
-@attr.s(slots=True, frozen=True, repr=False)
+@frozen_comparison(SignalInfo)
+@attr.s(slots=True, frozen=True, eq=False, repr=False)
 class FrozenSignalInfo:
 	"""
 	Frozen version of :class:`~pyms_agilent.mhdac.signalinfo.SignalInfo`.
@@ -173,3 +184,7 @@ class FrozenSignalInfo:
 		"""
 
 		return f"{self.__class__.__name__}({self.signal_name}, device={self.device_name}{self.device_ordinal_number})"
+
+
+# has to be done after FrozenSignalInfo was defined.
+frozen_comparison(FrozenSignalInfo)(SignalInfo)

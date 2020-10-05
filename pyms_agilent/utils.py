@@ -14,7 +14,7 @@ General utility functions.
 #
 #  This program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #  GNU Lesser General Public License for more details.
 #
 #  You should have received a copy of the GNU Lesser General Public License
@@ -24,19 +24,23 @@ General utility functions.
 #
 
 # stdlib
-from typing import Iterable, List, NamedTuple, Type
+import enum
+import math
+from typing import Any, Callable, Iterable, List, NamedTuple, Type
 
 # 3rd party
+import enum_tools
 import pandas  # type: ignore
-from domdf_python_tools.utils import head
+from attr_utils.pprinter import register_pretty
+from domdf_python_tools.doctools import prettify_docstrings
 
 # this package
-from pyms_agilent.enums import DeviceType
 from pyms_agilent.mhdac.agilent import DataAnalysis
 
-__all__ = ["Range", "polarity_map", "ranges_from_list", "head", "DeviceInfo", "Interface", "datatable2dataframe"]
+__all__ = ["Range", "polarity_map", "ranges_from_list", "frozen_comparison", "Interface", "datatable2dataframe", "isnan"]
 
 
+@prettify_docstrings
 class Range(NamedTuple):
 	"""
 	2-component named tuple representing a range (start, end).
@@ -122,38 +126,119 @@ def ranges_from_list(list_of_irange: Iterable) -> List[Range]:
 # 		obj.data_reader = DeviceInfo
 # 		return obj
 
+#
+# class DeviceInfo:
+# 	"""
+# 	Information about a device. Used to obtain information about non-MS signals.
+#
+# 	:param name:
+# 	:param device_type:
+# 	:param ordinal:
+# 	"""
+#
+# 	def __init__(self, name: str, device_type: DeviceType, ordinal: int = 1):
+# 		self._device = DataAnalysis.IDeviceInfo(DataAnalysis.DeviceInfo())
+# 		self._device.DeviceName = str(name)
+# 		self._device.DeviceType = int(device_type)  # type: ignore
+# 		self._device.OrdinalNumber = int(ordinal)
 
-class DeviceInfo:
-	"""
-	Information about a device. Used to obtain information about non-MS signals.
-	"""
 
-	def __init__(self, name: str, device_type: DeviceType, ordinal: int = 1):
-		self._device = DataAnalysis.IDeviceInfo(DataAnalysis.DeviceInfo())
-		self._device.DeviceName = str(name)
-		self._device.DeviceType = int(device_type)  # type: ignore
-		self._device.OrdinalNumber = int(ordinal)
-
-
+@prettify_docstrings
 class Interface(NamedTuple):
 	"""
-	Namedtuple to store the accessor and interface for a class in the MHDAC library.
+	2-element to store the accessor and interface for a class in the MHDAC library.
 	"""
 
+	#: The accessor object.
 	accessor: object
+
+	#: The interface class.
 	interface: Type
 
 
 def datatable2dataframe(datatable) -> pandas.DataFrame:
 	"""
-	Converts a dotNET ``System.Data.DataTable`` object to a pandas data frame.
+	Converts a dotNET :class:`System.Data.DataTable` object to a pandas data frame.
 
 	:param datatable:
-
-	:return:
+	:type datatable: :class:`System.Data.DataTable`
 	"""
 
 	return pandas.DataFrame(
 			columns=[column.Caption for column in list(datatable.Columns)],
 			data=[list(row.ItemArray) for row in list(datatable.Rows)]
 			)
+
+
+@register_pretty(enum.EnumMeta)
+@register_pretty(enum.Enum)
+@register_pretty(enum.IntEnum)
+@register_pretty(enum.Flag)
+@register_pretty(enum.IntFlag)
+@register_pretty(enum_tools.Enum)
+@register_pretty(enum_tools.IntEnum)
+@register_pretty(enum_tools.StrEnum)
+@register_pretty(enum_tools.AutoNumberEnum)
+@register_pretty(enum_tools.OrderedEnum)
+@register_pretty(enum_tools.DuplicateFreeEnum)
+@register_pretty(enum_tools.Flag)
+@register_pretty(enum_tools.IntFlag)
+@register_pretty(enum_tools.DocumentedEnum)
+def pretty_enum(value, ctx):
+	return repr(value)
+
+
+def isnan(value: Any) -> bool:
+	"""
+	Returns whether the value is ``float('nan')``.
+
+	Returns :py:obj:`False` if the value is not a :class:`float`.
+
+	:param value:
+	"""
+
+	if isinstance(value, float):
+		return math.isnan(value)
+	else:
+		return False
+
+
+def frozen_comparison(*classes: Type) -> Callable[[Type], Type]:
+	"""
+	Decorator to add the ``__eq__`` method to classes that compares frozen and non frozen versions
+	of a class.
+
+	:param classes:
+	"""
+
+	def deco(cls: Type) -> Type:
+
+		classes_ = (cls, *classes)
+
+		def __eq__(self, other) -> bool:
+			"""
+			Returns ``self == other``.
+			"""
+
+			if isinstance(other, classes_):
+				left = {k: v for k, v in self.to_dict().items() if not isnan(v)}
+				right = {k: v for k, v in other.to_dict().items() if not isnan(v)}
+				return left == right
+			elif isinstance(other, dict):
+				left = {k: v for k, v in self.to_dict().items() if not isnan(v)}
+				right = {k: v for k, v in other.items() if not isnan(v)}
+				return left == right
+			return NotImplemented
+
+		cls.__eq__ = __eq__
+		cls.__eq__.__qualname__ = f"{cls.__name__}.__eq__"
+		cls.__eq__.__module__ = cls.__module__
+
+		return cls
+
+	return deco
+
+
+
+
+
