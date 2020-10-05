@@ -1,6 +1,7 @@
+# this package
+from pyms_agilent.exceptions import Unititialisable
+
 __all__ = [
-		"PlatformError",
-		"Unititialisable",
 		"BDASpecData",
 		"BDADataAccess",
 		"IBDAChromData",
@@ -13,21 +14,6 @@ __all__ = [
 		"MassSpecDataReader",
 		"IBDAFileInformation"
 		]
-
-
-class PlatformError(RuntimeError):
-	"""
-	Exception class to indicate that the current platform is unsupported.
-	"""
-
-
-class Unititialisable:
-	"""
-	Class to raise an error when trying to use the Agilent MHDAC on Linux/macOS.
-	"""
-
-	def __init__(self, *args, **kwargs):
-		raise PlatformError("'pyms_agilent.mhdac' can only run on Windows.")
 
 
 class BDASpecData(Unititialisable):  # noqa D101

@@ -23,7 +23,7 @@ Exception classes.
 #  MA 02110-1301, USA.
 #
 
-__all__ = ["NotMS2Error"]
+__all__ = ["NotMS2Error", "PlatformError", "Unititialisable"]
 
 
 class NotMS2Error(ValueError):
@@ -31,3 +31,24 @@ class NotMS2Error(ValueError):
 	Raised when trying to access MS\ :superscript:`2` attributes
 	for data that was acquired in MS\ :superscript:`1` mode.
 	"""  # noqa D400
+
+
+class PlatformError(RuntimeError):
+	"""
+	Exception class to indicate that the current platform is unsupported.
+	"""
+
+
+class Unititialisable:
+	"""
+	Class to raise an error when trying to use the Agilent MHDAC on Linux/macOS.
+
+	:raises PlatformError: on initialisation.
+	"""
+
+	def __init__(self, *args, **kwargs):
+		raise PlatformError("'pyms_agilent.mhdac' can only run on Windows.")
+
+	def __init_subclass__(cls, **kwargs):
+		if cls.__init__ is not Unititialisable.__init__:
+			cls.__init__ = Unititialisable.__init__
