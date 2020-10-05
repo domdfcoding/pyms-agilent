@@ -31,6 +31,7 @@ from typing import Callable, Optional, Sequence, Union
 import importlib_resources
 import lxml.objectify  # type: ignore
 from domdf_python_tools.bases import Dictable
+from domdf_python_tools.doctools import prettify_docstrings
 from domdf_python_tools.typing import PathLike
 from numpy import float64, int64  # type: ignore
 
@@ -53,7 +54,6 @@ class Actual(Dictable):
 	:param data_type: 4 = 64bit integer, 6 = 64bit float
 	:param display_format:
 	:param display_effects:
-		TODO: enum
 	:param display_digits:
 	:param unit:
 	:param category:

@@ -40,7 +40,6 @@ from pyms_agilent.utils import frozen_comparison
 __all__ = ["SignalInfo", "FrozenSignalInfo"]
 
 
-
 class SignalInfo:
 	"""
 	Provides metadata about a signal recorded by the instrument.

@@ -45,7 +45,7 @@ from pyms_agilent.enums import (
 		MSStorageMode
 		)
 from pyms_agilent.mhdac.agilent import DataAnalysis
-from pyms_agilent.utils import frozen_comparison, Range, polarity_map, ranges_from_list
+from pyms_agilent.utils import Range, frozen_comparison, polarity_map, ranges_from_list
 
 __all__ = [
 		"Signal",
@@ -602,6 +602,7 @@ class TIC(Signal):
 
 	# TODO: Freeze and FrozenTIC
 
+
 # TODO: frozen TIC
 
 #  ChromFilter
@@ -634,7 +635,6 @@ class TIC(Signal):
 # Reverse
 # SetEmpty
 # Sort
-
 
 # has to be done after the frozen classes were defined.
 frozen_comparison(FrozenSignal)(Signal)

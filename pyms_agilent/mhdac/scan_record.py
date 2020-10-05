@@ -321,7 +321,6 @@ class FrozenMSScanRecord:
 # has to be done after FrozenMSScanRecord was defined.
 frozen_comparison(FrozenMSScanRecord)(MSScanRecord)
 
-
 #: Represents an MSScanRecord that is undefined, usually as a result of requesting a scan that doesn't exist.
 UndefinedMSScanRecord = FrozenMSScanRecord(
 		base_peak_intensity=0.0,

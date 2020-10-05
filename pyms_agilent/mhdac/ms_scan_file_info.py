@@ -26,12 +26,13 @@ Provides access to information about mass spectral data in ``.d`` data files.
 # stdlib
 from typing import Any, List, MutableMapping, Optional
 
-# this package
+# 3rd party
 import attr
 from attr_utils.pprinter import pretty_repr
 from attr_utils.serialise import serde
 from domdf_python_tools.utils import strtobool
 
+# this package
 from pyms_agilent.enums import DeviceType, IonizationMode, MSScanType, MSStorageMode
 from pyms_agilent.mhdac.agilent import DataAnalysis
 from pyms_agilent.utils import frozen_comparison, polarity_map
@@ -297,7 +298,7 @@ class FrozenMSScanFileInformation:
 	ionisation_mode: IonizationMode = attr.ib(converter=IonizationMode)
 	"""
 	The ionization mode used to acquire the data.
-	
+
 	This is the logical bitwise OR of the Ionization Mode values for all scans in the file
 	"""
 
@@ -310,7 +311,7 @@ class FrozenMSScanFileInformation:
 	scan_types: MSScanType = attr.ib(converter=MSScanType)
 	"""
 	The MS Scan Type.
-	
+
 	This is the logical bitwise OR of the MSScanType values for all scans in the file.
 	"""
 
@@ -326,7 +327,7 @@ class FrozenMSScanFileInformation:
 	are_multiple_spectra_present_per_scan: bool = attr.ib(converter=strtobool)
 	"""
 	Returns whether the data file contains more than 1 spectra format for each scan.
-	
+
 	This is useful in case of dual mode format stored for each scan.
 	"""
 
@@ -336,4 +337,3 @@ class FrozenMSScanFileInformation:
 
 # has to be done after FrozenMSScanFileInformation was defined.
 frozen_comparison(FrozenMSScanFileInformation)(MSScanFileInformation)
-

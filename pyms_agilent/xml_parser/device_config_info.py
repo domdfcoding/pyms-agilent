@@ -34,9 +34,10 @@ from attr_utils.docstrings import add_attrs_doc
 from attr_utils.serialise import serde
 from domdf_python_tools.bases import Dictable
 from domdf_python_tools.typing import PathLike
+from mh_utils.xml import XMLFileMixin
 
 # this package
-from .core import XMLFileMixin, make_from_element
+from .core import make_from_element
 
 __all__ = ["Device", "Parameter", "DeviceConfigInfo", "read_device_config_xml"]
 

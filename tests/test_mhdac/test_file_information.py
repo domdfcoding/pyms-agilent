@@ -134,7 +134,7 @@ class TestMSScanFileInfo:
 				"ms_level": 1,
 				"scan_types": MSScanType.Scan,
 				"spectra_format": MSStorageMode.Mixed,
-				"total_scans":  1333,
+				"total_scans": 1333,
 				"has_fixed_cycle_length_data": False,
 				"are_multiple_spectra_present_per_scan": True,
 				"sim_ions": [],

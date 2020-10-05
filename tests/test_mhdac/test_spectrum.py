@@ -1,12 +1,21 @@
+# stdlib
 import json
 from textwrap import dedent
 
+# 3rd party
 import pytest
 
+# this package
 from pyms_agilent.enums import (
-	DataUnit, DataValueType, DeviceType, IonizationMode, MSLevel, MSScanType, MSStorageMode,
-	SpecType,
-	)
+		DataUnit,
+		DataValueType,
+		DeviceType,
+		IonizationMode,
+		MSLevel,
+		MSScanType,
+		MSStorageMode,
+		SpecType
+		)
 from pyms_agilent.exceptions import NotMS2Error
 from pyms_agilent.mhdac.spectrum import FrozenSpecData
 from pyms_agilent.utils import Range
@@ -20,48 +29,47 @@ def spectrum(reader):
 @pytest.fixture(scope="function")
 def frozen_spectrum(datadir):
 	return FrozenSpecData(
-				abundance_limit=16742400.0,
-				acquired_time_ranges=[Range(0.047216666666666664, 0.047216666666666664)],
-				chrom_peak_index=-1,
-				collision_energy=0.0,
-				compensation_field=float('nan'),
-				device_name="QTOF",
-				device_type=DeviceType.QuadrupoleTimeOfFlight,
-				dispersion_field=float('nan'),
-				fragmentor_voltage=380.0,
-				x_axis_info=(DataValueType.MassToCharge, DataUnit.Thomsons),
-				y_axis_info=(DataValueType.IonAbundance, DataUnit.Counts),
-				ionization_polarity="+",
-				ionization_mode=IonizationMode.ESI,
-				is_chromatogram=False,
-				is_data_in_mass_unit=True,
-				is_mass_spectrum=True,
-				is_icp_data=False,
-				is_uv_spectrum=False,
-				ms_level=MSLevel.MS,
-				ms_scan_type=MSScanType.Scan,
-				ms_storage_mode=MSStorageMode.PeakDetectedSpectrum,
-				mz_of_interest=[],
-				measured_mass_range=Range(40.05473406265757, 999.1105542357848),
-				ordinal_number=1,
-				parent_scan_id=0,
-				sampling_period=0.5,
-				scan_id=2841,
-				spectrum_type=SpecType.TofMassSpectrum,
-				threshold=0.0,
-				total_data_points=6000,
-				total_scan_count=1,
-				x_data=json.loads((datadir / 'x_data.json').read_text()),
-				y_data=json.loads((datadir / 'y_data.json').read_text()),
-				)
-
-
+			abundance_limit=16742400.0,
+			acquired_time_ranges=[Range(0.047216666666666664, 0.047216666666666664)],
+			chrom_peak_index=-1,
+			collision_energy=0.0,
+			compensation_field=float('nan'),
+			device_name="QTOF",
+			device_type=DeviceType.QuadrupoleTimeOfFlight,
+			dispersion_field=float('nan'),
+			fragmentor_voltage=380.0,
+			x_axis_info=(DataValueType.MassToCharge, DataUnit.Thomsons),
+			y_axis_info=(DataValueType.IonAbundance, DataUnit.Counts),
+			ionization_polarity="+",
+			ionization_mode=IonizationMode.ESI,
+			is_chromatogram=False,
+			is_data_in_mass_unit=True,
+			is_mass_spectrum=True,
+			is_icp_data=False,
+			is_uv_spectrum=False,
+			ms_level=MSLevel.MS,
+			ms_scan_type=MSScanType.Scan,
+			ms_storage_mode=MSStorageMode.PeakDetectedSpectrum,
+			mz_of_interest=[],
+			measured_mass_range=Range(40.05473406265757, 999.1105542357848),
+			ordinal_number=1,
+			parent_scan_id=0,
+			sampling_period=0.5,
+			scan_id=2841,
+			spectrum_type=SpecType.TofMassSpectrum,
+			threshold=0.0,
+			total_data_points=6000,
+			total_scan_count=1,
+			x_data=json.loads((datadir / 'x_data.json').read_text()),
+			y_data=json.loads((datadir / 'y_data.json').read_text()),
+			)
 
 
 class TestSpecData:
 
 	def test_repr(self, spectrum):
-		assert repr(spectrum) == dedent("""\
+		assert repr(spectrum) == dedent(
+				"""\
 		pyms_agilent.mhdac.spectrum.SpecData(
 			abundance_limit=16742400.0,
 			acquired_time_ranges=[
@@ -128,14 +136,16 @@ class TestSpecData:
 				748.1315,
 				...
 			]
-		)""").expandtabs(4)
+		)"""
+				).expandtabs(4)
 
 
 class TestFrozenSpecData:
 
 	def test_repr(self, frozen_spectrum):
 
-		assert repr(frozen_spectrum) == dedent("""\
+		assert repr(frozen_spectrum) == dedent(
+				"""\
 		pyms_agilent.mhdac.spectrum.FrozenSpecData(
 			abundance_limit=16742400.0,
 			acquired_time_ranges=[
@@ -202,7 +212,8 @@ class TestFrozenSpecData:
 				748.1315,
 				...
 			]
-		)""").expandtabs(4)
+		)"""
+				).expandtabs(4)
 
 	def test_not_ms2(self, frozen_spectrum):
 		with pytest.raises(NotMS2Error):

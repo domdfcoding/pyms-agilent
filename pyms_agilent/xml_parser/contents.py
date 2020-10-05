@@ -35,13 +35,14 @@ from domdf_python_tools.bases import Dictable
 from domdf_python_tools.typing import PathLike
 from mh_utils.utils import element_to_bool
 from mh_utils.worklist_parser.parser import parse_worklist_datetime
+from mh_utils.xml import XMLFileMixin
 
 # this package
 from pyms_agilent.enums import AcqStatusEnum, MeasurementTypeEnum, SeparationTechniqueEnum
 from pyms_agilent.xml_parser import agilent_xsd
 
 # this package
-from .core import XMLFileMixin, _get_from_enum
+from .core import _get_from_enum
 
 __all__ = ["Contents", "read_contents_xml"]
 

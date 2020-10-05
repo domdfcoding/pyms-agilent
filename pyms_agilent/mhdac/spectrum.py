@@ -48,7 +48,7 @@ from pyms_agilent.enums import (
 from pyms_agilent.exceptions import NotMS2Error
 from pyms_agilent.mhdac.agilent import DataAnalysis
 from pyms_agilent.mhdac.chromatograms import axis_info_converter
-from pyms_agilent.utils import frozen_comparison, Range, polarity_map, ranges_from_list
+from pyms_agilent.utils import Range, frozen_comparison, polarity_map, ranges_from_list
 
 __all__ = [
 		"SpecData",

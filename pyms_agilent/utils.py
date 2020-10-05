@@ -37,7 +37,15 @@ from domdf_python_tools.doctools import prettify_docstrings
 # this package
 from pyms_agilent.mhdac.agilent import DataAnalysis
 
-__all__ = ["Range", "polarity_map", "ranges_from_list", "frozen_comparison", "Interface", "datatable2dataframe", "isnan"]
+__all__ = [
+		"Range",
+		"polarity_map",
+		"ranges_from_list",
+		"frozen_comparison",
+		"Interface",
+		"datatable2dataframe",
+		"isnan"
+		]
 
 
 @prettify_docstrings
@@ -237,8 +245,3 @@ def frozen_comparison(*classes: Type) -> Callable[[Type], Type]:
 		return cls
 
 	return deco
-
-
-
-
-

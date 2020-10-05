@@ -9,22 +9,22 @@ from pytest_regressions.file_regression import FileRegressionFixture
 
 # this package
 from pyms_agilent.enums import (
-	DataUnit,
-	DataValueType,
-	DeviceType,
-	IonizationMode,
-	MSLevel,
-	MSScanType,
-	MSStorageMode,
-	SampleCategory,
-	SpecType,
-	StoredDataType,
-	)
+		DataUnit,
+		DataValueType,
+		DeviceType,
+		IonizationMode,
+		MSLevel,
+		MSScanType,
+		MSStorageMode,
+		SampleCategory,
+		SpecType,
+		StoredDataType
+		)
 from pyms_agilent.mhdac.mass_spec_data_reader import MassSpecDataReader, MSActual, MSActuals
 from pyms_agilent.mhdac.scan_record import FrozenMSScanRecord, UndefinedMSScanRecord
 from pyms_agilent.mhdac.signalinfo import FrozenSignalInfo, SignalInfo
 from pyms_agilent.mhdac.spectrum import FrozenSpecData, SpecData
-from pyms_agilent.utils import isnan, Range
+from pyms_agilent.utils import Range, isnan
 
 
 class TestDataReader:
@@ -35,7 +35,9 @@ class TestDataReader:
 		with pytest.raises(FileNotFoundError, match=r"i_dont_exist.d"):
 			MassSpecDataReader("i_dont_exist.d")
 
-		with pytest.raises(FileNotFoundError, match=r"File not found: .*\\not_a_datafile.d\\AcqData\\Contents.xml"):
+		with pytest.raises(
+				FileNotFoundError, match=r"File not found: .*\\not_a_datafile.d\\AcqData\\Contents.xml"
+				):
 			MassSpecDataReader(pathlib.Path(__file__).parent.parent / "not_a_datafile.d")
 
 		assert not MassSpecDataReader(datafile).refresh_datafile()
@@ -305,7 +307,8 @@ class TestDataReader:
 				)[0]
 
 		assert signal == signal.freeze()
-		assert signal.get_instrument_curve().freeze() == signal.freeze().get_instrument_curve() == signal.freeze().instrument_curve
+		assert signal.get_instrument_curve().freeze() == signal.freeze().get_instrument_curve() == signal.freeze(
+		).instrument_curve
 
 	def test_signalinfo_repr(self, reader):
 		signal = reader.get_signal_listing(
@@ -423,15 +426,14 @@ class TestDataReader:
 		assert isinstance(spectrum.acquired_time_ranges, list)
 		assert isinstance(spectrum.acquired_time_ranges[0], Range)
 
-		assert {
-					k: v
-					for k, v in spectrum.to_dict().items()
-					if not isnan(v) and k not in {"x_data", "y_data"}
-					} == {
-					k: v
-					for k, v in expected.to_dict().items()
-					if not isnan(v) and k not in {"x_data", "y_data"}
-					}
+		assert {k: v
+				for k, v in spectrum.to_dict().items()
+				if not isnan(v) and k not in {"x_data", "y_data"}} == {
+						k: v
+						for k,
+						v in expected.to_dict().items()
+						if not isnan(v) and k not in {"x_data", "y_data"}
+						}
 		assert spectrum == expected
 		assert spectrum.to_dict() == expected
 		assert spectrum.x_data == expected.x_data
