@@ -167,7 +167,7 @@ class Signal(ABC):
 		Returns the description for the signal.
 		"""
 
-		return str(self.interface.SignalDescription)
+		return str(self.interface.SignalDescription).strip()
 
 	@property
 	def signal_name(self) -> str:
