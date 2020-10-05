@@ -8,7 +8,7 @@
 	:autosummary-members:
 
 
-.. autoclass:: pyms_agilent.xml_parser.device_config_info.Device
+.. autoattrs:: pyms_agilent.xml_parser.device_config_info.Device
 	:inherited-members:
 
 .. autoclass:: pyms_agilent.xml_parser.device_config_info.Parameter
