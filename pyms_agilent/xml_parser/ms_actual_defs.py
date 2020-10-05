@@ -43,6 +43,7 @@ from .core import XMLList, make_from_element
 __all__ = ["Actual", "ActualsDef", "read_ms_actuals_defs"]
 
 
+@prettify_docstrings
 class Actual(Dictable):
 	"""
 	Periodic/Scan Actual Type information.
@@ -51,12 +52,13 @@ class Actual(Dictable):
 	:param display_name:
 	:param data_type: 4 = 64bit integer, 6 = 64bit float
 	:param display_format:
-		TODO: enum
 	:param display_effects:
 		TODO: enum
 	:param display_digits:
 	:param unit:
 	:param category:
+
+	.. TODO:: Enums for ``display_format`` and ``display_effects``
 	"""
 
 	def __init__(
@@ -123,17 +125,9 @@ class Actual(Dictable):
 		return data
 
 	def __repr__(self) -> str:
-		"""
-		Returns a string representation of the Actual.
-		"""
-
 		return f"<{self.__class__.__name__}({self.display_name!r}, id={self.actual_id})>"
 
 	def __str__(self) -> str:
-		"""
-		Returns the display name of the Actual.
-		"""
-
 		return str(self.display_name)
 
 	@classmethod

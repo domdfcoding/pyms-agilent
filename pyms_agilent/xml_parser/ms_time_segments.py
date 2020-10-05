@@ -61,17 +61,23 @@ class TimeSegment:
 	"""
 	Represents a time segment from ``MSTS.xml``.
 
-	:param timesegment_id:
-	:param start_time: start time in minutes
-	:param end_time: end time in minutes
-	:param n_scans:
-	:param fixed_cycle_length:
+	:param start_time: The start time in minutes.
+	:param end_time: The end time in minutes.
 	"""
 
+	#: The ID of the time segment.
 	timesegment_id: int = attr.ib(converter=int)
+
+	#: The start time
 	start_time: datetime.timedelta = attr.ib(converter=make_timedelta, default=0.0)  # type: ignore
+
+	#: The end time
 	end_time: datetime.timedelta = attr.ib(converter=make_timedelta, default=0.0)  # type: ignore
+
+	#: The number of scans in the time segment.
 	n_scans: int = attr.ib(converter=int, default=0)
+
+	#: Whether the time segment has a fixed cycle length.
 	fixed_cycle_length: bool = attr.ib(converter=strtobool, default=False)
 
 	@classmethod

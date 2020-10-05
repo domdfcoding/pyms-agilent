@@ -50,23 +50,28 @@ class Field:
 	"""
 	Represents a field in ``sample_info.xml``.
 
-	:param name: The name of the field.
-	:param display_name: The display name of the field.
-	:param value: The value of the field.
-	:param data_type: The type of data in the field.
-	:param units: The units of the data in the field.
-	:param field_type: The type of field.
-	:param overridden: Whether the field is overridden.
-
 	.. TODO:: Enum for data_type
 	"""
 
+	#: The name of the field.
 	name: str = attr.ib(converter=strip_string, default='')
+
+	#: The display name of the field.
 	display_name: str = attr.ib(converter=strip_string, default='')
+
+	#: The value of the field.
 	value: Any = attr.ib(default='')
+
+	#: The type of data in the field.
 	data_type: int = attr.ib(converter=int, default=0)
+
+	#: The units of the data in the field.
 	units: str = attr.ib(converter=strip_string, default='')
+
+	#: The type of field.
 	field_type: str = attr.ib(converter=strip_string, default='')
+
+	#: Whether the field is overridden.
 	overridden: bool = attr.ib(converter=strtobool, default=False)
 
 	@classmethod
