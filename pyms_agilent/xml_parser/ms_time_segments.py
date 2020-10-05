@@ -32,7 +32,8 @@ from typing import List, Optional, Union
 import attr
 import importlib_resources
 import lxml.objectify  # type: ignore
-from attr_utils.docstrings import add_attrs_doc
+from attr_utils.pprinter import pretty_repr
+from attr_utils.serialise import serde
 from domdf_python_tools.utils import strtobool
 
 # this package
@@ -55,7 +56,8 @@ def make_timedelta(minutes: Union[float, datetime.timedelta]) -> datetime.timede
 	return minutes
 
 
-@add_attrs_doc
+@serde
+@pretty_repr
 @attr.s(slots=True)
 class TimeSegment:
 	"""

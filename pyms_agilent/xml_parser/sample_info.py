@@ -31,7 +31,8 @@ from typing import Any, List
 import attr
 import importlib_resources
 import lxml.objectify  # type: ignore
-from attr_utils.docstrings import add_attrs_doc
+from attr_utils.pprinter import pretty_repr
+from attr_utils.serialise import serde
 from domdf_python_tools.utils import strtobool
 from mh_utils.utils import strip_string
 
@@ -44,7 +45,8 @@ from .core import XMLList
 __all__ = ["Field", "SampleInfo", "read_sample_info_xml"]
 
 
-@add_attrs_doc
+@serde
+@pretty_repr
 @attr.s(slots=True)
 class Field:
 	"""
