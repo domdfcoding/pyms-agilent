@@ -15,6 +15,8 @@ pytest_plugins = "pytest_regressions"
 
 if sys.platform != "win32":
 	collect_ignore_glob = ["*.py"]
+else:
+	import pyms_agilent.mhdac._posix_data_analysis
 
 
 @pytest.fixture(scope="session")

@@ -1,5 +1,6 @@
 # stdlib
 import json
+import pathlib
 from typing import List
 
 # 3rd party
@@ -7,9 +8,23 @@ import pytest
 from pytest_regressions.file_regression import FileRegressionFixture
 
 # this package
-from pyms_agilent.enums import DeviceType, SampleCategory, StoredDataType
+from pyms_agilent.enums import (
+	DataUnit,
+	DataValueType,
+	DeviceType,
+	IonizationMode,
+	MSLevel,
+	MSScanType,
+	MSStorageMode,
+	SampleCategory,
+	SpecType,
+	StoredDataType,
+	)
 from pyms_agilent.mhdac.mass_spec_data_reader import MassSpecDataReader, MSActual, MSActuals
+from pyms_agilent.mhdac.scan_record import FrozenMSScanRecord, UndefinedMSScanRecord
 from pyms_agilent.mhdac.signalinfo import FrozenSignalInfo, SignalInfo
+from pyms_agilent.mhdac.spectrum import FrozenSpecData, SpecData
+from pyms_agilent.utils import isnan, Range
 
 
 class TestDataReader:
@@ -17,8 +32,11 @@ class TestDataReader:
 	def test_reading(self, datafile):
 		assert MassSpecDataReader(datafile)
 
-		with pytest.raises(IOError, match=r"File not found: i_dont_exist.d\\AcqData\\Contents.xml"):
+		with pytest.raises(FileNotFoundError, match=r"i_dont_exist.d"):
 			MassSpecDataReader("i_dont_exist.d")
+
+		with pytest.raises(FileNotFoundError, match=r"File not found: .*\\not_a_datafile.d\\AcqData\\Contents.xml"):
+			MassSpecDataReader(pathlib.Path(__file__).parent.parent / "not_a_datafile.d")
 
 		assert not MassSpecDataReader(datafile).refresh_datafile()
 		assert MassSpecDataReader(datafile).close_datafile()
@@ -198,6 +216,8 @@ class TestDataReader:
 		self.check_json_regression(reader.get_sample_data(SampleCategory.UserParams), file_regression)
 
 	def check_json_regression(self, obj: object, file_regression: FileRegressionFixture, **kwargs):
+		kwargs["indent"] = kwargs.get("indent", 2)
+
 		file_regression.check(
 				json.dumps(obj, **kwargs),
 				extension=".json",
@@ -206,7 +226,7 @@ class TestDataReader:
 
 	def check_signal_regression(self, signals: List[SignalInfo], file_regression: FileRegressionFixture):
 		self.check_json_regression(
-				[signal.freeze().to_dict() for signal in signals],
+				[signal.freeze().to_dict(convert_values=True) for signal in signals],
 				file_regression,
 				)
 
@@ -274,8 +294,18 @@ class TestDataReader:
 				StoredDataType.InstrumentCurves,
 				)[0].freeze()
 
-		assert FrozenSignalInfo.from_dict(signal.to_dict()) == signal
-		assert FrozenSignalInfo.from_dict(json.loads(json.dumps(signal.to_dict()))) == signal
+		assert FrozenSignalInfo.from_dict(signal.to_dict(convert_values=True)) == signal
+		assert FrozenSignalInfo.from_dict(json.loads(json.dumps(signal.to_dict(convert_values=True)))) == signal
+
+	def test_signal_equality(self, reader):
+		signal = reader.get_signal_listing(
+				"HiP-ALS",
+				DeviceType.AutoSampler,
+				StoredDataType.InstrumentCurves,
+				)[0]
+
+		assert signal == signal.freeze()
+		assert signal.get_instrument_curve().freeze() == signal.freeze().get_instrument_curve() == signal.freeze().instrument_curve
 
 	def test_signalinfo_repr(self, reader):
 		signal = reader.get_signal_listing(
@@ -286,6 +316,258 @@ class TestDataReader:
 		assert repr(signal) == "SignalInfo(T, device=VWD1)"
 		assert repr(signal.freeze()) == "FrozenSignalInfo(T, device=VWD1)"
 
-	# get_scan_record
-	# get_spectrum_by_time
-	# get_spectrum_by_scan
+	def test_get_scan_record(self, reader):
+		expected = FrozenMSScanRecord(
+				base_peak_intensity=755713.0,
+				base_peak_mz=122.09504758586642,
+				collision_energy=0.0,
+				compensation_field=float('nan'),
+				dispersion_field=float('nan'),
+				fragmentor_voltage=380.0,
+				ion_polarity="+",
+				ionization_mode=IonizationMode.ESI,
+				is_collision_energy_dynamic=False,
+				is_fragmentor_voltage_dynamic=False,
+				ms_level=MSLevel.MS,
+				ms_scan_type=MSScanType.Scan,
+				mz_of_interest=0.0,
+				retention_time=0.047216666666666664,
+				scan_id=2841,
+				tic=134909337.0,
+				time_segment=1
+				)
+
+		assert expected == expected
+
+		assert expected == FrozenMSScanRecord(
+				base_peak_intensity=755713.0,
+				base_peak_mz=122.09504758586642,
+				collision_energy=0.0,
+				compensation_field=float('nan'),
+				dispersion_field=float('nan'),
+				fragmentor_voltage=380.0,
+				ion_polarity="+",
+				ionization_mode=IonizationMode.ESI,
+				is_collision_energy_dynamic=False,
+				is_fragmentor_voltage_dynamic=False,
+				ms_level=MSLevel.MS,
+				ms_scan_type=MSScanType.Scan,
+				mz_of_interest=0.0,
+				retention_time=0.047216666666666664,
+				scan_id=2841,
+				tic=134909337.0,
+				time_segment=1
+				)
+
+		record = reader.get_scan_record(0)
+
+		assert record == expected
+		assert record.freeze() == expected
+
+		record = reader.get_scan_record(-1)
+
+		assert record == UndefinedMSScanRecord
+		assert record.freeze() == UndefinedMSScanRecord
+
+		record = reader.get_scan_record(1000000)
+
+		assert record == UndefinedMSScanRecord
+		assert record.freeze() == UndefinedMSScanRecord
+
+	def test_get_spectrum_by_scan(self, reader, datadir):
+		# TODO: MS2
+
+		spectrum = reader.get_spectrum_by_scan(0)
+
+		assert isinstance(spectrum, SpecData)
+		assert isinstance(spectrum.freeze(), FrozenSpecData)
+
+		expected = FrozenSpecData(
+				abundance_limit=16742400.0,
+				acquired_time_ranges=[Range(0.047216666666666664, 0.047216666666666664)],
+				chrom_peak_index=-1,
+				collision_energy=0.0,
+				compensation_field=float('nan'),
+				device_name="QTOF",
+				device_type=DeviceType.QuadrupoleTimeOfFlight,
+				dispersion_field=float('nan'),
+				fragmentor_voltage=380.0,
+				x_axis_info=(DataValueType.MassToCharge, DataUnit.Thomsons),
+				y_axis_info=(DataValueType.IonAbundance, DataUnit.Counts),
+				ionization_polarity="+",
+				ionization_mode=IonizationMode.ESI,
+				is_chromatogram=False,
+				is_data_in_mass_unit=True,
+				is_mass_spectrum=True,
+				is_icp_data=False,
+				is_uv_spectrum=False,
+				ms_level=MSLevel.MS,
+				ms_scan_type=MSScanType.Scan,
+				ms_storage_mode=MSStorageMode.PeakDetectedSpectrum,
+				mz_of_interest=[],
+				measured_mass_range=Range(40.05473406265757, 999.1105542357848),
+				ordinal_number=1,
+				parent_scan_id=0,
+				sampling_period=0.5,
+				scan_id=2841,
+				spectrum_type=SpecType.TofMassSpectrum,
+				threshold=0.0,
+				total_data_points=6000,
+				total_scan_count=1,
+				x_data=json.loads((datadir / 'x_data.json').read_text()),
+				y_data=json.loads((datadir / 'y_data.json').read_text()),
+				)
+
+		assert spectrum.freeze() == expected
+
+		assert isinstance(spectrum.acquired_time_ranges, list)
+		assert isinstance(spectrum.acquired_time_ranges[0], Range)
+
+		assert {
+					k: v
+					for k, v in spectrum.to_dict().items()
+					if not isnan(v) and k not in {"x_data", "y_data"}
+					} == {
+					k: v
+					for k, v in expected.to_dict().items()
+					if not isnan(v) and k not in {"x_data", "y_data"}
+					}
+		assert spectrum == expected
+		assert spectrum.to_dict() == expected
+		assert spectrum.x_data == expected.x_data
+		assert expected.to_dict() == spectrum
+
+		assert spectrum.get_x_axis_info() == expected.get_x_axis_info() == expected.x_axis_info
+		assert spectrum.get_y_axis_info() == expected.get_y_axis_info() == expected.y_axis_info
+
+		with pytest.raises(ValueError, match="scan_no must be greater than or equal to 0"):
+			reader.get_spectrum_by_scan(-1)
+
+		reader.get_spectrum_by_scan(100)
+		reader.get_spectrum_by_scan(1000)
+
+		with pytest.raises(ValueError, match="scan_no out of range"):
+			reader.get_spectrum_by_scan(10000)
+
+		with pytest.raises(ValueError, match="scan_no out of range"):
+			reader.get_spectrum_by_scan(1000000)
+
+	def test_get_spectrum_by_time(self, reader, datadir):
+		# TODO: MS2
+
+		spectrum = reader.get_spectrum_by_time(
+				0, scan_type=MSScanType.Scan, ionization_polarity=1, ionization_mode=IonizationMode.ESI
+				)
+
+		assert isinstance(spectrum, SpecData)
+
+		assert isinstance(spectrum.freeze(), FrozenSpecData)
+
+		assert spectrum.freeze() == FrozenSpecData(
+				abundance_limit=16742400.0,
+				acquired_time_ranges=[Range(0.047216666666666664, 0.047216666666666664)],
+				chrom_peak_index=-1,
+				collision_energy=0.0,
+				compensation_field=float('nan'),
+				device_name="QTOF",
+				device_type=DeviceType.QuadrupoleTimeOfFlight,
+				dispersion_field=float('nan'),
+				fragmentor_voltage=380.0,
+				x_axis_info=(DataValueType.MassToCharge, DataUnit.Thomsons),
+				y_axis_info=(DataValueType.IonAbundance, DataUnit.Counts),
+				ionization_polarity="+",
+				ionization_mode=IonizationMode.ESI,
+				is_chromatogram=False,
+				is_data_in_mass_unit=True,
+				is_mass_spectrum=True,
+				is_icp_data=False,
+				is_uv_spectrum=False,
+				ms_level=MSLevel.MS,
+				ms_scan_type=MSScanType.Scan,
+				ms_storage_mode=MSStorageMode.PeakDetectedSpectrum,
+				mz_of_interest=[],
+				measured_mass_range=Range(40.05473406265757, 999.1105542357848),
+				ordinal_number=1,
+				parent_scan_id=0,
+				sampling_period=0.5,
+				scan_id=2841,
+				spectrum_type=SpecType.TofMassSpectrum,
+				threshold=0.0,
+				total_data_points=6000,
+				total_scan_count=1,
+				x_data=json.loads((datadir / 'x_data.json').read_text()),
+				y_data=json.loads((datadir / 'y_data.json').read_text()),
+				)
+
+		with pytest.raises(ValueError, match="retention_time cannot be < 0"):
+			reader.get_spectrum_by_time(-1)
+
+		last_spectrum = FrozenSpecData(
+				abundance_limit=16742400.0,
+				acquired_time_ranges=[Range(14.99765, 14.99765)],
+				chrom_peak_index=-1,
+				collision_energy=0.0,
+				compensation_field=float('nan'),
+				device_name="QTOF",
+				device_type=DeviceType.QuadrupoleTimeOfFlight,
+				dispersion_field=float('nan'),
+				fragmentor_voltage=380.0,
+				x_axis_info=(DataValueType.MassToCharge, DataUnit.Thomsons),
+				y_axis_info=(DataValueType.IonAbundance, DataUnit.Counts),
+				ionization_polarity="+",
+				ionization_mode=IonizationMode.ESI,
+				is_chromatogram=False,
+				is_data_in_mass_unit=True,
+				is_mass_spectrum=True,
+				is_icp_data=False,
+				is_uv_spectrum=False,
+				ms_level=MSLevel.MS,
+				ms_scan_type=MSScanType.Scan,
+				ms_storage_mode=MSStorageMode.PeakDetectedSpectrum,
+				mz_of_interest=[],
+				measured_mass_range=Range(40.05794500784706, 998.9613817604375),
+				ordinal_number=1,
+				parent_scan_id=0,
+				sampling_period=0.5,
+				scan_id=899867,
+				spectrum_type=SpecType.TofMassSpectrum,
+				threshold=0.0,
+				total_data_points=6000,
+				total_scan_count=1,
+				x_data=json.loads((datadir / 'last_scan_x_data.json').read_text()),
+				y_data=json.loads((datadir / 'last_scan_y_data.json').read_text()),
+				)
+
+		assert reader.get_spectrum_by_time(14.99765).freeze().x_data == last_spectrum.x_data
+		assert reader.get_spectrum_by_time(14.99765).freeze().y_data == last_spectrum.y_data
+
+		assert reader.get_spectrum_by_time(14.99765).freeze() == last_spectrum
+		assert reader.get_spectrum_by_time(1000000).freeze() == last_spectrum
+		assert reader.get_spectrum_by_time(100000000000000000000000).freeze() == last_spectrum
+
+		# Different scan type
+		with pytest.raises(ValueError, match="No such scan."):
+			reader.get_spectrum_by_time(0, scan_type=MSScanType.MultipleReaction)
+
+		# Different polarity
+		with pytest.raises(ValueError, match="No such scan."):
+			reader.get_spectrum_by_time(0, ionization_polarity=-1)
+
+		# Different ionization mode
+		with pytest.raises(ValueError, match="No such scan."):
+			reader.get_spectrum_by_time(0, ionization_mode=IonizationMode.Appi)
+
+		# All 3
+		with pytest.raises(ValueError, match="No such scan."):
+			reader.get_spectrum_by_time(
+					0,
+					scan_type=MSScanType.MultipleReaction,
+					ionization_polarity=-1,
+					ionization_mode=IonizationMode.Appi,
+					)
+
+		with pytest.raises(ValueError, match="'ionization_polarity' cannot be None."):
+			reader.get_spectrum_by_time(0, ionization_polarity=None)
+
+		# With polarity of 0 spectra for either pos and neg will be returned.
+		assert reader.get_spectrum_by_time(14.99765, ionization_polarity=0) == last_spectrum

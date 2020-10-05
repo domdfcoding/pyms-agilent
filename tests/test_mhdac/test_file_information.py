@@ -12,6 +12,7 @@ from pyms_agilent.enums import (
 		SeparationTechniqueEnum,
 		StoredDataType
 		)
+from pyms_agilent.mhdac.ms_scan_file_info import FrozenMSScanFileInformation
 
 
 class TestFileInformation:
@@ -119,3 +120,68 @@ class TestMSScanFileInfo:
 
 	def test_sim_ions(self, ms_scan_file_info):
 		assert ms_scan_file_info.sim_ions == []
+
+	def test_to_dict(self, ms_scan_file_info):
+		assert ms_scan_file_info.to_dict() == {
+				"collision_energies": [0],
+				"compensation_field_values": [],
+				"dispersion_field_values": [],
+				"has_ms_data": True,
+				"device_type": DeviceType.QuadrupoleTimeOfFlight,
+				"fragmentor_voltages": [380.0],
+				"ionisation_mode": IonizationMode.ESI,
+				"ionisation_polarity": "+",
+				"ms_level": 1,
+				"scan_types": MSScanType.Scan,
+				"spectra_format": MSStorageMode.Mixed,
+				"total_scans":  1333,
+				"has_fixed_cycle_length_data": False,
+				"are_multiple_spectra_present_per_scan": True,
+				"sim_ions": [],
+				}
+
+	def test_freeze(self, ms_scan_file_info):
+		assert ms_scan_file_info.freeze() == FrozenMSScanFileInformation(
+				collision_energies=[0],
+				compensation_field_values=[],
+				dispersion_field_values=[],
+				has_ms_data=True,
+				device_type=DeviceType.QuadrupoleTimeOfFlight,
+				fragmentor_voltages=[380.0],
+				ionisation_mode=IonizationMode.ESI,
+				ionisation_polarity="+",
+				ms_level=1,
+				scan_types=MSScanType.Scan,
+				spectra_format=MSStorageMode.Mixed,
+				total_scans=1333,
+				has_fixed_cycle_length_data=False,
+				are_multiple_spectra_present_per_scan=True,
+				sim_ions=[],
+				)
+
+	def test_equality(self, ms_scan_file_info):
+		expected = FrozenMSScanFileInformation(
+				collision_energies=[0],
+				compensation_field_values=[],
+				dispersion_field_values=[],
+				has_ms_data=True,
+				device_type=DeviceType.QuadrupoleTimeOfFlight,
+				fragmentor_voltages=[380.0],
+				ionisation_mode=IonizationMode.ESI,
+				ionisation_polarity="+",
+				ms_level=1,
+				scan_types=MSScanType.Scan,
+				spectra_format=MSStorageMode.Mixed,
+				total_scans=1333,
+				has_fixed_cycle_length_data=False,
+				are_multiple_spectra_present_per_scan=True,
+				sim_ions=[],
+				)
+
+		assert ms_scan_file_info == expected
+
+		assert ms_scan_file_info.to_dict() == expected
+		assert ms_scan_file_info == expected.to_dict()
+
+		assert expected == ms_scan_file_info.to_dict()
+		assert expected.to_dict() == ms_scan_file_info
