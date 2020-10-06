@@ -2,7 +2,7 @@
 #
 #  contents.py
 """
-Parser for ``Contents.xml``.
+Parser for :file:`Contents.xml`.
 """
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -49,7 +49,7 @@ __all__ = ["Contents", "read_contents_xml"]
 
 class Contents(XMLFileMixin, Dictable):
 	"""
-	Represents the contents of the ``.d`` datafile, parsed from ``Contents.xml``.
+	Represents the contents of the ``.d`` datafile, parsed from :file:`Contents.xml`.
 
 	:param version: The version number of the contents file.
 	:param acquired_time: The acquisition time
@@ -142,7 +142,7 @@ class Contents(XMLFileMixin, Dictable):
 
 def read_contents_xml(base_path: PathLike) -> Contents:
 	"""
-	Construct a :class:`~.Contents` object from the ``Contents.xml`` file in the given directory.
+	Construct a :class:`~.Contents` object from the :file:`Contents.xml` file in the given directory.
 
 	:param base_path:
 	"""

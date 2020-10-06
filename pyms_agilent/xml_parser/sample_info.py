@@ -2,7 +2,7 @@
 #
 #  sample_info.py
 """
-Parser for ``sample_info.xml``.
+Parser for :file:`sample_info.xml`.
 """
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -50,7 +50,7 @@ __all__ = ["Field", "SampleInfo", "read_sample_info_xml"]
 @attr.s(slots=True)
 class Field:
 	"""
-	Represents a field in ``sample_info.xml``.
+	Represents a field in :file:`sample_info.xml`.
 
 	.. TODO:: Enum for data_type
 	"""
@@ -97,7 +97,7 @@ class Field:
 
 class SampleInfo(XMLList):
 	"""
-	List of information about the sample, parsed from ``sample_info.xml``.
+	List of information about the sample, parsed from :file:`sample_info.xml`.
 
 	Each piece of information is represented as a :class:`.~Field`
 
@@ -138,7 +138,7 @@ class SampleInfo(XMLList):
 
 def read_sample_info_xml(base_path) -> "SampleInfo":
 	"""
-	Construct an :class:`~.SampleInfo` object from the ``sample_info.xml`` file in the given directory.
+	Construct an :class:`~.SampleInfo` object from the :file:`sample_info.xml` file in the given directory.
 
 	:param base_path:
 	"""

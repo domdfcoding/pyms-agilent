@@ -3,3 +3,4 @@
 =====================================================
 
 .. automodule:: pyms_agilent.mhdac.spectrum
+	:member-order: bysource

@@ -4,3 +4,4 @@
 
 .. automodule:: pyms_agilent.mhdac.file_information
 	:inherited-members:
+	:member-order: bysource

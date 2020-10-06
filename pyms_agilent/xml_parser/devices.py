@@ -2,7 +2,7 @@
 #
 #  devices.py
 """
-Parser for ``Devices.xml``.
+Parser for :file:`Devices.xml`.
 """
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -39,16 +39,14 @@ from pyms_agilent.xml_parser import agilent_xsd
 # this package
 from .acq_method import tag2dict
 from .core import XMLList
+from pyms_agilent.enums import DeviceType, DeviceVendor, StoredDataType
 
 __all__ = ["Device", "DeviceList", "read_devices_xml"]
-
-# this package
-from ..enums import DeviceType, DeviceVendor, StoredDataType
 
 
 class Device(Dictable):
 	r"""
-	Represents a device parsed from ``Devices.xml``.
+	Represents a device parsed from :file:`Devices.xml`.
 
 	:param device_id: The ID of the device.
 	:param display_name: The display name of the device.
@@ -60,8 +58,9 @@ class Device(Dictable):
 	:param type\_: The type of device
 	:param stored_data_type: The type of stored data
 	:param delay:
-		TODO: Enum
 	:param vendor: The supplier of the device.
+
+	.. TODO:: Enum for delay
 	"""
 
 	def __init__(
@@ -131,7 +130,7 @@ class Device(Dictable):
 
 class DeviceList(XMLList):
 	"""
-	Represents a list of devices in ``Devices.xml``.
+	Represents a list of devices in :file:`Devices.xml`.
 
 	:param version:
 	:param devices:
@@ -160,7 +159,7 @@ class DeviceList(XMLList):
 
 def read_devices_xml(base_path: PathLike) -> DeviceList:
 	"""
-	Construct a :class:`~.DeviceList` object from the ``DeviceList.xml``
+	Construct a :class:`~.DeviceList` object from the :file:`DeviceList.xml`
 	file in the given directory.
 
 	:param base_path:

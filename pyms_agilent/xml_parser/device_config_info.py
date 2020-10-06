@@ -2,7 +2,7 @@
 #
 #  device_config_info.py
 """
-Parser for ``DeviceConfigInfo.xml``.  # noqa D400
+Parser for :file:`DeviceConfigInfo.xml`.
 """
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -33,6 +33,7 @@ import lxml.objectify  # type: ignore
 from attr_utils.docstrings import add_attrs_doc
 from attr_utils.serialise import serde
 from domdf_python_tools.bases import Dictable
+from domdf_python_tools.doctools import prettify_docstrings
 from domdf_python_tools.typing import PathLike
 from mh_utils.xml import XMLFileMixin
 
@@ -47,13 +48,13 @@ __all__ = ["Device", "Parameter", "DeviceConfigInfo", "read_device_config_xml"]
 @attr.s(slots=True)
 class Device:
 	"""
-	Represents a device in ``DeviceConfigInfo.xml``.
-
-	:param device_id: The ID of the device.
-	:param display_name: The display name of the device.
+	Represents a device in :file:`DeviceConfigInfo.xml`.
 	"""
 
+	#: The ID of the device.
 	device_id: str = attr.ib(converter=str)
+
+	#: The display name of the device.
 	display_name: str = attr.ib(converter=str)
 
 	@classmethod
@@ -72,7 +73,7 @@ class Device:
 
 class Parameter(Dictable):
 	"""
-	Represents a configuration parameter in ``DeviceConfigInfo.xml``.
+	Represents a configuration parameter in :file:`DeviceConfigInfo.xml`.
 
 	:param display_name: The display name of this parameter.
 	:param device_id: The ID of the device this parameter configures.
@@ -132,9 +133,10 @@ class Parameter(Dictable):
 		return f"<{self.__class__.__name__}({self.display_name})>"
 
 
+@prettify_docstrings
 class DeviceConfigInfo(XMLFileMixin, Dictable):
 	"""
-	Represents the device configuration parsed from ``DeviceConfigInfo.xml``.
+	Represents the device configuration parsed from :file:`DeviceConfigInfo.xml`.
 
 	:param parameters: List of configuration parameters
 	:param devices: List of devices
@@ -176,7 +178,7 @@ class DeviceConfigInfo(XMLFileMixin, Dictable):
 
 def read_device_config_xml(base_path: PathLike) -> DeviceConfigInfo:
 	"""
-	Construct a :class:`~.DeviceConfigInfo` object from the ``DeviceConfigInfo.xml``
+	Construct a :class:`~.DeviceConfigInfo` object from the :file:`DeviceConfigInfo.xml`
 	file in the given directory.
 
 	:param base_path:

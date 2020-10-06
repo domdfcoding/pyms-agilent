@@ -2,7 +2,7 @@
 #
 #  default_mass_cal.py
 """
-Parser for ``DefaultMassCal.xml``.
+Parser for :file:`DefaultMassCal.xml`.
 """
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -45,7 +45,7 @@ __all__ = ["StepType", "Calibration", "CalibrationList", "read_mass_cal_xml"]
 
 class StepType(Dictable):
 	"""
-	Represents a step in a mass calibration, parsed from ``DefaultMassCal.xml``.
+	Represents a step in a mass calibration, parsed from :file:`DefaultMassCal.xml`.
 
 	:param number:
 	:param calibration_technique:
@@ -124,7 +124,7 @@ class StepType(Dictable):
 
 class Calibration(NamedList):
 	"""
-	Represents a mass calibration parsed from ``DefaultMassCal.xml``.
+	Represents a mass calibration parsed from :file:`DefaultMassCal.xml`.
 
 	:param calibration_id: The ID of the calibration data.
 	:param steps: Sequence of calibration steps.
@@ -161,7 +161,7 @@ class Calibration(NamedList):
 
 class CalibrationList(XMLList):
 	"""
-	Represents a list of mass calibrations in ``DefaultMassCal.xml``.
+	Represents a list of mass calibrations in :file:`DefaultMassCal.xml`.
 
 	:param version: The version number of the calibration data.
 	:param default_calibrations:
@@ -194,7 +194,7 @@ class CalibrationList(XMLList):
 
 def read_mass_cal_xml(base_path: PathLike) -> CalibrationList:
 	"""
-	Construct a :class:`~.CalibrationList` object from the ``DefaultMassCal.xml`` file in the given directory.
+	Construct a :class:`~.CalibrationList` object from the :file:`DefaultMassCal.xml` file in the given directory.
 
 	:param base_path:
 	"""

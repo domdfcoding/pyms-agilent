@@ -74,13 +74,13 @@ class MetadataDict(TypedDict):
 	"""
 
 	method: AcqMethod  #: The method used to acquire data.
-	contents: Contents  #: The contents of the ``.d`` datafile, parsed from ``Contents.xml``.
+	contents: Contents  #: The contents of the ``.d`` datafile, parsed from :file:`Contents.xml`.
 	default_mass_cal: CalibrationList  #: A list of mass calibrations in DefaultMassCal.xml
-	device_config_info: DeviceConfigInfo  #: The device configuration parsed from ``DeviceConfigInfo.xml``.
-	devices: DeviceList  #: The list of devices in ``Devices.xml``.
+	device_config_info: DeviceConfigInfo  #: The device configuration parsed from :file:`DeviceConfigInfo.xml`.
+	devices: DeviceList  #: The list of devices in :file:`Devices.xml`.
 	ms_actual_defs: ActualsDef  #: The overall Actual Definition Information for all devices.
-	ms_time_segments: MSTimeSegments  #: The list of MS time segments from ``MSTS.xml``.
-	sample_info: SampleInfo  #: List of information about the sample, parsed from ``sample_info.xml``.
+	ms_time_segments: MSTimeSegments  #: The list of MS time segments from :file:`MSTS.xml`.
+	sample_info: SampleInfo  #: List of information about the sample, parsed from :file:`sample_info.xml`.
 
 
 def extract_metadata(file_name: PathLike) -> MetadataDict:

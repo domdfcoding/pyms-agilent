@@ -2,7 +2,7 @@
 #
 #  ms_time_segments.py
 """
-Parser for mass spectrometry time segment data in ``MSTS.xml``.
+Parser for mass spectrometry time segment data in :file:`MSTS.xml`.
 """
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -61,7 +61,7 @@ def make_timedelta(minutes: Union[float, datetime.timedelta]) -> datetime.timede
 @attr.s(slots=True)
 class TimeSegment:
 	"""
-	Represents a time segment from ``MSTS.xml``.
+	Represents a time segment from :file:`MSTS.xml`.
 
 	:param start_time: The start time in minutes.
 	:param end_time: The end time in minutes.
@@ -101,7 +101,7 @@ class TimeSegment:
 
 class MSTimeSegments(XMLList):
 	"""
-	Represents the list of MS time segments from ``MSTS.xml``.
+	Represents the list of MS time segments from :file:`MSTS.xml`.
 
 	:param version:
 	:param irm_status:
@@ -137,7 +137,7 @@ class MSTimeSegments(XMLList):
 
 def read_msts_xml(base_path) -> "MSTimeSegments":
 	"""
-	Construct an an :class:`~.MSTS` object from the ``sample_info.xml`` file in the given directory.
+	Construct an an :class:`~.MSTS` object from the :file:`sample_info.xml` file in the given directory.
 
 	:param base_path:
 	"""

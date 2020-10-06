@@ -2,7 +2,7 @@
 #
 #  acq_method.py
 """
-Parser for ``<datafile>.d/AcqData/AcqMethod.xml``.
+Parser for :file:`{<datafile>}.d/AcqData/AcqMethod.xml`.
 """
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -169,9 +169,9 @@ class AcqMethod(XMLFileMixin, Dictable):
 
 def read_acqmethod(base_path: PathLike) -> AcqMethod:
 	"""
-	Construct an :class:`~.AcqMethod` object from the ``AcqMethod.xml`` file in the given directory.
+	Construct an :class:`~.AcqMethod` object from the :file:`AcqMethod.xml` file in the given directory.
 
-	:param base_path: Directory containing the ``AcqMethod.xml`` file.
+	:param base_path: Directory containing the :file:`AcqMethod.xml` file.
 	"""
 
 	return AcqMethod.from_xml_file(pathlib.Path(base_path) / "AcqMethod.xml")

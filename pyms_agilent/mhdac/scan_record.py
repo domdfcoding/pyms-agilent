@@ -301,7 +301,7 @@ class FrozenMSScanRecord:
 	#: Returns the ID of the Scan.
 	scan_id: int = attr.ib(converter=int)
 
-	#: Returns the summed intensity of all ions in the scan with
+	#: Returns the summed intensity of all ions in the scan with ``DesiredMSStorageType == 'Profile'``
 	tic: float = attr.ib(converter=float)
 
 	#: Returns the time segment the scan belongs to.

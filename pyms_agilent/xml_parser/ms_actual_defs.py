@@ -2,7 +2,7 @@
 #
 #  ms_actual_defs.py
 """
-Parser for ``MSActualDefs.xml``.
+Parser for :file:`MSActualDefs.xml`.
 """
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -154,11 +154,11 @@ class ActualsDef(XMLList):
 	r"""
 	Stores the overall Actual Definition Information for all devices.
 
-	Parsed from ``MSActualDefs.xml``.
+	Parsed from :file:`MSActualDefs.xml`.
 
 	List of :class:`~.Actual` objects.
 
-	:param version: The version of the ``MSActualDefs.xml`` file.
+	:param version: The version of the :file:`MSActualDefs.xml` file.
 	:param type\_:
 	:param actuals:
 
@@ -194,7 +194,7 @@ class ActualsDef(XMLList):
 
 def read_ms_actuals_defs(base_path: PathLike) -> ActualsDef:
 	"""
-	Construct an :class:`~.ActualsDef` object from the ``MSActualDefs.xml`` file in the given directory.
+	Construct an :class:`~.ActualsDef` object from the :file:`MSActualDefs.xml` file in the given directory.
 
 	:param base_path:
 	"""

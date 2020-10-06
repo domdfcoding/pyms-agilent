@@ -4,3 +4,4 @@
 
 .. automodule:: pyms_agilent.mhdac.signalinfo
 	:inherited-members:
+	:member-order: bysource

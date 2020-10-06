@@ -93,7 +93,7 @@ class SpecData:
 	@property
 	def chrom_peak_index(self) -> int:
 		"""
-
+		.. TODO:: What does this represent?
 		"""
 
 		return int(self.interface.ChromPeakIndex)
