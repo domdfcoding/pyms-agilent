@@ -23,12 +23,17 @@ Functions for I/O of data in Agilent ``.d`` format
 #  MA 02110-1301, USA.
 #
 
+# stdlib
+import pathlib
+from statistics import mean
+
 # 3rd party
 from domdf_python_tools.typing import PathLike
 from pyms.GCMS.Class import GCMS_data
-from pyms.Utils.IO import prepare_filepath
+from pyms.Spectrum import Scan
 
 # this package
+
 from pyms_agilent.mhdac.mass_spec_data_reader import MassSpecDataReader
 
 __all__ = ["agilent_reader"]
@@ -40,17 +45,35 @@ def agilent_reader(file_name: PathLike) -> GCMS_data:
 
 	:param file_name: Path of the file to read
 
-	:return: GC-MS data object
-
-	:author: Qiao Wang
-	:author: Andrew Isaac
-	:author: Vladimir Likic
-	:author: Dominic Davis-Foster
+	:return: GC-MS data object.
 	"""
 
-	file_name = prepare_filepath(file_name)
+	if not isinstance(file_name, (str, pathlib.Path)):
+		raise TypeError("'file_name' must be a string or a pathlib.Path object")
+
+	if not isinstance(file_name, pathlib.Path):
+		file_name = pathlib.Path(file_name)
 
 	print(f" -> Reading Agilent data file '{file_name}'")
 
+	time_list = []
+	scan_list = []
+
 	reader = MassSpecDataReader(file_name)
-	print(reader.file_information.ms_scan_file_info.total_scans)
+
+	for scan_no in range(reader.file_information.ms_scan_file_info.total_scans):
+		spectrum = reader.get_spectrum_by_scan(scan_no)
+		scan_list.append(Scan(spectrum.x_data, spectrum.y_data))
+		time_list.append(mean(spectrum.acquired_time_ranges[0]))
+
+	# sanity check
+	time_len = len(time_list)
+	scan_len = len(scan_list)
+	if not time_len == scan_len:  # pragma: no cover
+		print(time_list)
+		print(scan_list)
+		raise ValueError(f"Number of time points ({time_len}) does not equal the number of scans ({scan_len}).")
+
+	data = GCMS_data(time_list, scan_list)
+
+	return data
