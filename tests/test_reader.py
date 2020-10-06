@@ -1,19 +1,18 @@
+# stdlib
 import pathlib
 import sys
 
+# 3rd party
 import pytest
 from pyms.GCMS.Class import GCMS_data
 from pytest_regressions.data_regression import DataRegressionFixture
 from pytest_regressions.file_regression import FileRegressionFixture
 
+# this package
 from pyms_agilent.metadata import is_datafile
 from pyms_agilent.reader import agilent_reader
 
-
-pytestmark = pytest.mark.skipif(
-		condition=sys.platform != "win32",
-		reason="Only supported on Windows."
-		)
+pytestmark = pytest.mark.skipif(condition=sys.platform != "win32", reason="Only supported on Windows.")
 
 
 @pytest.fixture(scope="session")
@@ -28,7 +27,6 @@ def datafile():
 @pytest.fixture(scope="module")
 def data(datafile) -> GCMS_data:
 	return agilent_reader(datafile)
-
 
 
 def test_len(data):
@@ -50,6 +48,7 @@ def test_info(data, capsys):
 
 
 # TODO: scan_list
+
 
 def test_time_list(data, data_regression: DataRegressionFixture):
 	data_regression.check(data.time_list)
@@ -76,8 +75,8 @@ def test_time_step_std(data):
 
 
 @pytest.mark.parametrize("filename", [
-"agilent_data.I.csv",
-"agilent_data.mz.csv",
+		"agilent_data.I.csv",
+		"agilent_data.mz.csv",
 		])
 def test_write(tmpdir, data, file_regression: FileRegressionFixture, filename):
 	tmpdir_p = pathlib.Path(tmpdir)

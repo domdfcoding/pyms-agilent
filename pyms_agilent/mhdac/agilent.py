@@ -58,9 +58,11 @@ if sys.platform == "win32" or TYPE_CHECKING:
 	ArgumentOutOfRangeException = System.ArgumentOutOfRangeException
 	NullReferenceException = System.NullReferenceException
 
-else:
+else:  # pragma: no cover
+
 	# this package
 	from pyms_agilent.mhdac import _posix_data_analysis
+
 	DataAnalysis = _posix_data_analysis
 
 	class FileNotFoundException(IOError):

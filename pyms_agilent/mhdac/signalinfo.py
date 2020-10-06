@@ -138,7 +138,7 @@ def convert_instrument_curve(
 	"""
 
 	if isinstance(curve, InstrumentCurve):
-		return curve.freeze()
+		return curve.freeze()  # pragma: no cover
 	elif isinstance(curve, FrozenInstrumentCurve):
 		return curve
 	else:

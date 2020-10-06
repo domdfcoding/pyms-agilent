@@ -34,12 +34,10 @@ from domdf_python_tools.bases import Dictable
 from domdf_python_tools.typing import PathLike
 
 # this package
-from pyms_agilent.xml_parser import agilent_xsd
-
-# this package
-from .acq_method import tag2dict
-from .core import XMLList
 from pyms_agilent.enums import DeviceType, DeviceVendor, StoredDataType
+from pyms_agilent.xml_parser import agilent_xsd
+from pyms_agilent.xml_parser.acq_method import tag2dict
+from pyms_agilent.xml_parser.core import XMLList
 
 __all__ = ["Device", "DeviceList", "read_devices_xml"]
 
