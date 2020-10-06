@@ -61,3 +61,6 @@ additional_ignore:
   - tic.pdf
   - old
   - pyms.bat
+
+exclude_files:
+  - setup_cfg
