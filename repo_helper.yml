@@ -32,6 +32,7 @@ classifiers:
 
 manifest_additional:
   - "recursive-include pyms_agilent/xml_parser/agilent_xsd *.xsd"
+  - "include pyms_agilent/mhdac/mhdac.zip"
 
 extra_sphinx_extensions:
   - enum_tools.autoenum
@@ -64,3 +65,6 @@ additional_ignore:
 
 exclude_files:
   - setup_cfg
+
+mypy_plugins:
+  - attr_utils.mypy_plugin

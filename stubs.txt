@@ -1,2 +1,4 @@
 dotnet-stubs
 /home/domdf/Python/01 GitHub Repos/05 Type Stubs/pyms-agilent-stubs/dist/pyms_agilent_stubs-0.0.0-py3-none-any.whl
+/home/domdf/Python/01 GitHub Repos/05 Type Stubs/pytest-regressions-stubs
+
