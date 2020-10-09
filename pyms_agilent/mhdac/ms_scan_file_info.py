@@ -269,6 +269,7 @@ class MSScanFileInformation:
 def _float_list_converter(iterable: Iterable[float]):
 	return list(iterable)
 
+
 @serde
 @pretty_repr
 @frozen_comparison(MSScanFileInformation)

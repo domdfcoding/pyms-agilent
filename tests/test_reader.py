@@ -47,9 +47,7 @@ def test_info(data, capsys):
 			]
 
 
-@pytest.mark.parametrize("scan_no", [
-		1, 3, 5, 7, 9, 18, 27, 36, 45, 90, 180, 360
-		])
+@pytest.mark.parametrize("scan_no", [1, 3, 5, 7, 9, 18, 27, 36, 45, 90, 180, 360])
 def test_scan_list(data, data_regression: DataRegressionFixture, scan_no):
 	data_regression.check(data.scan_list[scan_no])
 

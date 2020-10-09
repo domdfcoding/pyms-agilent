@@ -553,6 +553,7 @@ class SpecData:
 # TofCalibration
 # ConvertDataToMassUnits  # Converts the spectrum to mass units if it is in time units. Presumably mutates data?
 
+
 def _range_converter(iterable: Iterable[Range]) -> List[Range]:
 	return list(iterable)
 
