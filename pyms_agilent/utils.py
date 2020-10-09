@@ -238,7 +238,7 @@ def frozen_comparison(*classes: Type) -> Callable[[Type], Type]:
 				return left == right
 			return NotImplemented
 
-		cls.__eq__ = __eq__
+		cls.__eq__ = __eq__  # type: ignore
 		cls.__eq__.__qualname__ = f"{cls.__name__}.__eq__"
 		cls.__eq__.__module__ = cls.__module__
 

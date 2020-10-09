@@ -54,9 +54,9 @@ if sys.platform == "win32" or TYPE_CHECKING:
 
 	DataAnalysis = Agilent.MassSpectrometry.DataAnalysis
 
-	FileNotFoundException = System.IO.FileNotFoundException
-	ArgumentOutOfRangeException = System.ArgumentOutOfRangeException
-	NullReferenceException = System.NullReferenceException
+	FileNotFoundException = System.IO.FileNotFoundException  # type: ignore  # TODO: update stubs
+	ArgumentOutOfRangeException = System.ArgumentOutOfRangeException  # type: ignore  # TODO: update stubs
+	NullReferenceException = System.NullReferenceException  # type: ignore  # TODO: update stubs
 
 else:  # pragma: no cover
 

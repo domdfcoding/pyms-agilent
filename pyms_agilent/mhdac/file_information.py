@@ -167,7 +167,7 @@ class FileInformation:
 		"""
 
 		try:
-			return self.interface.IsStoredDataTypePresent(f"{device_name}{ordinal_number}", int(datatype))
+			return self.interface.IsStoredDataTypePresent(f"{device_name}{ordinal_number}", datatype)
 		except ArgumentOutOfRangeException:
 			return False
 

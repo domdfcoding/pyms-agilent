@@ -29,8 +29,8 @@ from statistics import mean
 
 # 3rd party
 from domdf_python_tools.typing import PathLike
-from pyms.GCMS.Class import GCMS_data
-from pyms.Spectrum import Scan
+from pyms.GCMS.Class import GCMS_data  # type: ignore  # TODO
+from pyms.Spectrum import Scan  # type: ignore  # TODO
 
 # this package
 from pyms_agilent.mhdac.mass_spec_data_reader import MassSpecDataReader
@@ -63,7 +63,7 @@ def agilent_reader(file_name: PathLike) -> GCMS_data:
 	for scan_no in range(reader.file_information.ms_scan_file_info.total_scans):
 		spectrum = reader.get_spectrum_by_scan(scan_no)
 		scan_list.append(Scan(spectrum.x_data, spectrum.y_data))
-		time_list.append(mean(spectrum.acquired_time_ranges[0]))
+		time_list.append(mean(spectrum.acquired_time_ranges[0]) * 60.0)
 
 	# sanity check
 	time_len = len(time_list)

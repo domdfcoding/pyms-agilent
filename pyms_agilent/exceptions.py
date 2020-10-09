@@ -51,4 +51,4 @@ class Unititialisable:
 
 	def __init_subclass__(cls, **kwargs):
 		if cls.__init__ is not Unititialisable.__init__:
-			cls.__init__ = Unititialisable.__init__
+			cls.__init__ = Unititialisable.__init__  # type: ignore

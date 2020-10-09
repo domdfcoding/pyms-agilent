@@ -84,7 +84,8 @@ class MassSpecDataReader:
 		:return: Whether new data is present in the data file
 		"""
 
-		return self.interface.RefreshDataFile(self.data_reader, True)[1]
+		# TODO: update stubs
+		return self.interface.RefreshDataFile(self.data_reader, True)[1]  # type: ignore
 
 	@property
 	def file_information(self) -> FileInformation:
@@ -418,7 +419,7 @@ class MSActuals(Mapping[str, MSActual]):
 		Returns a list of parameter values.
 		"""
 
-		return list(x[1] for x in iter(self))
+		return list(x[1] for x in iter(self))  # type: ignore
 
 	def items(self) -> List[Tuple[str, MSActual]]:  # type: ignore
 		"""

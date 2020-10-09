@@ -24,7 +24,7 @@ Provides access to information about mass spectral data in ``.d`` data files.
 #
 
 # stdlib
-from typing import Any, List, MutableMapping, Optional
+from typing import Any, Iterable, List, MutableMapping, Optional
 
 # 3rd party
 import attr
@@ -266,6 +266,9 @@ class MSScanFileInformation:
 #  CollisionEnergy  # broken
 
 
+def _float_list_converter(iterable: Iterable[float]):
+	return list(iterable)
+
 @serde
 @pretty_repr
 @frozen_comparison(MSScanFileInformation)
@@ -278,13 +281,13 @@ class FrozenMSScanFileInformation:
 	"""
 
 	#: The collision energies used to acquire the data.
-	collision_energies: List[float] = attr.ib(converter=list)
+	collision_energies: List[float] = attr.ib(converter=_float_list_converter)
 
 	#: The compensation field values.
-	compensation_field_values: List[float] = attr.ib(converter=list)
+	compensation_field_values: List[float] = attr.ib(converter=_float_list_converter)
 
 	#: The dispersion field values.
-	dispersion_field_values: List[float] = attr.ib(converter=list)
+	dispersion_field_values: List[float] = attr.ib(converter=_float_list_converter)
 
 	#: Returns whether the file contains mass spectral data.
 	has_ms_data: bool = attr.ib(converter=strtobool)
@@ -293,7 +296,7 @@ class FrozenMSScanFileInformation:
 	device_type: DeviceType = attr.ib(converter=DeviceType)
 
 	#: The fragmentor voltages used to acquire the data.
-	fragmentor_voltages: List[float] = attr.ib(converter=list)
+	fragmentor_voltages: List[float] = attr.ib(converter=_float_list_converter)
 
 	ionisation_mode: IonizationMode = attr.ib(converter=IonizationMode)
 	"""
@@ -332,7 +335,7 @@ class FrozenMSScanFileInformation:
 	"""
 
 	#: Returns a list of SIM ions.
-	sim_ions: List[float] = attr.ib(converter=list)
+	sim_ions: List[float] = attr.ib(converter=_float_list_converter)
 
 
 # has to be done after FrozenMSScanFileInformation was defined.

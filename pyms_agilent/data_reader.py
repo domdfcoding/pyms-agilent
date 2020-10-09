@@ -24,12 +24,13 @@ Higher level interface for reading ``.d`` data files..
 #
 
 # stdlib
+import pathlib
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
 # 3rd party
 from domdf_python_tools.typing import PathLike
-from memoized_property import memoized_property
+from memoized_property import memoized_property  # type: ignore
 
 # this package
 from pyms_agilent.enums import (
@@ -94,8 +95,8 @@ class DataReader:
 
 	# TODO: file_information
 
-	_file_info: FileInformation
-	_ms_scan_file_info: MSScanFileInformation
+	# _file_info: FileInformation
+	# _ms_scan_file_info: MSScanFileInformation
 
 	@memoized_property
 	def _file_info(self) -> FileInformation:
@@ -124,7 +125,7 @@ class DataReader:
 		return self._file_info.irm_status
 
 	@property
-	def datafile_name(self) -> str:
+	def datafile_name(self) -> pathlib.PureWindowsPath:
 		"""
 		Returns the name of the data file.
 		"""
@@ -330,7 +331,7 @@ class DataReader:
 				ordinal_number=ordinal_number,
 				)
 
-	def get_device_name(self, device_type: DeviceType) -> str:
+	def get_device_name(self, device_type: DeviceType) -> Optional[str]:
 		"""
 		Returns the name of the device in the instrument configuration with the given type.
 
@@ -359,7 +360,7 @@ class DataReader:
 			self,
 			retention_time: float,
 			scan_type: MSScanType = MSScanType.All,
-			ionization_polarity: Optional[int] = 1,
+			ionization_polarity: int = 1,
 			ionization_mode: IonizationMode = IonizationMode.Unspecified,
 			) -> SpecData:
 		"""

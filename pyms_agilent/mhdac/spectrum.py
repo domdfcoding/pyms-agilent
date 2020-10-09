@@ -45,11 +45,11 @@ Provides access to information about a single spectrum in ``.d`` data files.
 #
 
 # stdlib
-from typing import Any, List, MutableMapping, Optional, Tuple
+from typing import Any, Iterable, List, MutableMapping, Optional, Tuple
 
 # 3rd party
 import attr
-import prettyprinter
+import prettyprinter  # type: ignore
 from attr_utils.pprinter import pretty_repr, register_pretty
 from attr_utils.serialise import serde
 from domdf_python_tools.utils import etc
@@ -553,6 +553,9 @@ class SpecData:
 # TofCalibration
 # ConvertDataToMassUnits  # Converts the spectrum to mass units if it is in time units. Presumably mutates data?
 
+def _range_converter(iterable: Iterable[Range]) -> List[Range]:
+	return list(iterable)
+
 
 @serde
 @pretty_repr
@@ -571,7 +574,7 @@ class FrozenSpecData:
 	in the spectrum (the theoretical "full scale" value).
 	"""
 
-	acquired_time_ranges: List[Range] = attr.ib(converter=list)
+	acquired_time_ranges: List[Range] = attr.ib(converter=_range_converter)
 	"""
 	The list of time ranges over which the data was acquired.
 
@@ -635,7 +638,7 @@ class FrozenSpecData:
 	#: The storage mode of the mass spectrometry data, if the data was obtained via mass spectrometry.
 	ms_storage_mode: MSStorageMode = attr.ib(converter=MSStorageMode)
 
-	mz_of_interest: List[Range] = attr.ib(converter=list)
+	mz_of_interest: List[Range] = attr.ib(converter=_range_converter)
 	r"""
 	A list of |mz| ranges of interest, if the data was obtained via mass spectrometry.
 
@@ -767,7 +770,7 @@ def pretty_frozen_spec_data(value, ctx):
 		display_attr = False
 		if attribute.default == attr.NOTHING:
 			display_attr = True
-		elif isinstance(attribute.default, attr.Factory):
+		elif isinstance(attribute.default, attr.Factory):  # type: ignore
 			default_value = (
 					attribute.default.factory(value)
 					if attribute.default.takes_self else attribute.default.factory()
