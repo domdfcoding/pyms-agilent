@@ -30,10 +30,10 @@ from typing import List, Optional, Union
 
 # 3rd party
 import attr
-import importlib_resources
 import lxml.objectify  # type: ignore
 from attr_utils.pprinter import pretty_repr
 from attr_utils.serialise import serde
+from domdf_python_tools.compat import importlib_resources
 from domdf_python_tools.utils import strtobool
 
 # this package

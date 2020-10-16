@@ -7,7 +7,7 @@ import tempfile
 from pydoc import getpager
 
 # 3rd party
-import importlib_resources
+from domdf_python_tools.compat import importlib_resources
 from domdf_python_tools.paths import PathPlus
 
 # this package
@@ -185,8 +185,8 @@ def extract():
 
 	with tempfile.TemporaryDirectory() as tmpdir:
 		src_dir = pathlib.Path(tmpdir)
-		with importlib_resources.path(pyms_agilent.mhdac, "mhdac.zip") as zipfile:
 
+		with importlib_resources.path(pyms_agilent.mhdac, "mhdac.zip") as zipfile:
 			shutil.unpack_archive(str(zipfile), extract_dir=src_dir, format="zip")
 
 		for filename in x64_filenames:

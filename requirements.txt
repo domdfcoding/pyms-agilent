@@ -1,9 +1,8 @@
 attr_utils>=0.5.2
 attrs>=20.2.0
 cytoolz>=0.11.0
-domdf_python_tools>=0.9.2
+domdf_python_tools>=1.0.0
 enum_tools>=0.6.1
-importlib_resources>=3.0.0
 lxml>=4.5.2
 mh_utils>=0.0.3
 numpy>=1.19.1

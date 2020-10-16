@@ -28,9 +28,9 @@ import pathlib
 from typing import Optional, Sequence
 
 # 3rd party
-import importlib_resources
 import lxml.objectify  # type: ignore
 from domdf_python_tools.bases import Dictable
+from domdf_python_tools.compat import importlib_resources
 from domdf_python_tools.typing import PathLike
 
 # this package

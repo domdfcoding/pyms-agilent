@@ -28,9 +28,9 @@ import pathlib
 from typing import Callable, Optional, Sequence, Union
 
 # 3rd party
-import importlib_resources
 import lxml.objectify  # type: ignore
 from domdf_python_tools.bases import Dictable
+from domdf_python_tools.compat import importlib_resources
 from domdf_python_tools.doctools import prettify_docstrings
 from domdf_python_tools.typing import PathLike
 from numpy import float64, int64  # type: ignore
