@@ -61,7 +61,7 @@ class TestCreation:
 					(pathlib.Path("method.m"), pathlib.Path("method.m")),
 					(pathlib.Path("directory/method.m"), pathlib.Path("directory/method.m")),
 					("directory/method.m", pathlib.Path("directory/method.m")),
-					]
+					],
 			)
 	def test_filename(self, value, expects):
 		assert AcqMethod(1.0, "the name", value).filename == expects

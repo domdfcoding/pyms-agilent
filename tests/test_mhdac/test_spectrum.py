@@ -33,10 +33,10 @@ def frozen_spectrum(datadir):
 			acquired_time_ranges=[Range(0.047216666666666664, 0.047216666666666664)],
 			chrom_peak_index=-1,
 			collision_energy=0.0,
-			compensation_field=float('nan'),
+			compensation_field=float("nan"),
 			device_name="QTOF",
 			device_type=DeviceType.QuadrupoleTimeOfFlight,
-			dispersion_field=float('nan'),
+			dispersion_field=float("nan"),
 			fragmentor_voltage=380.0,
 			x_axis_info=(DataValueType.MassToCharge, DataUnit.Thomsons),
 			y_axis_info=(DataValueType.IonAbundance, DataUnit.Counts),
@@ -69,7 +69,7 @@ class TestSpecData:
 
 	def test_repr(self, spectrum):
 		assert repr(spectrum) == dedent(
-				"""\
+						"""\
 		pyms_agilent.mhdac.spectrum.SpecData(
 			abundance_limit=16742400.0,
 			acquired_time_ranges=[
@@ -137,7 +137,7 @@ class TestSpecData:
 				...
 			]
 		)"""
-				).expandtabs(4)
+						).expandtabs(4)
 
 
 class TestFrozenSpecData:
@@ -145,7 +145,7 @@ class TestFrozenSpecData:
 	def test_repr(self, frozen_spectrum):
 
 		assert repr(frozen_spectrum) == dedent(
-				"""\
+						"""\
 		pyms_agilent.mhdac.spectrum.FrozenSpecData(
 			abundance_limit=16742400.0,
 			acquired_time_ranges=[
@@ -213,7 +213,7 @@ class TestFrozenSpecData:
 				...
 			]
 		)"""
-				).expandtabs(4)
+						).expandtabs(4)
 
 	def test_not_ms2(self, frozen_spectrum):
 		with pytest.raises(NotMS2Error):

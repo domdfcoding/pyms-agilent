@@ -63,7 +63,7 @@ class MassSpecDataReader:
 
 		try:
 			if not self.interface.OpenDataFile(self.data_reader, self.filename):
-				raise IOError(f"Could not open data file '{self.filename}'")  # pragma: no cover
+				raise OSError(f"Could not open data file '{self.filename}'")  # pragma: no cover
 		except FileNotFoundException as e:
 			raise FileNotFoundError(str(e).split("\n")[0]) from None
 

@@ -86,7 +86,7 @@ class TestActual:
 					(int64, int64),
 					(list, list),
 					(tuple, tuple),
-					]
+					],
 			)
 	def test_dtypes(self, dtype, expects):
 		actual = Actual(
@@ -109,7 +109,7 @@ class TestActual:
 					*[(x, int64) for x in range(55, 65)],
 					*[(x, float64) for x in range(65, 346)],
 					*[(x, int64) for x in range(346, 500)],
-					]
+					],
 			)
 	def test_dtypes_guess(self, actual_id, expects):
 		actual = Actual(actual_id)
@@ -144,7 +144,7 @@ class TestActualsDef:
 					(ActualsDef("1", actuals=[demo_actual]), 1, 0, [demo_actual]),  # type: ignore
 					(ActualsDef(1, actuals=(demo_actual, )), 1, 0, [demo_actual]),
 					(ActualsDef("1", actuals=(demo_actual, )), 1, 0, [demo_actual]),  # type: ignore
-					]
+					],
 			)
 	def test_creation(self, actual, version, type_, as_list):
 		assert actual.version == version

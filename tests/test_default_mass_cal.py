@@ -23,7 +23,7 @@ class TestStepType:
 				calibration_formula=CalibrationFormulaEnum.Traditional,
 				calibration_technique=CalibrationTechniqueEnum.ExternalReference,
 				number_of_coefficients=7,
-				value_use_flags=4
+				value_use_flags=4,
 				)
 
 		assert step.number == 1

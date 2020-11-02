@@ -307,8 +307,9 @@ class TestDataReader:
 				)[0]
 
 		assert signal == signal.freeze()
-		assert signal.get_instrument_curve().freeze() == signal.freeze().get_instrument_curve() == signal.freeze(
-		).instrument_curve
+		left = signal.get_instrument_curve().freeze()
+		right = signal.freeze().get_instrument_curve()
+		assert left == right == signal.freeze().instrument_curve
 
 	def test_signalinfo_repr(self, reader):
 		signal = reader.get_signal_listing(
@@ -324,8 +325,8 @@ class TestDataReader:
 				base_peak_intensity=755713.0,
 				base_peak_mz=122.09504758586642,
 				collision_energy=0.0,
-				compensation_field=float('nan'),
-				dispersion_field=float('nan'),
+				compensation_field=float("nan"),
+				dispersion_field=float("nan"),
 				fragmentor_voltage=380.0,
 				ion_polarity="+",
 				ionization_mode=IonizationMode.ESI,
@@ -337,7 +338,7 @@ class TestDataReader:
 				retention_time=0.047216666666666664,
 				scan_id=2841,
 				tic=134909337.0,
-				time_segment=1
+				time_segment=1,
 				)
 
 		assert expected == expected
@@ -346,8 +347,8 @@ class TestDataReader:
 				base_peak_intensity=755713.0,
 				base_peak_mz=122.09504758586642,
 				collision_energy=0.0,
-				compensation_field=float('nan'),
-				dispersion_field=float('nan'),
+				compensation_field=float("nan"),
+				dispersion_field=float("nan"),
 				fragmentor_voltage=380.0,
 				ion_polarity="+",
 				ionization_mode=IonizationMode.ESI,
@@ -359,7 +360,7 @@ class TestDataReader:
 				retention_time=0.047216666666666664,
 				scan_id=2841,
 				tic=134909337.0,
-				time_segment=1
+				time_segment=1,
 				)
 
 		record = reader.get_scan_record(0)
@@ -390,10 +391,10 @@ class TestDataReader:
 				acquired_time_ranges=[Range(0.047216666666666664, 0.047216666666666664)],
 				chrom_peak_index=-1,
 				collision_energy=0.0,
-				compensation_field=float('nan'),
+				compensation_field=float("nan"),
 				device_name="QTOF",
 				device_type=DeviceType.QuadrupoleTimeOfFlight,
-				dispersion_field=float('nan'),
+				dispersion_field=float("nan"),
 				fragmentor_voltage=380.0,
 				x_axis_info=(DataValueType.MassToCharge, DataUnit.Thomsons),
 				y_axis_info=(DataValueType.IonAbundance, DataUnit.Counts),
@@ -417,8 +418,8 @@ class TestDataReader:
 				threshold=0.0,
 				total_data_points=6000,
 				total_scan_count=1,
-				x_data=json.loads((datadir / 'x_data.json').read_text()),
-				y_data=json.loads((datadir / 'y_data.json').read_text()),
+				x_data=json.loads((datadir / "x_data.json").read_text()),
+				y_data=json.loads((datadir / "y_data.json").read_text()),
 				)
 
 		assert spectrum.freeze() == expected
@@ -466,7 +467,7 @@ class TestDataReader:
 				acquired_time_ranges=[Range(0.047216666666666664, 0.047216666666666664)],
 				chrom_peak_index=-1,
 				collision_energy=0.0,
-				compensation_field=float('nan'),
+				compensation_field=float("nan"),
 				device_name="QTOF",
 				device_type=DeviceType.QuadrupoleTimeOfFlight,
 				dispersion_field=float("nan"),
@@ -493,8 +494,8 @@ class TestDataReader:
 				threshold=0.0,
 				total_data_points=6000,
 				total_scan_count=1,
-				x_data=json.loads((datadir / 'x_data.json').read_text()),
-				y_data=json.loads((datadir / 'y_data.json').read_text()),
+				x_data=json.loads((datadir / "x_data.json").read_text()),
+				y_data=json.loads((datadir / "y_data.json").read_text()),
 				)
 
 		with pytest.raises(ValueError, match="retention_time cannot be < 0"):
@@ -505,10 +506,10 @@ class TestDataReader:
 				acquired_time_ranges=[Range(14.99765, 14.99765)],
 				chrom_peak_index=-1,
 				collision_energy=0.0,
-				compensation_field=float('nan'),
+				compensation_field=float("nan"),
 				device_name="QTOF",
 				device_type=DeviceType.QuadrupoleTimeOfFlight,
-				dispersion_field=float('nan'),
+				dispersion_field=float("nan"),
 				fragmentor_voltage=380.0,
 				x_axis_info=(DataValueType.MassToCharge, DataUnit.Thomsons),
 				y_axis_info=(DataValueType.IonAbundance, DataUnit.Counts),
@@ -532,8 +533,8 @@ class TestDataReader:
 				threshold=0.0,
 				total_data_points=6000,
 				total_scan_count=1,
-				x_data=json.loads((datadir / 'last_scan_x_data.json').read_text()),
-				y_data=json.loads((datadir / 'last_scan_y_data.json').read_text()),
+				x_data=json.loads((datadir / "last_scan_x_data.json").read_text()),
+				y_data=json.loads((datadir / "last_scan_y_data.json").read_text()),
 				)
 
 		assert reader.get_spectrum_by_time(14.99765).freeze().x_data == last_spectrum.x_data
