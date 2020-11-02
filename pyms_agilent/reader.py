@@ -2,7 +2,7 @@
 #
 #  reader.py
 """
-Functions for I/O of data in Agilent ``.d`` format
+Functions for I/O of data in Agilent ``.d`` format.
 """
 #
 #  Copyright © 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -40,9 +40,9 @@ __all__ = ["agilent_reader"]
 
 def agilent_reader(file_name: PathLike) -> GCMS_data:
 	"""
-	Reader for Agilent MassHunter ``.d`` files
+	Reader for Agilent MassHunter ``.d`` files.
 
-	:param file_name: Path of the file to read
+	:param file_name: Path of the file to read.
 
 	:return: GC-MS data object.
 	"""

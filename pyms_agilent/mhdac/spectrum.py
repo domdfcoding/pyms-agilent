@@ -471,7 +471,7 @@ class SpecData:
 		"""
 		Returns a dictionary containing the data of this
 		:class:`~pyms_agilent.mhdac.spectrum.SpecData` object.
-		"""
+		"""  # noqa: D400
 
 		the_dict = dict(
 				abundance_limit=self.abundance_limit,
@@ -519,7 +519,7 @@ class SpecData:
 		"""
 		Returns a :class:`~pyms_agilent.mhdac.spectrum.FrozenSpecData` object
 		containing the same data as this object.
-		"""
+		"""  # noqa: D400
 
 		if self.ms_level == MSLevel.MSMS:
 			return FrozenMS2SpecData(**self.to_dict())

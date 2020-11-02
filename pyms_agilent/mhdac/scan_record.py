@@ -204,7 +204,7 @@ class MSScanRecord:
 		"""
 		Returns a dictionary containing the data of this
 		:class:`~pyms_agilent.mhdac.scan_record.MSScanRecord` object.
-		"""
+		"""  # noqa: D400
 
 		return dict(
 				base_peak_intensity=self.base_peak_intensity,
@@ -230,7 +230,7 @@ class MSScanRecord:
 		"""
 		Returns a :class:`~pyms_agilent.mhdac.scan_record.FrozenMSScanRecord` object
 		containing the same data as this object.
-		"""
+		"""  # noqa: D400
 
 		return FrozenMSScanRecord(**self.to_dict())
 

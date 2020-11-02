@@ -205,7 +205,7 @@ class Signal(ABC):
 		"""
 		Returns a dictionary containing the data of this
 		:class:`~pyms_agilent.mhdac.chromatograms.Signal` object.
-		"""
+		"""  # noqa: D400
 
 		return dict(
 				chromatogram_type=self.chromatogram_type,
@@ -333,7 +333,7 @@ class InstrumentCurve(Signal):
 		"""
 		Returns a dictionary containing the data of this
 		:class:`~pyms_agilent.mhdac.chromatograms.InstrumentCurve` object.
-		"""
+		"""  # noqa: D400
 
 		the_dict = super().to_dict()
 		the_dict["x_axis_info"] = self.get_x_axis_info()
@@ -345,7 +345,7 @@ class InstrumentCurve(Signal):
 		"""
 		Returns a :class:`~pyms_agilent.mhdac.chromatograms.FrozenInstrumentCurve` object
 		containing the same data as this object.
-		"""
+		"""  # noqa: D400
 
 		return FrozenInstrumentCurve(**self.to_dict())
 
@@ -358,7 +358,7 @@ def axis_info_converter(info: Sequence[int]) -> Tuple[DataValueType, DataUnit]:
 	:param info: 2-element long sequence comprising the data value type and data unit.
 
 	:return: 2-element tuple comprising :class:`~enum.Enum` members representing the same.
-	"""
+	"""  # noqa: D400
 
 	value_type, unit, *_ = info
 	return DataValueType(value_type), DataUnit(unit)
@@ -374,7 +374,7 @@ def y_axis_info_converter(info: Sequence[Union[int, str]]) -> Tuple[DataValueTyp
 	:return: 2-element tuple comprising :class:`~enum.Enum` members representing the same.
 		If the data value type is :py:enum:mem`~DataUnit.ResponseUnits` the second element will instead be
 		the textual label.
-	"""
+	"""  # noqa: D400
 
 	value_type, unit_or_label, *_ = info
 
@@ -578,7 +578,7 @@ class TIC(Signal):
 		"""
 		Returns a dictionary containing the data of this
 		:class:`~pyms_agilent.mhdac.chromatograms.TIC` object.
-		"""
+		"""  # noqa: D400
 
 		the_dict = super().to_dict()
 		the_dict["abundance_limit"] = self.abundance_limit

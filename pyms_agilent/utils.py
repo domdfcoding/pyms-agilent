@@ -213,11 +213,11 @@ def isnan(value: Any) -> bool:
 
 def frozen_comparison(*classes: Type) -> Callable[[Type], Type]:
 	"""
-	Decorator to add the ``__eq__`` method to classes that compares frozen and non frozen versions
-	of a class.
+	Decorator to add the ``__eq__`` method to classes that compares frozen
+	and non frozen versions of a class.
 
 	:param classes:
-	"""
+	"""  # noqa: D400
 
 	def deco(cls: Type) -> Type:
 

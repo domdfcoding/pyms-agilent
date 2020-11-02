@@ -109,7 +109,7 @@ class SignalInfo:
 		"""
 		Returns a dictionary containing the data of this
 		:class:`~pyms_agilent.mhdac.signalinfo.SignalInfo` object.
-		"""
+		"""  # noqa: D400
 
 		return dict(
 				device_name=self.device_name,
@@ -123,7 +123,7 @@ class SignalInfo:
 		"""
 		Returns a :class:`~pyms_agilent.mhdac.signalinfo.FrozenSignalInfo` object
 		containing the same data as this object.
-		"""
+		"""  # noqa: D400
 
 		return FrozenSignalInfo(**self.to_dict())
 

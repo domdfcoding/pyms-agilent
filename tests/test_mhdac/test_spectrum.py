@@ -69,7 +69,7 @@ class TestSpecData:
 
 	def test_repr(self, spectrum):
 		assert repr(spectrum) == dedent(
-						"""\
+				"""\
 		pyms_agilent.mhdac.spectrum.SpecData(
 			abundance_limit=16742400.0,
 			acquired_time_ranges=[
@@ -137,7 +137,7 @@ class TestSpecData:
 				...
 			]
 		)"""
-						).expandtabs(4)
+				).expandtabs(4)
 
 
 class TestFrozenSpecData:
@@ -145,7 +145,7 @@ class TestFrozenSpecData:
 	def test_repr(self, frozen_spectrum):
 
 		assert repr(frozen_spectrum) == dedent(
-						"""\
+				"""\
 		pyms_agilent.mhdac.spectrum.FrozenSpecData(
 			abundance_limit=16742400.0,
 			acquired_time_ranges=[
@@ -213,7 +213,7 @@ class TestFrozenSpecData:
 				...
 			]
 		)"""
-						).expandtabs(4)
+				).expandtabs(4)
 
 	def test_not_ms2(self, frozen_spectrum):
 		with pytest.raises(NotMS2Error):

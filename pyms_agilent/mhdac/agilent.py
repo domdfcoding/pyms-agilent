@@ -65,11 +65,14 @@ else:  # pragma: no cover
 
 	DataAnalysis = _posix_data_analysis
 
-	class FileNotFoundException(IOError):
+	# These aren't public, so no docstrings needed
+
+
+	class FileNotFoundException(IOError):  # noqa: D101
 		pass
 
-	class ArgumentOutOfRangeException(IndexError):
+	class ArgumentOutOfRangeException(IndexError):  # noqa: D101
 		pass
 
-	class NullReferenceException(Exception):
+	class NullReferenceException(Exception):  # noqa: D101
 		pass

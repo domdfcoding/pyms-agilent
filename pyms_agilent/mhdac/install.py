@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 # stdlib
 import pathlib
 import shutil
@@ -195,7 +196,7 @@ def extract():
 			(dest_dir / "x86" / filename).write_bytes((src_dir / "x86" / filename[::-1]).read_bytes()[::-1])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 	install_dir = pathlib.Path(pyms_agilent.mhdac.__file__).parent
 	if not install_dir.is_dir():
 		print("Unable to determine the installation directory for pyms-agilent.")

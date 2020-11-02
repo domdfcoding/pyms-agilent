@@ -212,7 +212,7 @@ class MSScanFileInformation:
 		"""
 		Returns a dictionary containing the data of this
 		:class:`~pyms_agilent.mhdac.ms_scan_file_info.MSScanFileInformation` object.
-		"""
+		"""  # noqa: D400
 
 		return dict(
 				collision_energies=self.collision_energies,
@@ -234,9 +234,9 @@ class MSScanFileInformation:
 
 	def freeze(self) -> "FrozenMSScanFileInformation":
 		"""
-		Returns a :class:`~pyms_agilent.mhdac.ms_scan_file_info.FrozenMSScanFileInformation` object
-		containing the same data as this object.
-		"""
+		Returns a :class:`~pyms_agilent.mhdac.ms_scan_file_info.FrozenMSScanFileInformation`
+		object containing the same data as this object.
+		"""  # noqa: D400
 
 		return FrozenMSScanFileInformation(**self.to_dict())
 

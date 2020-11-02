@@ -177,7 +177,7 @@ class FileInformation:
 		or :py:obj:`None` if no such device exists.
 
 		:param device_type:
-		"""
+		"""  # noqa: D400
 
 		return self.interface.GetDeviceName(device_type)
 
