@@ -33,6 +33,7 @@ jobs:
           python -m site
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install --upgrade tox tox-gh-actions virtualenv
+          python -m tox -e install -- --accept
 
       - name: "Run Tests for Python ${{ matrix.python-version }}"
         run: "python -m tox"

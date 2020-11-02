@@ -65,6 +65,7 @@ additional_ignore:
 
 exclude_files:
   - setup_cfg
+  - actions
 
 mypy_plugins:
   - attr_utils.mypy_plugin
