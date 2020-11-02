@@ -36,11 +36,8 @@ Enumerations.
 #  Licensed under the Apache License 2.0
 #
 
-# stdlib
-from enum import IntFlag
-
 # 3rd party
-from enum_tools import IntEnum, StrEnum
+from enum_tools import IntEnum, IntFlag, StrEnum
 from enum_tools.documentation import document_enum
 
 __all__ = [

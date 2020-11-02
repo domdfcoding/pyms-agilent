@@ -34,7 +34,7 @@ from attr_utils.serialise import serde
 # this package
 from pyms_agilent.enums import IonizationMode, MSLevel, MSScanType
 from pyms_agilent.mhdac.agilent import DataAnalysis
-from pyms_agilent.utils import frozen_comparison, isnan, polarity_map
+from pyms_agilent.utils import frozen_comparison, polarity_map
 
 __all__ = ["MSScanRecord", "FrozenMSScanRecord", "UndefinedMSScanRecord"]
 

@@ -21,12 +21,12 @@ from pyms_agilent.mhdac.spectrum import FrozenSpecData
 from pyms_agilent.utils import Range
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def spectrum(reader):
 	return reader.get_spectrum_by_scan(0)
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def frozen_spectrum(datadir):
 	return FrozenSpecData(
 			abundance_limit=16742400.0,
@@ -60,8 +60,8 @@ def frozen_spectrum(datadir):
 			threshold=0.0,
 			total_data_points=6000,
 			total_scan_count=1,
-			x_data=json.loads((datadir / 'x_data.json').read_text()),
-			y_data=json.loads((datadir / 'y_data.json').read_text()),
+			x_data=json.loads((datadir / "x_data.json").read_text()),
+			y_data=json.loads((datadir / "y_data.json").read_text()),
 			)
 
 

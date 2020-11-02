@@ -350,7 +350,7 @@ class SpecData:
 	def measured_mass_range(self) -> Optional[Range]:
 		"""
 		Returns the measured |mz| range, if the data was obtained via mass spectrometry.
-		"""  # noqa RST305
+		"""
 
 		_range = self.interface.MeasuredMassRange
 		if _range is not None:
