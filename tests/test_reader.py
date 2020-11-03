@@ -39,7 +39,7 @@ def test_info(data, capsys):
 
 	assert capsys.readouterr().out.splitlines() == [
 			" Data retention time range: 0.047 min -- 14.998 min",
-			" Time step: 0.011 s (std=0.000 s)",
+			" Time step: 0.673 s (std=0.001 s)",
 			" Number of scans: 1333",
 			" Minimum m/z measured: 40.001",
 			" Maximum m/z measured: 999.194",
@@ -50,7 +50,8 @@ def test_info(data, capsys):
 
 @pytest.mark.parametrize("scan_no", [1, 3, 5, 7, 9, 18, 27, 36, 45, 90, 180, 360])
 def test_scan_list(data, data_regression: DataRegressionFixture, scan_no):
-	data_regression.check([dict(scan) for scan in data.scan_list[scan_no]])
+	data_regression.check([{"intensity_list": scan.intensity_list, "mass_list": scan.mass_list}
+							for scan in data.scan_list[scan_no]])
 
 
 def test_time_list(data, data_regression: DataRegressionFixture):
