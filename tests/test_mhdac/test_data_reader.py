@@ -193,14 +193,36 @@ class TestDataReader:
 
 		file_regression.check(json.dumps(dict(actuals)), encoding="UTF-8", extension=".json")
 
+	times = {
+			"03/03/2020 09:59:05 (UTC+00:00)",  # locally
+			"3/3/2020 9:59:05 AM (UTC+00:00)",  # github actions
+			}
+
 	def test_get_sample_data_all(self, reader, file_regression: FileRegressionFixture):
-		self.check_json_regression(reader.get_sample_data(), file_regression)
+		sample_data = reader.get_sample_data()
+
+		if sample_data["Acquisition Time"] in self.times:
+			del sample_data["Acquisition Time"]
+
+		if sample_data["Acquisition Time (Local)"] in self.times:
+			del sample_data["Acquisition Time (Local)"]
+
+		self.check_json_regression(sample_data, file_regression)
 
 	def test_get_sample_data_unspecified(self, reader, file_regression: FileRegressionFixture):
 		self.check_json_regression(reader.get_sample_data(SampleCategory.Unspecified), file_regression)
 
 	def test_get_sample_data_general(self, reader, file_regression: FileRegressionFixture):
-		self.check_json_regression(reader.get_sample_data(SampleCategory.General), file_regression)
+
+		sample_data = reader.get_sample_data(SampleCategory.General)
+
+		if sample_data["Acquisition Time"] in self.times:
+			del sample_data["Acquisition Time"]
+
+		if sample_data["Acquisition Time (Local)"] in self.times:
+			del sample_data["Acquisition Time (Local)"]
+
+		self.check_json_regression(sample_data, file_regression)
 
 	def test_get_sample_data_optimization_params(self, reader, file_regression: FileRegressionFixture):
 		self.check_json_regression(reader.get_sample_data(SampleCategory.OptimizationParams), file_regression)
