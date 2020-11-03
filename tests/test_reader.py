@@ -3,6 +3,7 @@ import pathlib
 import sys
 
 # 3rd party
+import numpy
 import pytest
 from pyms.GCMS.Class import GCMS_data  # type: ignore  # TODO
 from pytest_regressions.data_regression import DataRegressionFixture
@@ -37,7 +38,7 @@ def test_info(data, capsys):
 	data.info()
 
 	assert capsys.readouterr().out.splitlines() == [
-			" Data retention time range: 0.001 min -- 0.250 min",
+			" Data retention time range: 0.047 min -- 14.998 min",
 			" Time step: 0.011 s (std=0.000 s)",
 			" Number of scans: 1333",
 			" Minimum m/z measured: 40.001",
@@ -49,7 +50,7 @@ def test_info(data, capsys):
 
 @pytest.mark.parametrize("scan_no", [1, 3, 5, 7, 9, 18, 27, 36, 45, 90, 180, 360])
 def test_scan_list(data, data_regression: DataRegressionFixture, scan_no):
-	data_regression.check(data.scan_list[scan_no])
+	data_regression.check([dict(scan) for scan in data.scan_list[scan_no]])
 
 
 def test_time_list(data, data_regression: DataRegressionFixture):
@@ -73,7 +74,7 @@ def test_time_step(data):
 
 
 def test_time_step_std(data):
-	assert data.time_step_std == 9.0986234621143e-06
+	assert numpy.isclose(data.time_step_std, 0.0005459174077273709)
 
 
 @pytest.mark.parametrize("filename", [
