@@ -61,15 +61,15 @@ def test_tic(data, data_regression: DataRegressionFixture):
 
 
 def test_min_rt(data):
-	assert data.min_rt == 0.047216666666666664
+	assert data.min_rt == 2.8329999999999997
 
 
 def test_max_rt(data):
-	assert data.max_rt == 14.99765
+	assert data.max_rt == 899.859
 
 
 def test_time_step(data):
-	assert data.time_step == 0.01122404904904905
+	assert data.time_step == 0.6734429429429429
 
 
 def test_time_step_std(data):
