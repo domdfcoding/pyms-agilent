@@ -122,4 +122,4 @@ This can be installed by running the following command and accepting the license
 
 .. code-block:: bash
 
-	python3 -m pyms_agilent.mhdac.install
+	$ python -m pyms_agilent.mhdac.install
