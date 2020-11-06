@@ -14,58 +14,58 @@ python_deploy_version: 3.6
 
 # Versions to run tests for
 python_versions:
-  - '3.6'
-  - '3.7'
-  - '3.8'
+ - '3.6'
+ - '3.7'
+ - '3.8'
+# Python 3.9 support depends on https://github.com/Unidata/netcdf4-python/issues/1048
 
 # travis secure password for PyPI
 travis_pypi_secure: "gWc8l0EKjjIVhH3+Y7Ck2oe2pMk6dazpOlLVVIYe0ee4teKZS0wHJcEzJGIETyB8G9Q8AW39vbWQr9HbM8mRhMlYNr4Yxyiqhp/qbWLZr/1xgFkjYO76ohe/a5qNdgdBSYl7QUzQHC+ghysBjCnW4B232Dk5FSpH5hdq589EfHLBcOwY4uPaqgADKhWA7PsgPcBf1dz7WI0cHFAd+A9BUAevTR3fw+SepL6sAeeNBcBK1H2njgo5Gf0gbbbKg4lf4ZkM+a0Vx1KcsAm6pL2GHCVJDoifYhu8PF/AY9JZ6E8rLJxaXT5svI5XfaFg6QBWVS0eymMsriKp5hD7bX1wv0JWPfR8SqWxt520Kn85yPH2cH7JMpmX5oHstNzQT6IXOd8m8df+m32lK/f/llflTTTfVIoRdCmU8uSPjgz/RrjWeSKHLxDk0Nr14vjR3enh9LbnZF4cmQ31EWKnd8qgzQO6MtSXTbxRTRzbo0l+3K5ZFrwXjUs5uwbFvUt4VdDhKlHFvW1row4pmsLdv8+npEWyEJVmeABKkin6hsm9f7zsSC8nl2J/9QC5gNhCZZfzqPTcAWMpmWWqru4O4oy8t0MGww0E2MxwuDWYXvoJFGw1XBK9dPmFPlJN9cAf1SocBCM3L9uOMjwvjUr3sYyNF8IjJxyVjfWwm3N3qDffBl4="
 
 classifiers:
-  - 'Development Status :: 3 - Alpha'
-#  - 'Development Status :: 4 - Beta'
-#  - "Development Status :: 5 - Production/Stable"
-#  - "Development Status :: 6 - Mature"
-#  - "Development Status :: 7 - Inactive"
-  - 'Intended Audience :: Developers'
-  - 'Topic :: Utilities'
+ - 'Development Status :: 3 - Alpha'
+ - 'Intended Audience :: Developers'
+ - 'Topic :: Utilities'
+ - 'Intended Audience :: Science/Research'
+ - 'Topic :: Scientific/Engineering :: Bio-Informatics'
+ - 'Topic :: Scientific/Engineering :: Chemistry'
 
 manifest_additional:
-  - "recursive-include pyms_agilent/xml_parser/agilent_xsd *.xsd"
-  - "include pyms_agilent/mhdac/mhdac.zip"
+ - "recursive-include pyms_agilent/xml_parser/agilent_xsd *.xsd"
+ - "include pyms_agilent/mhdac/mhdac.zip"
 
 extra_sphinx_extensions:
-  - enum_tools.autoenum
-  - attr_utils.annotations
-  - attr_utils.autoattrs
-  - chemistry
+ - enum_tools.autoenum
+ - attr_utils.annotations
+ - attr_utils.autoattrs
+ - chemistry
 
 additional_ignore:
-  - "**/x64"
-  - "**/x86"
-  - development_bits
-  - DPA_10ug_ml_new_diff_method_1_200303-0002.d
-  - Instrument Curves
-  - pyMHDAC
-  - actuals_demo.py
-  - Agilent_Reader.py
-  - clr_demo.py
-  - demo.py
-  - MethodParser.py
-  - pyms_demo.py
-  - Scan @ 4 mins.png
-  - Scan 100.png
-  - Scan 100 Centroid Mode.png
-  - Scan 100 Mixed Mode.png
-  - Scan 100 Profile Mode.png
-  - stubs_todo.py
-  - tic.pdf
-  - old
-  - pyms.bat
+ - "**/x64"
+ - "**/x86"
+ - development_bits
+ - DPA_10ug_ml_new_diff_method_1_200303-0002.d
+ - Instrument Curves
+ - pyMHDAC
+ - actuals_demo.py
+ - Agilent_Reader.py
+ - clr_demo.py
+ - demo.py
+ - MethodParser.py
+ - pyms_demo.py
+ - Scan @ 4 mins.png
+ - Scan 100.png
+ - Scan 100 Centroid Mode.png
+ - Scan 100 Mixed Mode.png
+ - Scan 100 Profile Mode.png
+ - stubs_todo.py
+ - tic.pdf
+ - old
+ - pyms.bat
 
 exclude_files:
-  - setup_cfg
-  - actions
+ - setup_cfg
+ - actions
 
 mypy_plugins:
-  - attr_utils.mypy_plugin
+ - attr_utils.mypy_plugin
