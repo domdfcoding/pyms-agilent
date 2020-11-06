@@ -26,5 +26,5 @@ Python library for reading Agilent ``.d`` datafiles.
 __author__ = "Dominic Davis-Foster"
 __copyright__ = "2019-2020 Dominic Davis-Foster"
 __license__ = "GNU Lesser General Public License v3 or later (LGPLv3+)"
-__version__ = "0.0.1"
+__version__ = "0.1.0"
 __email__ = "dominic@davis-foster.co.uk"
