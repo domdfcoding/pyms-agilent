@@ -14,10 +14,10 @@ python_deploy_version: 3.6
 
 # Versions to run tests for
 python_versions:
- - '3.6'
- - '3.7'
- - '3.8'
-# Python 3.9 support depends on https://github.com/Unidata/netcdf4-python/issues/1048
+ - 3.6
+ - 3.7
+ - 3.8
+ - 3.9
 
 # travis secure password for PyPI
 travis_pypi_secure: "gWc8l0EKjjIVhH3+Y7Ck2oe2pMk6dazpOlLVVIYe0ee4teKZS0wHJcEzJGIETyB8G9Q8AW39vbWQr9HbM8mRhMlYNr4Yxyiqhp/qbWLZr/1xgFkjYO76ohe/a5qNdgdBSYl7QUzQHC+ghysBjCnW4B232Dk5FSpH5hdq589EfHLBcOwY4uPaqgADKhWA7PsgPcBf1dz7WI0cHFAd+A9BUAevTR3fw+SepL6sAeeNBcBK1H2njgo5Gf0gbbbKg4lf4ZkM+a0Vx1KcsAm6pL2GHCVJDoifYhu8PF/AY9JZ6E8rLJxaXT5svI5XfaFg6QBWVS0eymMsriKp5hD7bX1wv0JWPfR8SqWxt520Kn85yPH2cH7JMpmX5oHstNzQT6IXOd8m8df+m32lK/f/llflTTTfVIoRdCmU8uSPjgz/RrjWeSKHLxDk0Nr14vjR3enh9LbnZF4cmQ31EWKnd8qgzQO6MtSXTbxRTRzbo0l+3K5ZFrwXjUs5uwbFvUt4VdDhKlHFvW1row4pmsLdv8+npEWyEJVmeABKkin6hsm9f7zsSC8nl2J/9QC5gNhCZZfzqPTcAWMpmWWqru4O4oy8t0MGww0E2MxwuDWYXvoJFGw1XBK9dPmFPlJN9cAf1SocBCM3L9uOMjwvjUr3sYyNF8IjJxyVjfWwm3N3qDffBl4="
@@ -69,3 +69,8 @@ exclude_files:
 
 mypy_plugins:
  - attr_utils.mypy_plugin
+
+travis_extra_install_post:
+  - sudo add-apt-repository universe
+  - sudo apt update
+  - sudo apt install libhdf5-dev netcdf-bin libnetcdf-dev
