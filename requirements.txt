@@ -5,7 +5,8 @@ domdf_python_tools>=1.0.0
 enum_tools>=0.6.1
 lxml>=4.5.2
 mh_utils>=0.0.3
-numpy>=1.19.1
+numpy>=1.19.1; platform_system != "Windows"
+numpy==1.19.3; platform_system == "Windows"
 pandas>=1.1.1
 prettyprinter>=0.18.0
 pymassspec>=2.2.21

@@ -11,8 +11,6 @@ from pyms_agilent.mhdac.file_information import FileInformation
 from pyms_agilent.mhdac.mass_spec_data_reader import MassSpecDataReader
 from pyms_agilent.mhdac.ms_scan_file_info import MSScanFileInformation
 
-pytest_plugins = "pytest_regressions"
-
 if sys.platform != "win32":
 	collect_ignore_glob = ["*.py"]
 else:

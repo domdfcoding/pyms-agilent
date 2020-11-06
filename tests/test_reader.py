@@ -3,7 +3,7 @@ import pathlib
 import sys
 
 # 3rd party
-import numpy
+import numpy  # type: ignore
 import pytest
 from pyms.GCMS.Class import GCMS_data  # type: ignore  # TODO
 from pytest_regressions.data_regression import DataRegressionFixture
@@ -50,8 +50,7 @@ def test_info(data, capsys):
 
 @pytest.mark.parametrize("scan_no", [1, 3, 5, 7, 9, 18, 27, 36, 45, 90, 180, 360])
 def test_scan_list(data, data_regression: DataRegressionFixture, scan_no):
-	data_regression.check([{"intensity_list": scan.intensity_list, "mass_list": scan.mass_list}
-							for scan in data.scan_list[scan_no]])
+	data_regression.check(dict(data.scan_list[scan_no]))
 
 
 def test_time_list(data, data_regression: DataRegressionFixture):
