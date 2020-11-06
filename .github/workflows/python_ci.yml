@@ -32,7 +32,7 @@ jobs:
           python -VV
           python -m site
           python -m pip install --upgrade pip setuptools wheel
-          python -m pip install --upgrade tox tox-gh-actions virtualenv
+          python -m pip install --upgrade tox tox-gh-actions tox-envlist virtualenv
 
       - name: "Run Tests for Python ${{ matrix.python-version }}"
         run: |
