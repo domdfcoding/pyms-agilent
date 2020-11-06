@@ -120,6 +120,6 @@ To install with ``pip``:
 Additionally, the ``pyms_agilent.mhdac`` module requires the Agilent MassHunter Data Access Component to be installed.
 This can be installed by running the following command and accepting the license:
 
-.. prompt:: bash
+.. code-block:: bash
 
 	python3 -m pyms_agilent.mhdac.install
