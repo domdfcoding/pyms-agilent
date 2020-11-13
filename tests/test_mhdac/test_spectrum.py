@@ -40,7 +40,7 @@ def frozen_spectrum(datadir):
 			fragmentor_voltage=380.0,
 			x_axis_info=(DataValueType.MassToCharge, DataUnit.Thomsons),
 			y_axis_info=(DataValueType.IonAbundance, DataUnit.Counts),
-			ionization_polarity="+",
+			ionization_polarity='+',
 			ionization_mode=IonizationMode.ESI,
 			is_chromatogram=False,
 			is_data_in_mass_unit=True,

@@ -106,7 +106,7 @@ class Range(NamedTuple):
 	# 	return self.__nonzero__()
 
 
-polarity_map = {1: "-", 0: "+", 3: "+-", 2: None}
+polarity_map = {1: '-', 0: '+', 3: "+-", 2: None}
 
 
 def ranges_from_list(list_of_irange: Iterable) -> List[Range]:

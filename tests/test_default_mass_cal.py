@@ -42,7 +42,7 @@ class TestStepType:
 		assert step.value_use_flags == 0
 		assert step.values == {7: 1.234}
 
-		step = StepType(1, values={"7": "1.234"})  # type: ignore
+		step = StepType(1, values={'7': "1.234"})  # type: ignore
 
 		assert step.number == 1
 		assert step.calibration_formula == CalibrationFormulaEnum.Undefined
@@ -78,7 +78,7 @@ class TestCalibration:
 		assert cal.calibration_id == 1
 		assert cal == []
 
-		cal = Calibration("1")  # type: ignore
+		cal = Calibration('1')  # type: ignore
 		assert cal.calibration_id == 1
 		assert cal == []
 
@@ -138,6 +138,6 @@ class TestCalibrationList:
 		assert cal.version == 1
 		assert cal == []
 
-		cal = CalibrationList("1")  # type: ignore
+		cal = CalibrationList('1')  # type: ignore
 		assert cal.version == 1
 		assert cal == []

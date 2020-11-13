@@ -30,4 +30,4 @@ class TestSampleInfo:
 
 	def test_creation(self):
 		assert SampleInfo(1).version == 1
-		assert SampleInfo("1").version == 1  # type: ignore
+		assert SampleInfo('1').version == 1  # type: ignore

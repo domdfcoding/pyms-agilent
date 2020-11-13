@@ -32,6 +32,6 @@ class TestMSTS:
 
 	def test_creation(self):
 		assert MSTimeSegments(1).version == 1
-		assert MSTimeSegments("1").version == 1  # type: ignore
+		assert MSTimeSegments('1').version == 1  # type: ignore
 		assert MSTimeSegments(1, irm_status=1).irm_status == 1
-		assert MSTimeSegments(1, irm_status="1").irm_status == 1  # type: ignore
+		assert MSTimeSegments(1, irm_status='1').irm_status == 1  # type: ignore

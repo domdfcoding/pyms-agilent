@@ -65,7 +65,7 @@ class MassSpecDataReader:
 			if not self.interface.OpenDataFile(self.data_reader, self.filename):
 				raise OSError(f"Could not open data file '{self.filename}'")  # pragma: no cover
 		except FileNotFoundException as e:
-			raise FileNotFoundError(str(e).split("\n")[0]) from None
+			raise FileNotFoundError(str(e).split('\n')[0]) from None
 
 	def close_datafile(self) -> bool:
 		"""

@@ -34,7 +34,7 @@ class TestParameter:
 				device_id="TCC_1",
 				resource_name="columntags",
 				resource_id="Tag_Content_MaxTemperature",
-				value="0",
+				value='0',
 				units="°C",
 				display_name="Tag Max. Temp.",
 				)
@@ -42,7 +42,7 @@ class TestParameter:
 		assert param.device_id == "TCC_1"
 		assert param.resource_name == "columntags"
 		assert param.resource_id == "Tag_Content_MaxTemperature"
-		assert param.value == "0"
+		assert param.value == '0'
 		assert param.units == "°C"
 		assert param.display_name == "Tag Max. Temp."
 
@@ -52,7 +52,7 @@ class TestParameter:
 				device_id="TCC_1",
 				resource_name="columntags",
 				resource_id="Tag_Content_MaxTemperature",
-				value="0",
+				value='0',
 				units="°C",
 				display_name="Tag Max. Temp.",
 				)
@@ -61,7 +61,7 @@ class TestParameter:
 				"device_id": "TCC_1",
 				"resource_name": "columntags",
 				"resource_id": "Tag_Content_MaxTemperature",
-				"value": "0",
+				"value": '0',
 				"units": "°C",
 				"display_name": "Tag Max. Temp.",
 				}
@@ -71,7 +71,7 @@ class TestParameter:
 				device_id="TCC_1",
 				resource_name="columntags",
 				resource_id="Tag_Content_MaxTemperature",
-				value="0",
+				value='0',
 				units="°C",
 				display_name="Tag Max. Temp.",
 				)

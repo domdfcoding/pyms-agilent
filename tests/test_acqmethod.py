@@ -47,7 +47,7 @@ class TestCreation:
 
 	@pytest.mark.parametrize("value, expects", [
 			("1.2", 1.2),
-			("1", 1.0),
+			('1', 1.0),
 			(1, 1.0),
 			(1.2, 1.2),
 			])

@@ -76,7 +76,7 @@ class TestDeviceList:
 
 	def test_creation(self):
 		assert DeviceList(version=1).version == 1
-		assert DeviceList(version="1").version == 1  # type: ignore
+		assert DeviceList(version='1').version == 1  # type: ignore
 
 		assert DeviceList(version=1, devices=[]) == []
 		assert DeviceList(version=1, devices=()) == []

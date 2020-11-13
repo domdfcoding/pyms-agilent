@@ -5,6 +5,7 @@ import sys
 # 3rd party
 import numpy  # type: ignore
 import pytest
+from domdf_python_tools.testing import check_file_output
 from pyms.GCMS.Class import GCMS_data  # type: ignore  # TODO
 from pytest_regressions.data_regression import DataRegressionFixture
 from pytest_regressions.file_regression import FileRegressionFixture
@@ -86,7 +87,7 @@ def test_write(tmpdir, data, file_regression: FileRegressionFixture, filename):
 	data.write(tmpdir_p / "agilent_data")
 	assert (tmpdir_p / filename).is_file()
 
-	file_regression.check((tmpdir_p / filename).read_text())
+	check_file_output(tmpdir_p / filename, file_regression)
 
 
 def test_write_intensities_stream(tmpdir, data, file_regression: FileRegressionFixture):
@@ -94,4 +95,4 @@ def test_write_intensities_stream(tmpdir, data, file_regression: FileRegressionF
 	data.write_intensities_stream(tmpdir_p / "agilent_data.dat")
 	assert (tmpdir_p / "agilent_data.dat").is_file()
 
-	file_regression.check((tmpdir_p / "agilent_data.dat").read_text())
+	check_file_output(tmpdir_p / "agilent_data.dat", file_regression)

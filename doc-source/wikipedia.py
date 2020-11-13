@@ -24,7 +24,7 @@ from docutils.parsers.rst.states import Inliner
 from sphinx import addnodes
 from sphinx.util.nodes import split_explicit_title
 
-base_url = 'https://%s.wikipedia.org/wiki/'
+base_url = "https://%s.wikipedia.org/wiki/"
 
 
 def make_wikipedia_link(
@@ -66,12 +66,12 @@ def make_wikipedia_link(
 		if not has_explicit:
 			title = target
 
-	ref = base_url % lang + quote(target.replace(' ', '_').encode('utf8'), safe='')
+	ref = base_url % lang + quote(target.replace(' ', '_').encode("utf8"), safe='')
 
 	node = nodes.reference(rawtext, title, refuri=ref, **options)
 	return [node], []
 
 
 def setup(app):
-	app.add_config_value('wikipedia_lang', 'en', 'env')
-	app.add_role('wikipedia', make_wikipedia_link)
+	app.add_config_value("wikipedia_lang", "en", "env")
+	app.add_role("wikipedia", make_wikipedia_link)

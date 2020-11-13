@@ -24,7 +24,7 @@ def test_is_datafile(monkeypatch):
 	assert is_datafile("Propellant_Std_1ug_1_200124-0002.d")
 	assert is_datafile(pathlib.Path("Propellant_Std_1ug_1_200124-0002.d"))
 	assert is_datafile(PathPlus("Propellant_Std_1ug_1_200124-0002.d"))
-	assert not is_datafile(pathlib.Path(".").parent)
+	assert not is_datafile(pathlib.Path('.').parent)
 
 	with pytest.raises(TypeError):
 		is_datafile(1234)  # type: ignore

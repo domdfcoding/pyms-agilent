@@ -5,6 +5,7 @@ from typing import List
 
 # 3rd party
 import pytest
+from domdf_python_tools.testing import check_file_regression
 from pytest_regressions.file_regression import FileRegressionFixture
 
 # this package
@@ -191,7 +192,7 @@ class TestDataReader:
 		assert actuals.items()[2][0] == "Quad Vac"
 		assert isinstance(actuals.items()[2][1], MSActual)
 
-		file_regression.check(json.dumps(dict(actuals)), encoding="UTF-8", extension=".json")
+		check_file_regression(json.dumps(dict(actuals)), file_regression, extension=".json")
 
 	times = {
 			"03/03/2020 09:59:05 (UTC+00:00)",  # locally
@@ -241,12 +242,7 @@ class TestDataReader:
 
 	def check_json_regression(self, obj: object, file_regression: FileRegressionFixture, **kwargs):
 		kwargs["indent"] = kwargs.get("indent", 2)
-
-		file_regression.check(
-				json.dumps(obj, **kwargs),
-				extension=".json",
-				encoding="UTF-8",
-				)
+		check_file_regression(json.dumps(obj, **kwargs), file_regression, extension=".json")
 
 	def check_signal_regression(self, signals: List[SignalInfo], file_regression: FileRegressionFixture):
 		self.check_json_regression(
@@ -350,7 +346,7 @@ class TestDataReader:
 				compensation_field=float("nan"),
 				dispersion_field=float("nan"),
 				fragmentor_voltage=380.0,
-				ion_polarity="+",
+				ion_polarity='+',
 				ionization_mode=IonizationMode.ESI,
 				is_collision_energy_dynamic=False,
 				is_fragmentor_voltage_dynamic=False,
@@ -372,7 +368,7 @@ class TestDataReader:
 				compensation_field=float("nan"),
 				dispersion_field=float("nan"),
 				fragmentor_voltage=380.0,
-				ion_polarity="+",
+				ion_polarity='+',
 				ionization_mode=IonizationMode.ESI,
 				is_collision_energy_dynamic=False,
 				is_fragmentor_voltage_dynamic=False,
@@ -420,7 +416,7 @@ class TestDataReader:
 				fragmentor_voltage=380.0,
 				x_axis_info=(DataValueType.MassToCharge, DataUnit.Thomsons),
 				y_axis_info=(DataValueType.IonAbundance, DataUnit.Counts),
-				ionization_polarity="+",
+				ionization_polarity='+',
 				ionization_mode=IonizationMode.ESI,
 				is_chromatogram=False,
 				is_data_in_mass_unit=True,
@@ -496,7 +492,7 @@ class TestDataReader:
 				fragmentor_voltage=380.0,
 				x_axis_info=(DataValueType.MassToCharge, DataUnit.Thomsons),
 				y_axis_info=(DataValueType.IonAbundance, DataUnit.Counts),
-				ionization_polarity="+",
+				ionization_polarity='+',
 				ionization_mode=IonizationMode.ESI,
 				is_chromatogram=False,
 				is_data_in_mass_unit=True,
@@ -535,7 +531,7 @@ class TestDataReader:
 				fragmentor_voltage=380.0,
 				x_axis_info=(DataValueType.MassToCharge, DataUnit.Thomsons),
 				y_axis_info=(DataValueType.IonAbundance, DataUnit.Counts),
-				ionization_polarity="+",
+				ionization_polarity='+',
 				ionization_mode=IonizationMode.ESI,
 				is_chromatogram=False,
 				is_data_in_mass_unit=True,

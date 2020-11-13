@@ -133,17 +133,17 @@ class TestActualsDef:
 			"actual, version, type_, as_list",
 			[
 					(ActualsDef(1), 1, 0, []),
-					(ActualsDef("1"), 1, 0, []),  # type: ignore
+					(ActualsDef('1'), 1, 0, []),  # type: ignore
 					(ActualsDef(1, 1), 1, 1, []),
-					(ActualsDef("1", 1), 1, 1, []),  # type: ignore
+					(ActualsDef('1', 1), 1, 1, []),  # type: ignore
 					(ActualsDef(1, 1, actuals=[demo_actual]), 1, 1, [demo_actual]),
-					(ActualsDef("1", 1, actuals=[demo_actual]), 1, 1, [demo_actual]),  # type: ignore
+					(ActualsDef('1', 1, actuals=[demo_actual]), 1, 1, [demo_actual]),  # type: ignore
 					(ActualsDef(1, 1, actuals=(demo_actual, )), 1, 1, [demo_actual]),
-					(ActualsDef("1", 1, actuals=(demo_actual, )), 1, 1, [demo_actual]),  # type: ignore
+					(ActualsDef('1', 1, actuals=(demo_actual, )), 1, 1, [demo_actual]),  # type: ignore
 					(ActualsDef(1, actuals=[demo_actual]), 1, 0, [demo_actual]),
-					(ActualsDef("1", actuals=[demo_actual]), 1, 0, [demo_actual]),  # type: ignore
+					(ActualsDef('1', actuals=[demo_actual]), 1, 0, [demo_actual]),  # type: ignore
 					(ActualsDef(1, actuals=(demo_actual, )), 1, 0, [demo_actual]),
-					(ActualsDef("1", actuals=(demo_actual, )), 1, 0, [demo_actual]),  # type: ignore
+					(ActualsDef('1', actuals=(demo_actual, )), 1, 0, [demo_actual]),  # type: ignore
 					],
 			)
 	def test_creation(self, actual, version, type_, as_list):

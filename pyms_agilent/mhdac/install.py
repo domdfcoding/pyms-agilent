@@ -170,7 +170,7 @@ x86_filenames = [
 
 
 def license_acceptor():
-	title = 'Before using this software you must accept the following license:'
+	title = "Before using this software you must accept the following license:"
 
 	pager = getpager()
 	pager(f"{title}\n\n{EULA}")

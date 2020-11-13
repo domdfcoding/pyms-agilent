@@ -41,7 +41,7 @@ class TestTIC:
 		assert tic.fragmentor_voltage == 380.0
 
 	def test_ionization_polarity(self, tic):
-		assert tic.ionization_polarity == "+"
+		assert tic.ionization_polarity == '+'
 
 	def test_ionization_mode(self, tic):
 		assert tic.ionization_mode is IonizationMode.ESI

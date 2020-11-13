@@ -98,7 +98,7 @@ class TestMSScanFileInfo:
 		assert ms_scan_file_info.ionisation_mode is IonizationMode.ESI
 
 	def test_ionisation_polarity(self, ms_scan_file_info):
-		assert ms_scan_file_info.ionisation_polarity == "+"
+		assert ms_scan_file_info.ionisation_polarity == '+'
 
 	def test_ms_level(self, ms_scan_file_info):
 		assert ms_scan_file_info.ms_level == 1
@@ -130,7 +130,7 @@ class TestMSScanFileInfo:
 				"device_type": DeviceType.QuadrupoleTimeOfFlight,
 				"fragmentor_voltages": [380.0],
 				"ionisation_mode": IonizationMode.ESI,
-				"ionisation_polarity": "+",
+				"ionisation_polarity": '+',
 				"ms_level": 1,
 				"scan_types": MSScanType.Scan,
 				"spectra_format": MSStorageMode.Mixed,
@@ -149,7 +149,7 @@ class TestMSScanFileInfo:
 				device_type=DeviceType.QuadrupoleTimeOfFlight,
 				fragmentor_voltages=[380.0],
 				ionisation_mode=IonizationMode.ESI,
-				ionisation_polarity="+",
+				ionisation_polarity='+',
 				ms_level=1,
 				scan_types=MSScanType.Scan,
 				spectra_format=MSStorageMode.Mixed,
@@ -168,7 +168,7 @@ class TestMSScanFileInfo:
 				device_type=DeviceType.QuadrupoleTimeOfFlight,
 				fragmentor_voltages=[380.0],
 				ionisation_mode=IonizationMode.ESI,
-				ionisation_polarity="+",
+				ionisation_polarity='+',
 				ms_level=1,
 				scan_types=MSScanType.Scan,
 				spectra_format=MSStorageMode.Mixed,

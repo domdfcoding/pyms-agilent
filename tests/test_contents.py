@@ -95,7 +95,7 @@ class TestContents:
 		assert contents.acq_software_version == ''
 
 		contents = Contents(
-				version="1",  # type: ignore
+				version='1',  # type: ignore
 				acquired_time=datetime.datetime(
 						year=2019, month=9, day=9, hour=12, minute=14, second=36, tzinfo=datetime.timezone.utc
 						),
