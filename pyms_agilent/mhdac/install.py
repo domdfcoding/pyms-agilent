@@ -176,6 +176,13 @@ def license_acceptor():
 	pager(f"{title}\n\n{EULA}")
 
 	resp = input("\nIf you accept these license terms, type 'I accept' and press Enter.\n> ")
+
+	if not resp:
+		for attempt in range(10):
+			resp = input("> ")
+			if resp:
+				break
+
 	return resp.lower().strip() == "i accept"
 
 
