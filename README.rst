@@ -80,7 +80,7 @@ pyms-agilent
 .. |language| image:: https://img.shields.io/github/languages/top/domdfcoding/pyms-agilent
 	:alt: GitHub top language
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/domdfcoding/pyms-agilent/v0.1.0
+.. |commits-since| image:: https://img.shields.io/github/commits-since/domdfcoding/pyms-agilent/v0.1.1
 	:target: https://github.com/domdfcoding/pyms-agilent/pulse
 	:alt: GitHub commits since tagged version
 
