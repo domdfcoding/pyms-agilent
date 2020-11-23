@@ -51,7 +51,12 @@ def test_info(data, capsys):
 
 @pytest.mark.parametrize("scan_no", [1, 3, 5, 7, 9, 18, 27, 36, 45, 90, 180, 360])
 def test_scan_list(data, data_regression: DataRegressionFixture, scan_no):
-	data_regression.check(dict(data.scan_list[scan_no]))
+	# Workaround for https://github.com/ESSS/pytest-regressions/issues/26
+	scan = data.scan_list[scan_no]
+	data_regression.check({
+			"intensity_list": list(map(float, scan.intensity_list)),
+			"mass_list": list(map(float, scan.mass_list)),
+			})
 
 
 def test_time_list(data, data_regression: DataRegressionFixture):
