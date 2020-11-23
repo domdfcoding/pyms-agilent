@@ -188,7 +188,7 @@ class ActualsDef(XMLList):
 		return cls(
 				element.Version,
 				element.Actuals.attrib["Type"],
-				list(make_from_element(element.Actuals, "Actual", Actual)),  # type: ignore
+				list(make_from_element(element.Actuals, "Actual", Actual)),
 				)
 
 
