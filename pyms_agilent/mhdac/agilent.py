@@ -30,6 +30,7 @@ This module handles registration of the Agilent ``.DLL`` files with Python.NET a
 import pathlib
 import platform
 import sys
+from textwrap import dedent
 from typing import TYPE_CHECKING
 
 __all__ = ["DataAnalysis", "FileNotFoundException", "ArgumentOutOfRangeException", "NullReferenceException"]
@@ -43,20 +44,35 @@ if sys.platform == "win32" or TYPE_CHECKING:
 	else:
 		sys.path.append(str(pathlib.Path(__file__).parent / "x86"))
 
-	clr.AddReference("MassSpecDataReader")
-	clr.AddReference("BaseCommon")
-	clr.AddReference("BaseDataAccess")
-
 	# 3rd party
-	import Agilent
-	import Agilent.MassSpectrometry.DataAnalysis
 	import System
-
-	DataAnalysis = Agilent.MassSpectrometry.DataAnalysis
 
 	FileNotFoundException = System.IO.FileNotFoundException  # type: ignore  # TODO: update stubs
 	ArgumentOutOfRangeException = System.ArgumentOutOfRangeException  # type: ignore  # TODO: update stubs
 	NullReferenceException = System.NullReferenceException  # type: ignore  # TODO: update stubs
+
+	try:
+		clr.AddReference("MassSpecDataReader")
+		clr.AddReference("BaseCommon")
+		clr.AddReference("BaseDataAccess")
+	except FileNotFoundException:
+		raise FileNotFoundError(
+				dedent(
+						"""\
+				Agilent MHDAC not found.
+
+				Perhaps you need to install it with:
+
+					$ python -m pyms_agilent.mhdac.install
+				"""
+						)
+				)
+
+	# 3rd party
+	import Agilent
+	import Agilent.MassSpectrometry.DataAnalysis
+
+	DataAnalysis = Agilent.MassSpectrometry.DataAnalysis
 
 else:  # pragma: no cover
 
