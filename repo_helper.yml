@@ -72,3 +72,5 @@ travis_extra_install_post:
   - sudo add-apt-repository universe
   - sudo apt update
   - sudo apt install libhdf5-dev netcdf-bin libnetcdf-dev
+
+pre_commit_exclude: ^tests/.*\.d/.*$
