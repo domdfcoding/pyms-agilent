@@ -73,6 +73,3 @@ travis_extra_install_post:
   - sudo apt install libhdf5-dev netcdf-bin libnetcdf-dev
 
 pre_commit_exclude: ^tests/.*\.d/.*$
-
-tox_unmanaged:
- - tox
