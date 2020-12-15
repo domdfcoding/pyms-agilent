@@ -17,7 +17,7 @@ pyms-agilent
 	* - Docs
 	  - |docs| |docs_check|
 	* - Tests
-	  - |travis| |actions_windows| |actions_macos| |coveralls| |codefactor| |pre_commit_ci|
+	  - |actions_linux| |actions_windows| |actions_macos| |coveralls| |codefactor| |pre_commit_ci|
 	* - PyPI
 	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
 	* - Activity
@@ -26,23 +26,23 @@ pyms-agilent
 	  - |license| |language| |requires| |pre_commit|
 
 .. |docs| image:: https://img.shields.io/readthedocs/pyms-agilent/latest?logo=read-the-docs
-	:target: https://pyms-agilent.readthedocs.io/en/latest/?badge=latest
+	:target: https://pyms-agilent.readthedocs.io/en/latest
 	:alt: Documentation Build Status
 
 .. |docs_check| image:: https://github.com/domdfcoding/pyms-agilent/workflows/Docs%20Check/badge.svg
 	:target: https://github.com/domdfcoding/pyms-agilent/actions?query=workflow%3A%22Docs+Check%22
 	:alt: Docs Check Status
 
-.. |travis| image:: https://github.com/domdfcoding/pyms-agilent/workflows/Linux%20Tests/badge.svg
-	:target: https://github.com/domdfcoding/pyms-agilent/actions?query=workflow%3A%22Linux+Tests%22
+.. |actions_linux| image:: https://github.com/domdfcoding/pyms-agilent/workflows/Linux/badge.svg
+	:target: https://github.com/domdfcoding/pyms-agilent/actions?query=workflow%3A%22Linux%22
 	:alt: Linux Test Status
 
-.. |actions_windows| image:: https://github.com/domdfcoding/pyms-agilent/workflows/Windows%20Tests/badge.svg
-	:target: https://github.com/domdfcoding/pyms-agilent/actions?query=workflow%3A%22Windows+Tests%22
+.. |actions_windows| image:: https://github.com/domdfcoding/pyms-agilent/workflows/Windows/badge.svg
+	:target: https://github.com/domdfcoding/pyms-agilent/actions?query=workflow%3A%22Windows%22
 	:alt: Windows Test Status
 
-.. |actions_macos| image:: https://github.com/domdfcoding/pyms-agilent/workflows/macOS%20Tests/badge.svg
-	:target: https://github.com/domdfcoding/pyms-agilent/actions?query=workflow%3A%22macOS+Tests%22
+.. |actions_macos| image:: https://github.com/domdfcoding/pyms-agilent/workflows/macOS/badge.svg
+	:target: https://github.com/domdfcoding/pyms-agilent/actions?query=workflow%3A%22macOS%22
 	:alt: macOS Test Status
 
 .. |requires| image:: https://requires.io/github/domdfcoding/pyms-agilent/requirements.svg?branch=master
