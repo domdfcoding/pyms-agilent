@@ -754,12 +754,16 @@ frozen_comparison(FrozenSpecData)(SpecData)
 
 
 @register_pretty(type(etc))
-def pretty_etc(value, ctx):
+def pretty_etc(value, ctx):  # noqa: D103
 	return repr(value)
 
 
 @register_pretty(FrozenSpecData)
 def pretty_frozen_spec_data(value, ctx):
+	"""
+	PrettyPrinter for :class:``~.FrozenSpecData``.
+	"""
+
 	cls = type(value)
 	attributes = cls.__attrs_attrs__
 
@@ -793,6 +797,10 @@ def pretty_frozen_spec_data(value, ctx):
 
 @register_pretty(SpecData)
 def pretty_spec_data(value, ctx):
+	"""
+	PrettyPrinter for :class:``~.SpecData``.
+	"""
+
 	cls = type(value)
 	kwargs = []
 

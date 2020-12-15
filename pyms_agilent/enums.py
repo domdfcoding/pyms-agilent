@@ -571,7 +571,7 @@ class ImsGateMode(IntEnum):
 
 
 @document_enum
-class ImsMuxProcessing(IntEnum):
+class ImsMuxProcessing(IntEnum):  # noqa: D101
 	Unspecified = 0
 	none = 1
 	RealTime = 2
@@ -606,7 +606,7 @@ class FragmentationClass(IntEnum):
 
 
 @document_enum
-class FragmentationOpMode(IntEnum):
+class FragmentationOpMode(IntEnum):  # noqa: D101
 	Unspecified = 0
 	none = 1
 	Selective = 2
@@ -650,7 +650,7 @@ class FragmentationOpMode(IntEnum):
 
 
 @document_enum
-class ApseBackgroundSource(IntEnum):
+class ApseBackgroundSource(IntEnum):  # noqa: D101
 	none = 0
 	DesignatedBackgroundSpectrum = 1
 	PeakStart = 2
@@ -682,7 +682,7 @@ class CompressionScheme(IntEnum):
 
 
 @document_enum
-class IonPolarity(IntEnum):
+class IonPolarity(IntEnum):  # noqa: D101
 	Positive = 0
 	Negative = 1
 	Unassigned = 2
@@ -690,7 +690,7 @@ class IonPolarity(IntEnum):
 
 
 @document_enum
-class DisplayPrecisionType(IntEnum):
+class DisplayPrecisionType(IntEnum):  # noqa: D101
 	DigitsAfterDecimal = 0
 	Exponential = 1
 
@@ -726,7 +726,7 @@ class DataFileValueDataType(IntEnum):
 
 
 @document_enum
-class PointValueStorageScheme(IntEnum):
+class PointValueStorageScheme(IntEnum):  # noqa: D101
 	Unspecified = 0
 	Mixed = 1
 	Series = 2
@@ -734,7 +734,7 @@ class PointValueStorageScheme(IntEnum):
 
 
 @document_enum
-class XSamplingType(IntEnum):
+class XSamplingType(IntEnum):  # noqa: D101
 	Unspecified = 0
 	Stepped = 1
 	SparseStepped = 2
@@ -759,7 +759,7 @@ class DesiredMSStorageType(IntEnum):
 
 
 @document_enum
-class DisplayEffectType(IntEnum):
+class DisplayEffectType(IntEnum):  # noqa: D101
 	Normal = 0
 	Hidden = 1
 	Bold = 2

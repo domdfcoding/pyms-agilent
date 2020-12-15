@@ -169,7 +169,13 @@ x86_filenames = [
 		]
 
 
-def license_acceptor():
+def license_acceptor() -> bool:
+	"""
+	Shows the license and asks the user to accept it.
+
+	:returns: Whether the user accepted the license.
+	"""
+
 	title = "Before using this software you must accept the following license:"
 
 	pager = getpager()
@@ -186,7 +192,11 @@ def license_acceptor():
 	return resp.lower().strip() == "i accept"
 
 
-def extract():
+def extract() -> None:
+	"""
+	Extract the DLL files from the zip archive.
+	"""
+
 	dest_dir = PathPlus(pyms_agilent.mhdac.__file__).parent
 	(dest_dir / "x64").maybe_make()
 	(dest_dir / "x86").maybe_make()

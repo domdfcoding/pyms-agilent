@@ -83,7 +83,6 @@ else:  # pragma: no cover
 
 	# These aren't public, so no docstrings needed
 
-
 	class FileNotFoundException(IOError):  # noqa: D101
 		pass
 
