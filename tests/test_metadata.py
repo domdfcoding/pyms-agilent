@@ -84,5 +84,8 @@ def test_extract_metadata(monkeypatch):
 	assert isinstance(metadata["ms_time_segments"], MSTimeSegments)
 	assert isinstance(metadata["sample_info"], SampleInfo)
 
-	with pytest.raises(ValueError, match=r"'.*([/\\])pyms-agilent\1tests' does not appear to be a valid .d datafile."):
+	with pytest.raises(
+			ValueError,
+			match=r"'.*([/\\])pyms-agilent\1tests' does not appear to be a valid .d datafile.",
+			):
 		extract_metadata(pathlib.Path(__file__).parent)
