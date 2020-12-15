@@ -18,8 +18,7 @@ python_versions:
  - 3.7
  - 3.8
  - 3.9
-
-# travis secure password for PyPI
+ - 3.10-dev
 
 classifiers:
  - 'Development Status :: 3 - Alpha'
@@ -74,3 +73,6 @@ travis_extra_install_post:
   - sudo apt install libhdf5-dev netcdf-bin libnetcdf-dev
 
 pre_commit_exclude: ^tests/.*\.d/.*$
+
+tox_unmanaged:
+ - tox
