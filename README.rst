@@ -17,13 +17,15 @@ pyms-agilent
 	* - Docs
 	  - |docs| |docs_check|
 	* - Tests
-	  - |actions_linux| |actions_windows| |actions_macos| |coveralls| |codefactor| |pre_commit_ci|
+	  - |actions_linux| |actions_windows| |actions_macos| |coveralls|
 	* - PyPI
 	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
 	* - Activity
-	  - |commits-latest| |commits-since| |maintained|
+	  - |commits-latest| |commits-since| |maintained| |pypi-downloads|
+	* - QA
+	  - |codefactor| |actions_flake8| |actions_mypy| |pre_commit_ci|
 	* - Other
-	  - |license| |language| |requires| |pre_commit|
+	  - |license| |language| |requires|
 
 .. |docs| image:: https://img.shields.io/readthedocs/pyms-agilent/latest?logo=read-the-docs
 	:target: https://pyms-agilent.readthedocs.io/en/latest
@@ -44,6 +46,14 @@ pyms-agilent
 .. |actions_macos| image:: https://github.com/domdfcoding/pyms-agilent/workflows/macOS/badge.svg
 	:target: https://github.com/domdfcoding/pyms-agilent/actions?query=workflow%3A%22macOS%22
 	:alt: macOS Test Status
+
+.. |actions_flake8| image:: https://github.com/domdfcoding/pyms-agilent/workflows/Flake8/badge.svg
+	:target: https://github.com/domdfcoding/pyms-agilent/actions?query=workflow%3A%22Flake8%22
+	:alt: Flake8 Status
+
+.. |actions_mypy| image:: https://github.com/domdfcoding/pyms-agilent/workflows/mypy/badge.svg
+	:target: https://github.com/domdfcoding/pyms-agilent/actions?query=workflow%3A%22mypy%22
+	:alt: mypy status
 
 .. |requires| image:: https://requires.io/github/domdfcoding/pyms-agilent/requirements.svg?branch=master
 	:target: https://requires.io/github/domdfcoding/pyms-agilent/requirements/?branch=master
@@ -91,9 +101,9 @@ pyms-agilent
 .. |maintained| image:: https://img.shields.io/maintenance/yes/2020
 	:alt: Maintenance
 
-.. |pre_commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
-	:target: https://github.com/pre-commit/pre-commit
-	:alt: pre-commit
+.. |pypi-downloads| image:: https://img.shields.io/pypi/dm/pyms-agilent
+	:target: https://pypi.org/project/pyms-agilent/
+	:alt: PyPI - Downloads
 
 .. |pre_commit_ci| image:: https://results.pre-commit.ci/badge/github/domdfcoding/pyms-agilent/master.svg
 	:target: https://results.pre-commit.ci/latest/github/domdfcoding/pyms-agilent/master
