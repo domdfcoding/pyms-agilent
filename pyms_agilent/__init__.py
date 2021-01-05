@@ -5,7 +5,7 @@
 Python library for reading Agilent ``.d`` datafiles.
 """
 #
-#  Copyright (c) 2019-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright (c) 2019-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@ Python library for reading Agilent ``.d`` datafiles.
 #
 
 __author__ = "Dominic Davis-Foster"
-__copyright__ = "2019-2020 Dominic Davis-Foster"
+__copyright__ = "2019-2021 Dominic Davis-Foster"
 __license__ = "GNU Lesser General Public License v3 or later (LGPLv3+)"
 __version__ = "0.1.1"
 __email__ = "dominic@davis-foster.co.uk"
