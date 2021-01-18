@@ -154,9 +154,7 @@ class MSScanRecord:
 	def mz_of_interest(self) -> float:
 		"""
 		Returns the |mz| of interest for the scan, if any.
-		"""
-
-		# noqa RST305
+		"""  # noqa RST305
 
 		mz = float(self.interface.MZOfInterest)
 
