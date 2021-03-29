@@ -25,13 +25,13 @@ The primary interface for reading data files.
 
 # stdlib
 import os
-from typing import Any, Dict, Iterator, List, Mapping, NamedTuple, Tuple
+from typing import Any, Dict, Iterator, List, Mapping, NamedTuple, Tuple, Union
 
 # 3rd party
 from domdf_python_tools.typing import PathLike
 
 # this package
-from pyms_agilent.enums import DeviceType, IonizationMode, MSScanType, SampleCategory, StoredDataType
+from pyms_agilent.enums import DeviceType, IonizationMode, IonPolarity, MSScanType, SampleCategory, StoredDataType
 from pyms_agilent.mhdac.agilent import DataAnalysis, FileNotFoundException, NullReferenceException
 from pyms_agilent.mhdac.chromatograms import TIC
 from pyms_agilent.mhdac.file_information import FileInformation
@@ -155,11 +155,16 @@ class MassSpecDataReader:
 		if ionization_polarity is None:
 			raise ValueError("'ionization_polarity' cannot be None.")
 		elif ionization_polarity > 0:
-			ionization_polarity = 0  # I really don't know why it is this way
+			ionization_polarity = IonPolarity.Positive  # 0  # I really don't know why it is this way
 		elif ionization_polarity < 0:
-			ionization_polarity = 1
+			ionization_polarity = IonPolarity.Negative  # 1
 		elif ionization_polarity == 0:
-			ionization_polarity = 3
+			ionization_polarity = IonPolarity.Mixed  # 3
+		else:
+			raise ValueError(
+					"Invalid value for 'ionization_polarity'. "
+					"Expected a value from the IonPolarity enum."
+					)
 
 		if float(retention_time) < 0:
 			raise ValueError("retention_time cannot be < 0")
@@ -226,6 +231,8 @@ class MassSpecDataReader:
 		Returns the MS Actuals parameters.
 		"""
 
+		# TODO: Check the type of ActualsInformation.
+		# Type hints suggest DataAnalysis.IBDAActuals
 		return MSActuals(self.interface(self.data_reader).ActualsInformation)
 
 	def get_sample_data(self, category: SampleCategory = SampleCategory.All) -> Dict[str, Any]:
@@ -375,7 +382,7 @@ class MSActuals(Mapping[str, MSActual]):
 
 	_keys: List[str]
 
-	def __init__(self, BDADataAccess: DataAnalysis.BDADataAccess):
+	def __init__(self, BDADataAccess: Union[DataAnalysis.BDADataAccess, DataAnalysis.IBDAActuals]):
 		self.data_reader = BDADataAccess
 		self.interface = DataAnalysis.IBDAActuals(self.data_reader)
 
