@@ -4,7 +4,8 @@ copyright_years: "2019-2021"
 author: "Dominic Davis-Foster"
 email: "dominic@davis-foster.co.uk"
 version: "0.1.1"
-username: "domdfcoding"
+username: "PyMassSpec"
+assignee: "domdfcoding"
 license: 'LGPLv3+'
 short_desc: 'PyMassSpec interface to Agilent .d datafiles'
 

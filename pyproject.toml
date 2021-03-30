@@ -19,9 +19,9 @@ name = "Dominic Davis-Foster"
 file = "LICENSE"
 
 [project.urls]
-Homepage = "https://github.com/domdfcoding/pyms-agilent"
-"Issue Tracker" = "https://github.com/domdfcoding/pyms-agilent/issues"
-"Source Code" = "https://github.com/domdfcoding/pyms-agilent"
+Homepage = "https://github.com/PyMassSpec/pyms-agilent"
+"Issue Tracker" = "https://github.com/PyMassSpec/pyms-agilent/issues"
+"Source Code" = "https://github.com/PyMassSpec/pyms-agilent"
 Documentation = "https://pyms-agilent.readthedocs.io/en/latest"
 
 [tool.whey]

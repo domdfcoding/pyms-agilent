@@ -31,40 +31,40 @@ pyms-agilent
 	:target: https://pyms-agilent.readthedocs.io/en/latest
 	:alt: Documentation Build Status
 
-.. |docs_check| image:: https://github.com/domdfcoding/pyms-agilent/workflows/Docs%20Check/badge.svg
-	:target: https://github.com/domdfcoding/pyms-agilent/actions?query=workflow%3A%22Docs+Check%22
+.. |docs_check| image:: https://github.com/PyMassSpec/pyms-agilent/workflows/Docs%20Check/badge.svg
+	:target: https://github.com/PyMassSpec/pyms-agilent/actions?query=workflow%3A%22Docs+Check%22
 	:alt: Docs Check Status
 
-.. |actions_linux| image:: https://github.com/domdfcoding/pyms-agilent/workflows/Linux/badge.svg
-	:target: https://github.com/domdfcoding/pyms-agilent/actions?query=workflow%3A%22Linux%22
+.. |actions_linux| image:: https://github.com/PyMassSpec/pyms-agilent/workflows/Linux/badge.svg
+	:target: https://github.com/PyMassSpec/pyms-agilent/actions?query=workflow%3A%22Linux%22
 	:alt: Linux Test Status
 
-.. |actions_windows| image:: https://github.com/domdfcoding/pyms-agilent/workflows/Windows/badge.svg
-	:target: https://github.com/domdfcoding/pyms-agilent/actions?query=workflow%3A%22Windows%22
+.. |actions_windows| image:: https://github.com/PyMassSpec/pyms-agilent/workflows/Windows/badge.svg
+	:target: https://github.com/PyMassSpec/pyms-agilent/actions?query=workflow%3A%22Windows%22
 	:alt: Windows Test Status
 
-.. |actions_macos| image:: https://github.com/domdfcoding/pyms-agilent/workflows/macOS/badge.svg
-	:target: https://github.com/domdfcoding/pyms-agilent/actions?query=workflow%3A%22macOS%22
+.. |actions_macos| image:: https://github.com/PyMassSpec/pyms-agilent/workflows/macOS/badge.svg
+	:target: https://github.com/PyMassSpec/pyms-agilent/actions?query=workflow%3A%22macOS%22
 	:alt: macOS Test Status
 
-.. |actions_flake8| image:: https://github.com/domdfcoding/pyms-agilent/workflows/Flake8/badge.svg
-	:target: https://github.com/domdfcoding/pyms-agilent/actions?query=workflow%3A%22Flake8%22
+.. |actions_flake8| image:: https://github.com/PyMassSpec/pyms-agilent/workflows/Flake8/badge.svg
+	:target: https://github.com/PyMassSpec/pyms-agilent/actions?query=workflow%3A%22Flake8%22
 	:alt: Flake8 Status
 
-.. |actions_mypy| image:: https://github.com/domdfcoding/pyms-agilent/workflows/mypy/badge.svg
-	:target: https://github.com/domdfcoding/pyms-agilent/actions?query=workflow%3A%22mypy%22
+.. |actions_mypy| image:: https://github.com/PyMassSpec/pyms-agilent/workflows/mypy/badge.svg
+	:target: https://github.com/PyMassSpec/pyms-agilent/actions?query=workflow%3A%22mypy%22
 	:alt: mypy status
 
-.. |requires| image:: https://requires.io/github/domdfcoding/pyms-agilent/requirements.svg?branch=master
-	:target: https://requires.io/github/domdfcoding/pyms-agilent/requirements/?branch=master
+.. |requires| image:: https://requires.io/github/PyMassSpec/pyms-agilent/requirements.svg?branch=master
+	:target: https://requires.io/github/PyMassSpec/pyms-agilent/requirements/?branch=master
 	:alt: Requirements Status
 
-.. |coveralls| image:: https://img.shields.io/coveralls/github/domdfcoding/pyms-agilent/master?logo=coveralls
-	:target: https://coveralls.io/github/domdfcoding/pyms-agilent?branch=master
+.. |coveralls| image:: https://img.shields.io/coveralls/github/PyMassSpec/pyms-agilent/master?logo=coveralls
+	:target: https://coveralls.io/github/PyMassSpec/pyms-agilent?branch=master
 	:alt: Coverage
 
-.. |codefactor| image:: https://img.shields.io/codefactor/grade/github/domdfcoding/pyms-agilent?logo=codefactor
-	:target: https://www.codefactor.io/repository/github/domdfcoding/pyms-agilent
+.. |codefactor| image:: https://img.shields.io/codefactor/grade/github/PyMassSpec/pyms-agilent?logo=codefactor
+	:target: https://www.codefactor.io/repository/github/PyMassSpec/pyms-agilent
 	:alt: CodeFactor Grade
 
 .. |pypi-version| image:: https://img.shields.io/pypi/v/pyms-agilent
@@ -83,19 +83,19 @@ pyms-agilent
 	:target: https://pypi.org/project/pyms-agilent/
 	:alt: PyPI - Wheel
 
-.. |license| image:: https://img.shields.io/github/license/domdfcoding/pyms-agilent
-	:target: https://github.com/domdfcoding/pyms-agilent/blob/master/LICENSE
+.. |license| image:: https://img.shields.io/github/license/PyMassSpec/pyms-agilent
+	:target: https://github.com/PyMassSpec/pyms-agilent/blob/master/LICENSE
 	:alt: License
 
-.. |language| image:: https://img.shields.io/github/languages/top/domdfcoding/pyms-agilent
+.. |language| image:: https://img.shields.io/github/languages/top/PyMassSpec/pyms-agilent
 	:alt: GitHub top language
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/domdfcoding/pyms-agilent/v0.1.1
-	:target: https://github.com/domdfcoding/pyms-agilent/pulse
+.. |commits-since| image:: https://img.shields.io/github/commits-since/PyMassSpec/pyms-agilent/v0.1.1
+	:target: https://github.com/PyMassSpec/pyms-agilent/pulse
 	:alt: GitHub commits since tagged version
 
-.. |commits-latest| image:: https://img.shields.io/github/last-commit/domdfcoding/pyms-agilent
-	:target: https://github.com/domdfcoding/pyms-agilent/commit/master
+.. |commits-latest| image:: https://img.shields.io/github/last-commit/PyMassSpec/pyms-agilent
+	:target: https://github.com/PyMassSpec/pyms-agilent/commit/master
 	:alt: GitHub last commit
 
 .. |maintained| image:: https://img.shields.io/maintenance/yes/2021
@@ -105,8 +105,8 @@ pyms-agilent
 	:target: https://pypi.org/project/pyms-agilent/
 	:alt: PyPI - Downloads
 
-.. |pre_commit_ci| image:: https://results.pre-commit.ci/badge/github/domdfcoding/pyms-agilent/master.svg
-	:target: https://results.pre-commit.ci/latest/github/domdfcoding/pyms-agilent/master
+.. |pre_commit_ci| image:: https://results.pre-commit.ci/badge/github/PyMassSpec/pyms-agilent/master.svg
+	:target: https://results.pre-commit.ci/latest/github/PyMassSpec/pyms-agilent/master
 	:alt: pre-commit.ci status
 
 .. end shields
