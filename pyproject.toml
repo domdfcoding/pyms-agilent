@@ -1,6 +1,6 @@
 [build-system]
-requires = [ "setuptools>=40.6.0", "wheel>=0.34.2",]
-build-backend = "setuptools.build_meta"
+requires = [ "whey",]
+build-backend = "whey"
 
 [project]
 name = "pyms-agilent"
@@ -23,3 +23,23 @@ Homepage = "https://github.com/domdfcoding/pyms-agilent"
 "Issue Tracker" = "https://github.com/domdfcoding/pyms-agilent/issues"
 "Source Code" = "https://github.com/domdfcoding/pyms-agilent"
 Documentation = "https://pyms-agilent.readthedocs.io/en/latest"
+
+[tool.whey]
+base-classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+]
+python-versions = [ "3.6", "3.7", "3.8", "3.9",]
+python-implementations = [ "CPython",]
+platforms = [ "Windows", "macOS", "Linux",]
+license-key = "LGPL-3.0-or-later"
+package = "pyms_agilent"
+additional-files = [
+    "recursive-include pyms_agilent/xml_parser/agilent_xsd *.xsd",
+    "include pyms_agilent/mhdac/mhdac.zip",
+]

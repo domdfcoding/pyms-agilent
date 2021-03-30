@@ -1,8 +1,0 @@
-include __pkginfo__.py
-include LICENSE
-include requirements.txt
-prune **/__pycache__
-recursive-include pyms_agilent/xml_parser/agilent_xsd *.xsd
-include pyms_agilent/mhdac/mhdac.zip
-recursive-include pyms_agilent *.pyi
-include pyms_agilent/py.typed
