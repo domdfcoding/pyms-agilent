@@ -1,3 +1,25 @@
 [build-system]
-requires = ["setuptools>=40.6.0", "wheel>=0.34.2"]
+requires = [ "setuptools>=40.6.0", "wheel>=0.34.2",]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyms-agilent"
+version = "0.1.1"
+description = "PyMassSpec interface to Agilent .d datafiles"
+readme = "README.rst"
+keywords = []
+dynamic = [ "requires-python", "classifiers", "dependencies",]
+
+[[project.authors]]
+email = "dominic@davis-foster.co.uk"
+name = "Dominic Davis-Foster"
+
+
+[project.license]
+file = "LICENSE"
+
+[project.urls]
+Homepage = "https://github.com/domdfcoding/pyms-agilent"
+"Issue Tracker" = "https://github.com/domdfcoding/pyms-agilent/issues"
+"Source Code" = "https://github.com/domdfcoding/pyms-agilent"
+Documentation = "https://pyms-agilent.readthedocs.io/en/latest"
