@@ -12,7 +12,8 @@ __all__ = [
 		"SignalInfo",
 		"ISignalInfo",
 		"MassSpecDataReader",
-		"IBDAFileInformation"
+		"IBDAFileInformation",
+		"IBDAActuals",
 		]
 
 
@@ -57,4 +58,8 @@ class MassSpecDataReader(Unititialisable):  # noqa D101
 
 
 class IBDAFileInformation(Unititialisable):  # noqa D101
+	pass
+
+
+class IBDAActuals(Unititialisable):  # noqa D101
 	pass

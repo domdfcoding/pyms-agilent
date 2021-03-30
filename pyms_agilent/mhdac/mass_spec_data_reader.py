@@ -43,7 +43,7 @@ from pyms_agilent.utils import datatable2dataframe
 __all__ = ["MassSpecDataReader", "MSActual", "MSActuals"]
 
 
-class MassSpecDataReader:
+class MassSpecDataReader:  # pragma: no cover (!Windows)
 	"""
 	The primary interface for reading data files.
 
@@ -371,7 +371,7 @@ class MSActual(NamedTuple):
 	y_array: List[float]
 
 
-class MSActuals(Mapping[str, MSActual]):
+class MSActuals(Mapping[str, MSActual]):  # pragma: no cover (!Windows)
 	"""
 	Mapping parameter names to values recorded during the analysis.
 

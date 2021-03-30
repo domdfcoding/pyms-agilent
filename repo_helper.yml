@@ -79,3 +79,4 @@ tox_requirements:
 
 tox_unmanaged:
  - flake8
+ - coverage:report

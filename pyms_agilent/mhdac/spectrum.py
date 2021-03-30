@@ -81,7 +81,7 @@ __all__ = [
 		]
 
 
-class SpecData:
+class SpecData:  # pragma: no cover (!Windows)
 	"""
 	Class to access information about a single spectrum in ``.d`` data files.
 
@@ -796,7 +796,7 @@ def pretty_frozen_spec_data(value, ctx):
 
 
 @register_pretty(SpecData)
-def pretty_spec_data(value, ctx):
+def pretty_spec_data(value, ctx):  # pragma: no cover (!Windows)
 	"""
 	PrettyPrinter for :class:``~.SpecData``.
 	"""
