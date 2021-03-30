@@ -58,7 +58,7 @@ __all__ = [
 		]
 
 
-class Signal(ABC):
+class Signal(ABC):  # pragma: no cover (!Windows)
 	"""
 	Abstract base class for instrument signals.
 	"""
@@ -297,7 +297,7 @@ class FrozenSignal(ABC):
 	y_data: List[float] = attr.ib(converter=list)
 
 
-class InstrumentCurve(Signal):
+class InstrumentCurve(Signal):  # pragma: no cover (!Windows)
 	"""
 	Represents data recorded by the instrument.
 
@@ -416,7 +416,7 @@ class FrozenInstrumentCurve(FrozenSignal):
 		return self.y_axis_info
 
 
-class TIC(Signal):
+class TIC(Signal):  # pragma: no cover (!Windows)
 	"""
 	Represents a Total Ion Chromatogram.
 

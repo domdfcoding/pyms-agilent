@@ -35,7 +35,7 @@ from typing import TYPE_CHECKING
 
 __all__ = ["DataAnalysis", "FileNotFoundException", "ArgumentOutOfRangeException", "NullReferenceException"]
 
-if sys.platform == "win32" or TYPE_CHECKING:
+if sys.platform == "win32" or TYPE_CHECKING:  # pragma: no cover (!Windows)
 	# 3rd party
 	import clr  # type: ignore
 
@@ -74,7 +74,7 @@ if sys.platform == "win32" or TYPE_CHECKING:
 
 	DataAnalysis = Agilent.MassSpectrometry.DataAnalysis
 
-else:  # pragma: no cover
+else:  # pragma: no cover (Windows)
 
 	# this package
 	from pyms_agilent.mhdac import _posix_data_analysis

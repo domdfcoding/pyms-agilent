@@ -36,7 +36,7 @@ from pyms_agilent.mhdac.ms_scan_file_info import MSScanFileInformation
 __all__ = ["FileInformation"]
 
 
-class FileInformation:
+class FileInformation:  # pragma: no cover (!Windows)
 	"""
 	Class to access information about ``.d`` data files.
 

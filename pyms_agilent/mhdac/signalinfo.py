@@ -40,7 +40,7 @@ from pyms_agilent.utils import frozen_comparison
 __all__ = ["SignalInfo", "FrozenSignalInfo"]
 
 
-class SignalInfo:
+class SignalInfo:  # pragma: no cover (!Windows)
 	"""
 	Provides metadata about a signal recorded by the instrument.
 
@@ -130,7 +130,7 @@ class SignalInfo:
 
 def convert_instrument_curve(
 		curve: Union[InstrumentCurve, FrozenInstrumentCurve, Dict[str, Any]],
-		) -> FrozenInstrumentCurve:
+		) -> FrozenInstrumentCurve:  # pragma: no cover (!Windows)
 	"""
 	Converter for the ``instrument_curve`` parameter in :class:`~.FrozenSignalInfo`.
 

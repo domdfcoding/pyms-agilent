@@ -38,7 +38,7 @@ from pyms_agilent.mhdac.mass_spec_data_reader import MassSpecDataReader
 __all__ = ["agilent_reader"]
 
 
-def agilent_reader(file_name: PathLike) -> GCMS_data:
+def agilent_reader(file_name: PathLike) -> GCMS_data:  # pragma: no cover (!Windows)
 	"""
 	Reader for Agilent MassHunter ``.d`` files.
 

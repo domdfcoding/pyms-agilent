@@ -40,7 +40,7 @@ from pyms_agilent.utils import frozen_comparison, polarity_map
 __all__ = ["MSScanFileInformation", "FrozenMSScanFileInformation"]
 
 
-class MSScanFileInformation:
+class MSScanFileInformation:  # pragma: no cover (!Windows)
 	"""
 	Class to access information about mass spectral data in ``.d`` data files.
 

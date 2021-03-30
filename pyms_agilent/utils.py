@@ -57,8 +57,8 @@ class Range(NamedTuple):
 	start: float
 	stop: float
 
-	@classmethod  # noqa TYP004
-	def from_dotnet(cls, irange_object: "DataAnalysis.IRange"):
+	@classmethod
+	def from_dotnet(cls, irange_object: "DataAnalysis.IRange"):  # pragma: no cover (!Windows)
 		"""
 		Construct a :class:`~.Range` from a Python.NET object.
 
@@ -109,7 +109,7 @@ class Range(NamedTuple):
 polarity_map = {1: '-', 0: '+', 3: "+-", 2: None}
 
 
-def ranges_from_list(list_of_irange: Iterable) -> List[Range]:
+def ranges_from_list(list_of_irange: Iterable) -> List[Range]:  # pragma: no cover (!Windows)
 	"""
 	Given a .NET array of IRange objects, return a list of :class:`pyms_agilent.utils.Range` objects.
 
@@ -164,7 +164,7 @@ class Interface(NamedTuple):
 	interface: Type
 
 
-def datatable2dataframe(datatable) -> pandas.DataFrame:
+def datatable2dataframe(datatable) -> pandas.DataFrame:  # pragma: no cover (!Windows)
 	"""
 	Converts a dotNET :class:`System.Data.DataTable` object to a pandas data frame.
 

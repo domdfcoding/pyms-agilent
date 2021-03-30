@@ -39,7 +39,7 @@ from pyms_agilent.utils import frozen_comparison, polarity_map
 __all__ = ["MSScanRecord", "FrozenMSScanRecord", "UndefinedMSScanRecord"]
 
 
-class MSScanRecord:
+class MSScanRecord:  # pragma: no cover (!Windows)
 	"""
 	Provides metadata about a single scan.
 
