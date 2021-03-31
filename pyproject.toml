@@ -43,3 +43,10 @@ additional-files = [
     "recursive-include pyms_agilent/xml_parser/agilent_xsd *.xsd",
     "include pyms_agilent/mhdac/mhdac.zip",
 ]
+
+[tool.dep_checker]
+allowed_unused = [ "pythonnet", "cftime",]
+
+[tool.dep_checker.name_mapping]
+pymassspec = "pyms"
+attrs = "attr"
