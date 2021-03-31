@@ -7,7 +7,7 @@ name = "pyms-agilent"
 version = "0.1.2"
 description = "PyMassSpec interface to Agilent .d datafiles"
 readme = "README.rst"
-keywords = []
+keywords = [ "chemistry", "mass-spectrometry", "chromatography",]
 dynamic = [ "requires-python", "classifiers", "dependencies",]
 
 [[project.authors]]
@@ -26,11 +26,12 @@ Documentation = "https://pyms-agilent.readthedocs.io/en/latest"
 
 [tool.whey]
 base-classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering :: Bio-Informatics",
     "Topic :: Scientific/Engineering :: Chemistry",
+    "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Utilities",
     "Typing :: Typed",
 ]

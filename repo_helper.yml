@@ -1,3 +1,5 @@
+# Configuration for 'repo_helper' (https://github.com/domdfcoding/repo_helper)
+---
 modname: pyms-agilent
 import_name: pyms_agilent
 copyright_years: "2019-2021"
@@ -11,7 +13,7 @@ short_desc: 'PyMassSpec interface to Agilent .d datafiles'
 
 python_deploy_version: 3.6
 use_whey: true
-enable_conda: False
+enable_conda: false
 pre_commit_exclude: ^tests/.*\.d/.*$
 mypy_version: "0.812"
 
@@ -24,12 +26,13 @@ python_versions:
  - 3.10-dev
 
 classifiers:
- - 'Development Status :: 3 - Alpha'
+ - 'Development Status :: 4 - Beta'
  - 'Intended Audience :: Developers'
- - 'Topic :: Utilities'
  - 'Intended Audience :: Science/Research'
  - 'Topic :: Scientific/Engineering :: Bio-Informatics'
  - 'Topic :: Scientific/Engineering :: Chemistry'
+ - 'Topic :: Software Development :: Libraries :: Python Modules'
+ - 'Topic :: Utilities'
 
 manifest_additional:
  - "recursive-include pyms_agilent/xml_parser/agilent_xsd *.xsd"
@@ -71,13 +74,18 @@ mypy_plugins:
  - attr_utils.mypy_plugin
 
 travis_extra_install_post:
-  - sudo add-apt-repository universe
-  - sudo apt update
-  - sudo apt install libhdf5-dev netcdf-bin libnetcdf-dev
+ - sudo add-apt-repository universe
+ - sudo apt update
+ - sudo apt install libhdf5-dev netcdf-bin libnetcdf-dev
 
 tox_requirements:
-  - "tox-pip-version>=0.0.7"
+ - "tox-pip-version>=0.0.7"
 
 tox_unmanaged:
  - flake8
  - coverage:report
+
+keywords:
+ - chemistry
+ - mass-spectrometry
+ - chromatography
