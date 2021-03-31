@@ -13,6 +13,7 @@ python_deploy_version: 3.6
 use_whey: true
 enable_conda: False
 pre_commit_exclude: ^tests/.*\.d/.*$
+mypy_version: "0.812"
 
 # Versions to run tests for
 python_versions:
