@@ -90,7 +90,7 @@ pyms-agilent
 .. |language| image:: https://img.shields.io/github/languages/top/PyMassSpec/pyms-agilent
 	:alt: GitHub top language
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/PyMassSpec/pyms-agilent/v0.1.1
+.. |commits-since| image:: https://img.shields.io/github/commits-since/PyMassSpec/pyms-agilent/v0.1.2
 	:target: https://github.com/PyMassSpec/pyms-agilent/pulse
 	:alt: GitHub commits since tagged version
 

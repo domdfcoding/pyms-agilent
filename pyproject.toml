@@ -4,7 +4,7 @@ build-backend = "whey"
 
 [project]
 name = "pyms-agilent"
-version = "0.1.1"
+version = "0.1.2"
 description = "PyMassSpec interface to Agilent .d datafiles"
 readme = "README.rst"
 keywords = []
