@@ -23,7 +23,7 @@ pyms-agilent
 	* - Activity
 	  - |commits-latest| |commits-since| |maintained| |pypi-downloads|
 	* - QA
-	  - |codefactor| |actions_flake8| |actions_mypy| |pre_commit_ci|
+	  - |codefactor| |actions_flake8| |actions_mypy|
 	* - Other
 	  - |license| |language| |requires|
 
@@ -104,10 +104,6 @@ pyms-agilent
 .. |pypi-downloads| image:: https://img.shields.io/pypi/dm/pyms-agilent
 	:target: https://pypi.org/project/pyms-agilent/
 	:alt: PyPI - Downloads
-
-.. |pre_commit_ci| image:: https://results.pre-commit.ci/badge/github/PyMassSpec/pyms-agilent/master.svg
-	:target: https://results.pre-commit.ci/latest/github/PyMassSpec/pyms-agilent/master
-	:alt: pre-commit.ci status
 
 .. end shields
 
