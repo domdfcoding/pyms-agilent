@@ -73,13 +73,15 @@ exclude_files:
 mypy_plugins:
  - attr_utils.mypy_plugin
 
-travis_extra_install_post:
- - sudo add-apt-repository universe
- - sudo apt update
- - sudo apt install libhdf5-dev netcdf-bin libnetcdf-dev
-
-tox_requirements:
- - "tox-pip-version>=0.0.7"
+github_ci_requirements:
+ Linux:
+  post:
+   - sudo add-apt-repository universe
+   - sudo apt update
+   - sudo apt install libhdf5-dev netcdf-bin libnetcdf-dev
+ Windows:
+  post:
+   - "python -m tox -e install -- --accept"
 
 tox_unmanaged:
  - flake8
