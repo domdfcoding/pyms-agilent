@@ -7,12 +7,12 @@ name = "pyms-agilent"
 version = "0.1.2"
 description = "PyMassSpec interface to Agilent .d datafiles"
 readme = "README.rst"
-keywords = [ "chemistry", "mass-spectrometry", "chromatography",]
+keywords = [ "chemistry", "chromatography", "mass-spectrometry",]
 dynamic = [ "requires-python", "classifiers", "dependencies",]
 
 [[project.authors]]
-email = "dominic@davis-foster.co.uk"
 name = "Dominic Davis-Foster"
+email = "dominic@davis-foster.co.uk"
 
 
 [project.license]
@@ -47,6 +47,10 @@ additional-files = [
 
 [tool.dep_checker]
 allowed_unused = [ "pythonnet", "cftime",]
+
+[tool.mkrecipe]
+conda-channels = [ "PyMassSpec",]
+extras = "all"
 
 [tool.dep_checker.name_mapping]
 pymassspec = "pyms"
