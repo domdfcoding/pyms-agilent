@@ -87,17 +87,15 @@ def test_time_step_std(data):
 		"agilent_data.I.csv",
 		"agilent_data.mz.csv",
 		])
-def test_write(tmpdir, data, file_regression: FileRegressionFixture, filename):
-	tmpdir_p = pathlib.Path(tmpdir)
-	data.write(tmpdir_p / "agilent_data")
-	assert (tmpdir_p / filename).is_file()
+def test_write(tmp_pathplus, data, file_regression: FileRegressionFixture, filename):
+	data.write(tmp_pathplus / "agilent_data")
+	assert (tmp_pathplus / filename).is_file()
 
-	check_file_output(tmpdir_p / filename, file_regression)
+	check_file_output(tmp_pathplus / filename, file_regression)
 
 
-def test_write_intensities_stream(tmpdir, data, file_regression: FileRegressionFixture):
-	tmpdir_p = pathlib.Path(tmpdir)
-	data.write_intensities_stream(tmpdir_p / "agilent_data.dat")
-	assert (tmpdir_p / "agilent_data.dat").is_file()
+def test_write_intensities_stream(tmp_pathplus, data, file_regression: FileRegressionFixture):
+	data.write_intensities_stream(tmp_pathplus / "agilent_data.dat")
+	assert (tmp_pathplus / "agilent_data.dat").is_file()
 
-	check_file_output(tmpdir_p / "agilent_data.dat", file_regression)
+	check_file_output(tmp_pathplus / "agilent_data.dat", file_regression)

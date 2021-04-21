@@ -1,1 +1,1 @@
-pytest_plugins = "pytest_regressions"
+pytest_plugins = ("coincidence", "pytest_regressions")
